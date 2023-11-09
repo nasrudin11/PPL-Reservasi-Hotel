@@ -3,6 +3,11 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+.logo-name{
+    font-weight: 600;
+    color: #BA704F;
+}
+
 .btn.btn-custom-login{
     background-color: #BA704F;
     color: #ffffff;
@@ -132,6 +137,14 @@
     font-weight: 600;
     color: #BA704F;
 }
+
+/* Page Sign Up*/
+.btn.btn-signup-custom{
+    background: #BA704F;
+    color: #ffffff;
+}
+
+
 
 /* Pencarian / Daftar hotel*/
 .custom-placeholder-input {

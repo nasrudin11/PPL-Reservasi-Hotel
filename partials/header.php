@@ -24,8 +24,8 @@
   <nav class="navbar bg-body-tertiary">
       <div class="container">
           <a class="navbar-brand" href="../../index.php">
-              <img src="/docs/5.3/assets/brand/bootstrap-logo.svg"  width="30" height="24" class="d-inline-block align-text-top">
-              Trindabago
+              <img src="../../img/logo/logo.png" height="24" class="d-inline-block align-text-top">
+              <span class="logo-name">trindabago</span>
           </a>
 
           <!-- link navbar -->
