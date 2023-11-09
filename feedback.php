@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php'
+include 'partials/header-index.php'
 ?> 
 
 <!-- Konten Feedback -->

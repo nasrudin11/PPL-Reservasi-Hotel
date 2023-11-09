@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <!-- import css -->
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
@@ -23,7 +23,7 @@
   <!-- Navbar -->
   <nav class="navbar bg-body-tertiary">
       <div class="container">
-          <a class="navbar-brand" href="../../index.php">
+          <a class="navbar-brand" href="index.php">
               <img src="/docs/5.3/assets/brand/bootstrap-logo.svg"  width="30" height="24" class="d-inline-block align-text-top">
               Trindabago
           </a>
@@ -40,16 +40,16 @@
               <a class="nav-link text-black" href="#populer">Populer</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-black" href="../../about.php">About Us</a>
+              <a class="nav-link text-black" href="about.php">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-black" href="../../feedback.php">Feedback</a>
+              <a class="nav-link text-black" href="feedback.php">Feedback</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-black" href="../../signup.php">Sign Up</a>
+              <a class="nav-link text-black" href="signup.php">Sign Up</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-custom-login" href="../../login.php">Log In</a>
+              <a class="btn btn-custom-login" href="login.php">Log In</a>
             </li>
         </ul>
     </div>

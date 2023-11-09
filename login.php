@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php'
+include 'partials/header-index.php'
 ?> 
 
 <section class="login d-flex">
@@ -53,6 +53,3 @@ include 'partials/header.php'
   </div>
 </section>
 
-<?php
-  include 'partials/footer.php'
- ?> 

@@ -76,7 +76,7 @@
           </div>
 
           <!-- Tombol Pencarian -->
-          <a href="#" class="btn btn-primary w-100">Pencarian</a>
+          <a href="hotel-search.php" class="btn btn-custom-search w-100">Search</a>
         </form>       
       </div>
     </div>
@@ -176,10 +176,11 @@
     </div>
   </div>
   <div class="mt-4 text-center">
-    <a class="btn btn-primary" href="#">Selengkapnya</a>
+    <a class="btn btn-custom-more" href="#">Selengkapnya</a>
   </div>
 </div>
 
+<!-- Populer -->
 <div id="populer" class="container mt-5">
   <div class="mb-4 text-center">
     <h2>Paling Populer</h2>
@@ -190,9 +191,11 @@
         <img src="../../img/01.png" class="card-img-top" alt="Hotel 1">
         <div class="card-body">
           <h5 class="card-title">Hotel 1</h5>
-          <p class="card-text">Rating: 4.5</p>
-          <p class="card-text">Alamat: Jalan Hotel 1, Kota</p>
-          <p class="card-text">Harga: $100</p>
+          <ul class="list-unstyled" style="font-size: 14px;">
+            <li>Rating: 4.5</li>
+            <li>Alamat: Jalan Hotel 1, Kota</li>
+            <li>Harga: $100</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -200,10 +203,12 @@
       <div class="card shadow">
         <img src="../../img/02.png" class="card-img-top" alt="Hotel 2">
         <div class="card-body">
-          <h5 class="card-title">Hotel 2</h5>
-          <p class="card-text">Rating: 4.0</p>
-          <p class="card-text">Alamat: Jalan Hotel 2, Kota</p>
-          <p class="card-text">Harga: $120</p>
+          <h5 class="card-title">Hotel 1</h5>
+          <ul class="list-unstyled" style="font-size: 14px;">
+            <li>Rating: 4.5</li>
+            <li>Alamat: Jalan Hotel 1, Kota</li>
+            <li>Harga: $100</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -211,10 +216,12 @@
       <div class="card shadow">
         <img src="../../img/03.png" class="card-img-top" alt="Hotel 3">
         <div class="card-body">
-          <h5 class="card-title">Hotel 3</h5>
-          <p class="card-text">Rating: 4.2</p>
-          <p class="card-text">Alamat: Jalan Hotel 3, Kota</p>
-          <p class="card-text">Harga: $110 </p>
+          <h5 class="card-title">Hotel 1</h5>
+          <ul class="list-unstyled" style="font-size: 14px;">
+            <li>Rating: 4.5</li>
+            <li>Alamat: Jalan Hotel 1, Kota</li>
+            <li>Harga: $100</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -222,16 +229,18 @@
       <div class="card shadow">
         <img src="../../img/04.png" class="card-img-top" alt="Hotel 4">
         <div class="card-body">
-          <h5 class="card-title">Hotel 4</h5>
-          <p class="card-text">Rating: 4.8</p>
-          <p class="card-text">Alamat: Jalan Hotel 4, Kota</p>
-          <p class="card-text">Harga: $130 </p>
+          <h5 class="card-title">Hotel 1</h5>
+          <ul class="list-unstyled" style="font-size: 14px;">
+            <li>Rating: 4.5</li>
+            <li>Alamat: Jalan Hotel 1, Kota</li>
+            <li>Harga: $100</li>
+          </ul>
         </div>
       </div>
     </div>
     <div class="mt-4 text-center">
-      <a class="btn btn-primary" href="#">Selengkapnya</a>
-    </div>
+    <a class="btn btn btn-custom-more" href="#">Selengkapnya</a>
+  </div>
   </div>
 </div>
 
@@ -245,7 +254,7 @@
           <div class="card shadow" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">trindabago's global hotel search</h5>
-                  <p class="card-text">trindabago’s hotel search allows users to compare hotel prices in just a few clicks from hundreds 
+                  <p class="card-text" style="font-size: 15px;">trindabago’s hotel search allows users to compare hotel prices in just a few clicks from hundreds 
                     of booking sites for more than 5.0 million hotels and other types of accommodation in over 190 countries. We help 
                     millions of travelers each year compare deals for hotels and accommodations. Get information for trips to cities 
                     like Las Vegas or Orlando and you can find the right hotel on trindabago quickly and easily. New York City and its 
@@ -257,7 +266,7 @@
           <div class="card shadow" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">Find cheap hotels on trindabago</h5>
-                  <p class="card-text">With trindabago you can easily find your ideal hotel and compare prices from different websites. 
+                  <p class="card-text" style="font-size: 15px;">With trindabago you can easily find your ideal hotel and compare prices from different websites. 
                     Simply enter where you want to go and your desired travel dates, and let our hotel search engine compare 
                     accommodation prices for you. To refine your search results, simply filter by price, distance (e.g. from the beach), 
                     star category, facilities and more. From budget hostels to luxury suites, trindabago makes it easy to book online. 
@@ -270,7 +279,7 @@
           <div class="card shadow" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">Hotel reviews help you find your ideal hotel</h5>
-                  <p class="card-text">Over 175 million aggregated hotel ratings and more than 19 million images allow you to find out 
+                  <p class="card-text" style="font-size: 15px;">Over 175 million aggregated hotel ratings and more than 19 million images allow you to find out 
                     more about where you're traveling. To get an extended overview of a hotel property, trindabago shows the average rating 
                     and extensive reviews from other booking sites, e.g. Hotels.com, Expedia, Agoda, leading hotels, etc. trindabago makes 
                     it easy for you to find information about your trip to Miami Beach, including the ideal hotel for you.</p>
@@ -281,7 +290,7 @@
           <div class="card shadow" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">How to book</h5>
-                  <p class="card-text">trindabago is a hotel search with an extensive price comparison. The prices shown come from 
+                  <p class="card-text" style="font-size: 15px;">trindabago is a hotel search with an extensive price comparison. The prices shown come from 
                     numerous hotels and booking websites. This means that while users decide on trindabago which hotel best suits 
                     their needs, the booking process itself is completed through the booking sites (which are linked to our website). 
                     By clicking on the “view deal” button, you will be forwarded onto a booking site where you can complete the 

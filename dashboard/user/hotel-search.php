@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php'
+include '../../partials/header.php'
 ?> 
 
 <div class="row">
@@ -124,63 +124,61 @@ include 'partials/header.php'
                 </div>
             </div>
         </div>
+
         <div class="container">
-
-        <div class="row">
-            <!-- Card Pertama -->
-            <div class="col-md-6">
-                <a href="hotel-detail.php" class="text-decoration-none">
-                    <div class="card mb-3 shadow" style="border-radius: 15px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="img/01.png" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Hotel Lainnya</h5>
-                                    <p class="card-text"><small class="text-muted">4.2/5 (98 reviews)</small></p>
-                                    <p class="card-text text-end">
-                                        <span class="fs-5 fw-bold">Rp 800.000</span>
-                                    </p>
-                                    <hr>
-                                    <span class="badge text-bg-success">Free Breakfast</span>
-                                    <span class="badge text-bg-success">Bathub</span>
-                                    <span class="badge text-bg-success">Swimming Pool</span>
+            <div class="row">
+                <!-- Card Pertama -->
+                <div class="col-md-6">
+                    <a href="hotel-detail.php" class="text-decoration-none">
+                        <div class="card mb-3 shadow" style="border-radius: 15px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="../../img/01.png" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Hotel Lainnya</h5>
+                                        <p class="card-text"><small class="text-muted">4.2/5 (98 reviews)</small></p>
+                                        <p class="card-text text-end">
+                                            <span class="fs-5 fw-bold">Rp 800.000</span>
+                                        </p>
+                                        <hr>
+                                        <span class="badge text-bg-success">Free Breakfast</span>
+                                        <span class="badge text-bg-success">Bathub</span>
+                                        <span class="badge text-bg-success">Swimming Pool</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <!-- Card Kedua -->
-            <div class="col-md-6">
-                <a href="hotel-detail.php" class="text-decoration-none">
-                    <div class="card mb-3 shadow" style="border-radius: 15px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="img/02.png" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">Hotel Lainnya</h5>
-                                    <p class="card-text"><small class="text-muted">4.2/5 (98 reviews)</small></p>
-                                    <p class="card-text text-end">
-                                        <span class="fs-5 fw-bold">Rp 800.000</span>
-                                    </p>
-                                    <hr>
-                                    <span class="badge text-bg-success">Free Breakfast</span>
-                                    <span class="badge text-bg-success">Bathub</span>
-                                    <span class="badge text-bg-success">Swimming Pool</span>
+                <!-- Card Kedua -->
+                <div class="col-md-6">
+                    <a href="hotel-detail.php" class="text-decoration-none">
+                        <div class="card mb-3 shadow" style="border-radius: 15px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="../../img/02.png" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Hotel Lainnya</h5>
+                                        <p class="card-text"><small class="text-muted">4.2/5 (98 reviews)</small></p>
+                                        <p class="card-text text-end">
+                                            <span class="fs-5 fw-bold">Rp 800.000</span>
+                                        </p>
+                                        <hr>
+                                        <span class="badge text-bg-success">Free Breakfast</span>
+                                        <span class="badge text-bg-success">Bathub</span>
+                                        <span class="badge text-bg-success">Swimming Pool</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
-
-
         </div>
 
 
@@ -189,9 +187,6 @@ include 'partials/header.php'
 
 
 
-
-
-
 <?php
-  include 'partials/footer.php'
+  include '../../partials/footer.php'
  ?> 

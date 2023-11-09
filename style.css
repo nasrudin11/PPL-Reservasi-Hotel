@@ -197,3 +197,38 @@
     color: #ffffff;
     float: right;
 }
+
+/* Booking*/
+.header-book h5{
+    font-weight: 600;
+}
+
+.header-book .book-describe{
+    color: #737373;
+    font-size: 15px;
+}
+
+.title-book{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.price-book{
+    color: #737373;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn.btn-book-custom{
+    background-color: #BA704F;
+    color: #ffffff;
+}
+
+.field-custom input{
+    height: 60px;
+}
+
+.method-payment{
+    color: #BA704F;
+    font-weight: 600;
+}

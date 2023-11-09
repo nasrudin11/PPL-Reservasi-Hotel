@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php'
+include '../../partials/header.php'
 ?> 
 
 <div class="container mt-4">
@@ -141,7 +141,7 @@ include 'partials/header.php'
           <div class="row">
               <div class="col-md-3">
                   <div class="card shadow border-0">
-                      <img src="img/banner/1.png" alt="" class="rounded">
+                      <img src="../../img/banner/1.png" alt="" class="rounded">
                   </div>
               </div>
               <div class="col">
@@ -183,7 +183,7 @@ include 'partials/header.php'
                                       <span>Rp 50,000</span>
                                       <span>room/night</span>
                                   </div>
-                                  <a class="btn btn btn-custom-book" href="login.php">Book</a>
+                                  <a class="btn btn btn-custom-book" href="book.php">Book</a>
                               </div>
                           </div>
                       </div>
@@ -199,7 +199,7 @@ include 'partials/header.php'
           <div class="row">
               <div class="col-md-3">
                   <div class="card shadow border-0">
-                      <img src="img/banner/2.png" alt="" class="rounded">
+                      <img src="../../img/banner/2.png" alt="" class="rounded">
                   </div>
               </div>
               <div class="col">
@@ -241,7 +241,7 @@ include 'partials/header.php'
                                       <span>Rp 50,000</span>
                                       <span>room/night</span>
                                   </div>
-                                  <a class="btn btn btn-custom-book" href="login.php">Book</a>
+                                  <a class="btn btn btn-custom-book" href="book.php">Book</a>
                               </div>
                           </div>
                       </div>
@@ -257,7 +257,7 @@ include 'partials/header.php'
           <div class="row">
               <div class="col-md-3">
                   <div class="card shadow border-0">
-                      <img src="img/banner/3.png" alt="" class="rounded">
+                      <img src="../../img/banner/3.png" alt="" class="rounded">
                   </div>
               </div>
               <div class="col">
@@ -299,7 +299,7 @@ include 'partials/header.php'
                                       <span>Rp 50,000</span>
                                       <span>room/night</span>
                                   </div>
-                                  <a class="btn btn btn-custom-book" href="login.php">Book</a>
+                                  <a class="btn btn btn-custom-book" href="book.php">Book</a>
                               </div>
                           </div>
                       </div>
@@ -308,17 +308,10 @@ include 'partials/header.php'
           </div>
         </div>
     </div>
-
-
-
 
 </div>
 
 
-
-
-
-
 <?php
-  include 'partials/footer.php'
+  include '../../partials/footer.php'
  ?> 

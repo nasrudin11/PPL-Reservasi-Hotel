@@ -1,5 +1,5 @@
 <?php
-include 'partials/header.php'
+include 'partials/header-index.php'
 ?> 
 
 <div class="banner position-relative">
@@ -76,7 +76,7 @@ include 'partials/header.php'
           </div>
 
           <!-- Tombol Pencarian -->
-          <a href="hotel-search.php" class="btn btn-custom-search w-100">Search</a>
+          <a href="dashboard/user/hotel-search.php" class="btn btn-custom-search w-100">Search</a>
         </form>       
       </div>
     </div>

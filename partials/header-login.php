@@ -52,6 +52,9 @@
                 <a class="dropdown-item" href="#">Nama User</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Profil</a>
+                <a class="dropdown-item" href="#">Notifikasi</a>
+                <a class="dropdown-item" href="#">Wishlist</a>
+                <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
                 <a class="dropdown-item" href="#">Pengaturan</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../../index.php">Logout</a>
