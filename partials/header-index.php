@@ -25,7 +25,7 @@
       <div class="container">
           <a class="navbar-brand" href="index.php">
               <img src="img/logo/logo.png" height="24" class="d-inline-block align-text-top">
-              <span class="logo-name">trindabago</span>
+              <span class="logo-name">staycation</span>
           </a>
 
           <!-- link navbar -->
