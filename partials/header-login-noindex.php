@@ -28,15 +28,6 @@
         <!-- link navbar -->
         <ul class="nav">
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#promosi">Promosi</a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#rekomendasi">Rekomendasi</a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#populer">Populer</a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
             <a class="nav-link text-black" href="#about">About Us</a>
           </li>
           <li class="nav-item d-flex align-items-center">

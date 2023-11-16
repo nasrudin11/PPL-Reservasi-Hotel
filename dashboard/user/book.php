@@ -1,6 +1,13 @@
 <?php
-include '../../partials/header.php'
-?> 
+    session_start();
+    include '../../partials/header-login-noindex.php';
+
+    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type']) || $_SESSION['user_type'] !== 'tamu') {
+        header("Location: ../../login.php");
+    }
+
+?>
+
 
 <div class="container mt-5">
     <div class="row">

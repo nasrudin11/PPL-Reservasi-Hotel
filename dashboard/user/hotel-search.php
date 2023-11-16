@@ -1,6 +1,15 @@
 <?php
-include '../../partials/header.php'
-?> 
+session_start();
+
+if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
+    include '../../partials/header.php';
+    
+} elseif ($_SESSION['user_type'] === 'tamu') {
+    include '../../partials/header-login-noindex.php';
+}
+
+?>
+
 
 <div class="row">
     <div class="col-3" style="width: 280px;">

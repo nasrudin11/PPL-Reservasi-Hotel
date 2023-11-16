@@ -201,7 +201,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <small class="text-muted">Hotel Transylvania</small>
+                            <small class="text-muted"><?php echo $_SESSION["nama_admin"]; ?></small>
                           </div>
                         </div>
                       </a>
@@ -225,7 +225,7 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="../../index.php">
+                      <a class="dropdown-item" href="../../controller/logout.php">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>

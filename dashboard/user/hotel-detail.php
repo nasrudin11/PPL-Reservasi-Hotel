@@ -1,6 +1,14 @@
 <?php
-include '../../partials/header.php'
+    session_start();
+
+    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
+        include '../../partials/header.php';
+        
+    } elseif ($_SESSION['user_type'] === 'tamu') {
+        include '../../partials/header-login-noindex.php';
+    }
 ?> 
+
 
 <div class="container mt-4">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -183,7 +191,7 @@ include '../../partials/header.php'
                                       <span>Rp 50,000</span>
                                       <span>room/night</span>
                                   </div>
-                                  <a class="btn btn btn-custom-book" href="book.php">Book</a>
+                                  <a id="btnBook"  class="btn btn btn-custom-book" href="book.php">Book</a>
                               </div>
                           </div>
                       </div>
@@ -241,7 +249,7 @@ include '../../partials/header.php'
                                       <span>Rp 50,000</span>
                                       <span>room/night</span>
                                   </div>
-                                  <a class="btn btn btn-custom-book" href="book.php">Book</a>
+                                  <a id="btnBook"  class="btn btn btn-custom-book" href="book.php">Book</a>
                               </div>
                           </div>
                       </div>
@@ -299,7 +307,7 @@ include '../../partials/header.php'
                                       <span>Rp 50,000</span>
                                       <span>room/night</span>
                                   </div>
-                                  <a class="btn btn btn-custom-book" href="book.php">Book</a>
+                                  <a id="btnBook"  class="btn btn btn-custom-book" href="book.php">Book</a>
                               </div>
                           </div>
                       </div>
@@ -310,6 +318,21 @@ include '../../partials/header.php'
     </div>
 
 </div>
+
+<script>
+    document.getElementById('btnBook').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        var userType = "<?php echo isset($_SESSION['user_type']) ? $_SESSION['user_type'] : ''; ?>";
+
+        if (userType !== "tamu") {
+            alert("Anda harus login terlebih dahulu sebagai tamu.");
+        } else {
+            window.location.href = "book.php";
+        }
+    });
+</script>
+
 
 
 <?php

@@ -1,5 +1,6 @@
 <?php
-    include '../../partials/header-hotel.php'
+  session_start();
+  include '../../partials/header-hotel.php'
 ?> 
 
     <!-- Content wrapper -->

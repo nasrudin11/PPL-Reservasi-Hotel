@@ -1,5 +1,7 @@
 <?php
-include 'partials/header-index.php'
+  include 'partials/header-index.php';
+
+  include 'controller/login.php';
 ?> 
 
 <section class="login d-flex">
@@ -10,19 +12,26 @@ include 'partials/header-index.php'
           <h1>Welcome Back</h1>
           <p>Welcome back! Please enter your details</p>
         </div>
+        
+        <?php
+        if (isset($error_message)) {
+            echo "<div class='alert alert-danger'>$error_message</div>";
+        }
+        ?>
 
         <div class="login-form">
           <!-- Form Login -->
-          <form action="dashboard/user/user.php">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+          <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required> 
 
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter your password">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required> 
 
-            <a href="#" class="text-decoration-none text-center">Forgot password?</a>
-            <button class="login">Login</button>
+              <a href="#" class="text-decoration-none text-center">Forgot password?</a>
+              <button type="submit" class="login">Login</button> 
           </form>
+
 
           <div class="text-center">
             <span class="d-inline">Don't have an account? 
@@ -36,7 +45,7 @@ include 'partials/header-index.php'
   </div>
 
   <div class="login-right w-50 h-100">   
-    <div id="carouselLoginFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="carouselLoginFade" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img src="img/login/1.svg" class="d-block w-100" alt="Slide 1">
