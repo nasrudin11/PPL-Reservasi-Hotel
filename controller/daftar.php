@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $table = "tamu";
         $nama_column = "nama_tamu";
     } elseif ($role == "2") {
-        $table = "admin";
-        $nama_column = "nama_admin";
+        $table = "hotel";
+        $nama_column = "nama_hotel";
     } else {
         echo "Role tidak valid.";
         exit(); 

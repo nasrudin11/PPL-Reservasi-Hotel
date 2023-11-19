@@ -201,7 +201,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <small class="text-muted"><?php echo $_SESSION["nama_admin"]; ?></small>
+                            <small class="text-muted"><?php echo $_SESSION["nama_hotel"]; ?></small>
                           </div>
                         </div>
                       </a>

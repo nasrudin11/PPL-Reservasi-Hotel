@@ -8,6 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $queryAdmin = "SELECT * FROM admin WHERE email_admin = '$email'";
     $resultAdmin = $koneksi->query($queryAdmin);
 
+    $queryHotel = "SELECT * FROM hotel WHERE email_hotel = '$email'";
+    $resultHotel = $koneksi->query($queryHotel);
+
     $queryTamu = "SELECT * FROM tamu WHERE email_tamu = '$email'";
     $resultTamu = $koneksi->query($queryTamu);
 
@@ -20,8 +23,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["user_type"] = "admin";
                 $_SESSION["email"] = $email;
                 $_SESSION["nama_admin"] = $rowAdmin["NAMA_ADMIN"];
-                header("Location: dashboard/hotel/hotel.php");
+                header("Location: dashboard/admin/admin.php");
                 exit(); 
+            } else {
+                $error_message = "Kata sandi salah.";
+            }
+        } 
+    } elseif ($resultHotel->num_rows > 0) {
+        $rowHotel = $resultHotel->fetch_assoc();
+        if (isset($rowHotel["PASSWORD"])) {
+            $hashed_password = $rowHotel["PASSWORD"];
+            if (password_verify($password, $hashed_password)) {
+                session_start();
+                $_SESSION["user_type"] = "hotel";
+                $_SESSION["email"] = $email;
+                $_SESSION["id_hotel"] = $rowHotel["ID_HOTEL"];
+                $_SESSION["nama_hotel"] = $rowHotel["NAMA_HOTEL"];
+                header("Location: dashboard/hotel/hotel.php");
+                exit();
             } else {
                 $error_message = "Kata sandi salah.";
             }

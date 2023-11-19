@@ -245,3 +245,11 @@
     color: #BA704F;
     font-weight: 600;
 }
+
+/* Profil Hotel*/
+.custom-textarea-class {
+    min-height: 50px;
+    max-height: 500px;
+
+    overflow-y: auto;
+}
