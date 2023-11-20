@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2023 at 04:48 AM
+-- Generation Time: Nov 20, 2023 at 03:28 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -86,7 +86,7 @@ CREATE TABLE `hotel` (
   `NAMA_HOTEL` varchar(35) NOT NULL,
   `TLP_HOTEL` varchar(15) NOT NULL,
   `ALAMAT` varchar(30) NOT NULL,
-  `RATING` decimal(5,0) NOT NULL,
+  `RATING` decimal(5,1) NOT NULL,
   `ULASAN` varchar(100) NOT NULL,
   `GAMBAR_HOTEL` varchar(255) NOT NULL,
   `DESKRIPSI` varchar(500) NOT NULL
@@ -97,7 +97,10 @@ CREATE TABLE `hotel` (
 --
 
 INSERT INTO `hotel` (`ID_HOTEL`, `EMAIL_HOTEL`, `PASSWORD`, `NAMA_HOTEL`, `TLP_HOTEL`, `ALAMAT`, `RATING`, `ULASAN`, `GAMBAR_HOTEL`, `DESKRIPSI`) VALUES
-(1, 'hotelsky@gmail.com', '$2y$10$isPTRJog.Hd/miYh0LIFyeRPDjepUIojQQmi1F.rFXIo.3wqU33zm', 'Hotel Sky Flutter', '089543567321', 'Gubeng, Surabaya', 0, '', '2.png', 'Located in the East of Bandung, Shakti Hotel Bandung is a great accommodation with an outdoor swimming pool and sun loungers. For an additional charge, guests can enjoy spa treatments at the hotel’s spa centre. Free WiFi is accessible throughout the hotel. The modern-style rooms at Shakti Hotel Bandung have wooden floors with a mixture of white and green walls. Every room has an air conditioner, a flat-screen TV and an electric kettle. Every bathroom has a shower, a hairdryer and free toiletries');
+(1, 'hotelsky@gmail.com', '$2y$10$isPTRJog.Hd/miYh0LIFyeRPDjepUIojQQmi1F.rFXIo.3wqU33zm', 'Hotel Sky Flutter', '089543567321', 'Gubeng, Surabaya', 4.4, '', '2.png', 'Located in the East of Bandung, Shakti Hotel Bandung is a great accommodation with an outdoor swimming pool and sun loungers. For an additional charge, guests can enjoy spa treatments at the hotel’s spa centre. Free WiFi is accessible throughout the hotel. The modern-style rooms at Shakti Hotel Bandung have wooden floors with a mixture of white and green walls. Every room has an air conditioner, a flat-screen TV and an electric kettle. Every bathroom has a shower, a hairdryer and free toiletries'),
+(2, 'starcenter@gmail.com', '$2y$10$fwcu6N1hpXdzSq1EoP1pYOg5yCqC8X5J.o0rZs6LvIVnE4gYeaVga', 'Hotel Star Center', '0812636221', 'Gubeng, Surabaya', 4.6, '', '2.png', 'Strategically located only 5 minutes’ drive from Bogor Train Station, Hotel Semeru Bogor offers a 2-star accommodation with a free parking facility and a 24-hour front desk. Free WiFi is accessible in public areas. Fitted with warm lighting, the air-conditioned rooms are simply furnished with a flat-screen TV and a desk. The en suite bathrooms are equipped with a shower facility, towels and free toiletries. Some rooms have a more spacious living space with a seating area. Daily buffet breakfast '),
+(3, 'archotel@gmail.com', '$2y$10$YQYMip0AoafSmvb2zjvK..s7wRqWi2fpDKEviOTN1ImoOgZb7CHZW', 'Arch Hotel', '089224532111', 'Batu. Malang', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs'),
+(4, 'hotelsyariah@gmail.com', '$2y$10$SWIMHaK6beNadV0dHSo3euCzHDEy1SGMfN0.VXXUfXOL9.HjvK1hm', 'Hotel Syariah', '08253561222', 'Gubeng, Surabaya', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs');
 
 -- --------------------------------------------------------
 
@@ -111,17 +114,21 @@ CREATE TABLE `kamar` (
   `ID_TIPE_KAMAR` int(11) NOT NULL,
   `HARGA_KAMAR` decimal(10,0) NOT NULL,
   `STATUS_KAMAR` enum('Available','Unavailable') NOT NULL,
-  `GAMBAR_KAMAR` varchar(255) NOT NULL
+  `GAMBAR_KAMAR` varchar(255) NOT NULL,
+  `JUMLAH_RUANGAN` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kamar`
 --
 
-INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `STATUS_KAMAR`, `GAMBAR_KAMAR`) VALUES
-(13, 1, 2, 12000000, 'Available', '02.png'),
-(14, 1, 2, 12000000, 'Available', '03.png'),
-(15, 1, 4, 12000000, 'Available', '03.png');
+INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `STATUS_KAMAR`, `GAMBAR_KAMAR`, `JUMLAH_RUANGAN`) VALUES
+(13, 1, 2, 12000000, 'Available', '02.png', 10),
+(14, 1, 2, 12000000, 'Available', '03.png', 10),
+(15, 1, 4, 12000000, 'Available', '03.png', 10),
+(16, 3, 1, 230000, 'Available', '04.png', 0),
+(17, 2, 1, 322000, 'Available', '01.png', 0),
+(18, 4, 1, 430000, 'Available', '03.png', 0);
 
 -- --------------------------------------------------------
 
@@ -333,13 +340,13 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `ID_HOTEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_HOTEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `ID_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `metode_pembayaran`
