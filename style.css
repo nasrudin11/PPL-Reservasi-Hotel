@@ -1,8 +1,17 @@
 /* File Landing Page */
     /* Banner Landing Page */
+body {
+    background-color: #f0f0f0; /* Ganti dengan warna atau URL gambar sesuai keinginan */
+}
+
 *{
     font-family: 'Poppins', sans-serif;
 }
+
+.navbar.bg-light-custom{
+    background-color: #ffffff;
+}
+
 .logo-name{
     font-weight: 600;
     color: #BA704F;
@@ -144,6 +153,12 @@
     color: #ffffff;
 }
 
+/* Feedback */
+.btn-custom-feed{
+    background: #BA704F;
+    color: #ffffff;
+}
+
 
 
 /* Pencarian / Daftar hotel*/
@@ -246,10 +261,8 @@
     font-weight: 600;
 }
 
-/* Profil Hotel*/
-.custom-textarea-class {
-    min-height: 50px;
-    max-height: 500px;
-
-    overflow-y: auto;
+/* Halaman About Us*/
+.mini-header-about{
+    font-size: 16px;
+    font-weight: 600;
 }

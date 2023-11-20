@@ -1,5 +1,6 @@
 <?php
-include 'partials/header-index.php'
+  include 'controller/koneksi.php';
+  include 'partials/header-index.php';
 ?> 
 
 <div class="banner position-relative">
@@ -119,62 +120,40 @@ include 'partials/header-index.php'
     <h2 >Rekomendasi Hotel</h2>
   </div>
   <div class="row">
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/01.png" class="card-img-top" alt="Hotel 1">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/02.png" class="card-img-top" alt="Hotel 2">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 2</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <?php 
+        $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, hotel.alamat, kamar.harga_kamar
+        FROM hotel
+        JOIN kamar ON hotel.id_hotel = kamar.id_hotel
+        LIMIT 4";
 
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/03.png" class="card-img-top" alt="Hotel 3">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 3</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+        $result = $koneksi->query($query);
 
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/04.png" class="card-img-top" alt="Hotel 4">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 4</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+        // Check if there are results
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="col-md-3 mx-auto">
+                        <a href="dashboard/user/hotel-detail.php?id=' . $row['id_hotel'] . '" class="card-link text-decoration-none">
+                          <div class="card shadow border-0">
+                            <img src="img/upload/hotel/'.$row['gambar_hotel'].'" class="card-img-top" alt="' . $row['gambar_hotel'] . '"  style=" height: 220px; object-fit: cover;">
+                            <div class="card-body">
+                              <h5 class="card-title">' . $row['nama_hotel'] . '</h5>
+                              <ul class="list-unstyled" style="font-size: 14px;">
+                                <li>Rating: ' . $row['rating'] . '</li>
+                                <li>Alamat: ' . $row['alamat'] . '</li>
+                                <li>Harga: $' . $row['harga_kamar'] . '</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </a>
+                      </div>';
+            }
+        } else {
+            echo "No hotels found.";
+        }
+  ?>
+
+
   <div class="mt-4 text-center">
     <a class="btn btn-custom-more" href="#">Selengkapnya</a>
   </div>
@@ -186,60 +165,42 @@ include 'partials/header-index.php'
     <h2>Paling Populer</h2>
   </div>
   <div class="row">
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/01.png" class="card-img-top" alt="Hotel 1">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/02.png" class="card-img-top" alt="Hotel 2">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/03.png" class="card-img-top" alt="Hotel 3">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="img/04.png" class="card-img-top" alt="Hotel 4">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <?php 
+    $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, hotel.alamat, kamar.harga_kamar
+    FROM hotel
+    JOIN kamar ON hotel.id_hotel = kamar.id_hotel
+    LIMIT 4";
+
+    $result = $koneksi->query($query);
+
+    // Check if there are results
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="col-md-3 mx-auto">
+                    <a href="dashboard/user/hotel-detail.php?id=' . $row['id_hotel'] . '" class="card-link text-decoration-none">
+                      <div class="card shadow border-0">
+                        <img src="img/upload/hotel/'.$row['gambar_hotel'].'" class="card-img-top" alt="' . $row['gambar_hotel'] . '"  style=" height: 220px; object-fit: cover;">
+                        <div class="card-body">
+                          <h5 class="card-title">' . $row['nama_hotel'] . '</h5>
+                          <ul class="list-unstyled" style="font-size: 14px;">
+                            <li>Rating: ' . $row['rating'] . '</li>
+                            <li>Alamat: ' . $row['alamat'] . '</li>
+                            <li>Harga: $' . $row['harga_kamar'] . '</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </a>
+                  </div>';
+        }
+    } else {
+        echo "No hotels found.";
+    }
+
+    // Close the database connection
+    $koneksi->close();
+  ?>
     <div class="mt-4 text-center">
-    <a class="btn btn btn-custom-more" href="#">Selengkapnya</a>
+    <a class="btn btn-custom-more" href="#">Selengkapnya</a>
   </div>
   </div>
 </div>
@@ -251,7 +212,7 @@ include 'partials/header-index.php'
   <!-- card about -->
   <div class="row">
       <div class="col-md-6">
-          <div class="card shadow" style="height: 100%;">
+          <div class="card shadow border-0" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">trindabago's global hotel search</h5>
                   <p class="card-text" style="font-size: 15px;">trindabago’s hotel search allows users to compare hotel prices in just a few clicks from hundreds 
@@ -263,7 +224,7 @@ include 'partials/header-index.php'
           </div>
       </div>
       <div class="col-md-6">
-          <div class="card shadow" style="height: 100%;">
+          <div class="card shadow border-0" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">Find cheap hotels on trindabago</h5>
                   <p class="card-text" style="font-size: 15px;">With trindabago you can easily find your ideal hotel and compare prices from different websites. 
@@ -276,7 +237,7 @@ include 'partials/header-index.php'
           </div>
       </div>
       <div class="col-md-6 mt-3">
-          <div class="card shadow" style="height: 100%;">
+          <div class="card shadow border-0" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">Hotel reviews help you find your ideal hotel</h5>
                   <p class="card-text" style="font-size: 15px;">Over 175 million aggregated hotel ratings and more than 19 million images allow you to find out 
@@ -287,7 +248,7 @@ include 'partials/header-index.php'
           </div>
       </div>
       <div class="col-md-6 mt-3">
-          <div class="card shadow" style="height: 100%;">
+          <div class="card shadow border-0" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">How to book</h5>
                   <p class="card-text" style="font-size: 15px;">trindabago is a hotel search with an extensive price comparison. The prices shown come from 
@@ -304,3 +265,5 @@ include 'partials/header-index.php'
 <?php
   include 'partials/footer.php'
  ?> 
+
+

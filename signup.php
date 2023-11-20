@@ -9,7 +9,7 @@ include 'controller/daftar.php';
     <h1>Sign Up</h1>
     <p>Sign up and receive promo from staycation</p>
   </div>
-  <div class="card shadow p-3 mx-auto" style="width: 450px;">
+  <div class="card shadow p-3 mx-auto border-0" style="width: 450px;">
     <div class="card-body">
       <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="mb-3">

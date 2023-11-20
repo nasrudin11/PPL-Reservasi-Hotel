@@ -18,7 +18,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar bg-body-tertiary">
+  <nav class="navbar bg-light">
       <div class="container">
         <a class="navbar-brand" href="user.php">
               <img src="../../img/logo/logo.png" height="24" class="d-inline-block align-text-top">
@@ -37,10 +37,10 @@
             <a class="nav-link text-black" href="#populer">Populer</a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#about">About Us</a>
+            <a class="nav-link text-black" href="../../about.php">About Us</a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#about">Feedback</a>
+            <a class="nav-link text-black" href="../../feedback.php">Feedback</a>
           </li>
           <li>
             <!-- Gambar Profil dengan Dropdown -->

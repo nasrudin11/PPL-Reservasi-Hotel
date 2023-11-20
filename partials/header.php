@@ -21,7 +21,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar bg-body-tertiary">
+  <nav class="navbar bg-light">
       <div class="container">
           <a class="navbar-brand" href="../../index.php">
               <img src="../../img/logo/logo.png" height="24" class="d-inline-block align-text-top">

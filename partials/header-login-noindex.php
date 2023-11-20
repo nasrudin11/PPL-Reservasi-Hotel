@@ -18,26 +18,26 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar bg-body-tertiary">
+  <nav class="navbar bg-light">
       <div class="container">
-        <a class="navbar-brand" href="user.php">
-              <img src="../../img/logo/logo.png" height="24" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="<?php echo $home; ?>">
+              <img src="<?php echo $imageLogo; ?>" height="24" class="d-inline-block align-text-top">
               <span class="logo-name">staycation</span>
           </a>
 
         <!-- link navbar -->
         <ul class="nav">
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#about">About Us</a>
+            <a class="nav-link text-black" href="<?php echo $about; ?>">About Us</a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link text-black" href="#about">Feedback</a>
+            <a class="nav-link text-black" href="<?php echo $feed; ?>">Feedback</a>
           </li>
           <li>
             <!-- Gambar Profil dengan Dropdown -->
             <div class="dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../img/user.png" alt="Profil" class="profile-img" style="height: 30px;">
+                <img src="<?php echo $imagePath; ?>" alt="Profil" class="profile-img" style="height: 30px;">
               </a>
               <div class="dropdown-menu" aria-labelledby="profileDropdown">
                 <a class="dropdown-item" href="#"><?php echo $_SESSION["nama_tamu"]; ?></a>
@@ -48,7 +48,7 @@
                 <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
                 <a class="dropdown-item" href="#">Pengaturan</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../../controller/logout.php">Logout</a>
+                <a class="dropdown-item" href="<?php echo $logout; ?>">Logout</a>
               </div>
             </div>
           </li>
