@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2023 at 03:28 AM
+-- Generation Time: Nov 23, 2023 at 10:13 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -97,8 +97,8 @@ CREATE TABLE `hotel` (
 --
 
 INSERT INTO `hotel` (`ID_HOTEL`, `EMAIL_HOTEL`, `PASSWORD`, `NAMA_HOTEL`, `TLP_HOTEL`, `ALAMAT`, `RATING`, `ULASAN`, `GAMBAR_HOTEL`, `DESKRIPSI`) VALUES
-(1, 'hotelsky@gmail.com', '$2y$10$isPTRJog.Hd/miYh0LIFyeRPDjepUIojQQmi1F.rFXIo.3wqU33zm', 'Hotel Sky Flutter', '089543567321', 'Gubeng, Surabaya', 4.4, '', '2.png', 'Located in the East of Bandung, Shakti Hotel Bandung is a great accommodation with an outdoor swimming pool and sun loungers. For an additional charge, guests can enjoy spa treatments at the hotel’s spa centre. Free WiFi is accessible throughout the hotel. The modern-style rooms at Shakti Hotel Bandung have wooden floors with a mixture of white and green walls. Every room has an air conditioner, a flat-screen TV and an electric kettle. Every bathroom has a shower, a hairdryer and free toiletries'),
-(2, 'starcenter@gmail.com', '$2y$10$fwcu6N1hpXdzSq1EoP1pYOg5yCqC8X5J.o0rZs6LvIVnE4gYeaVga', 'Hotel Star Center', '0812636221', 'Gubeng, Surabaya', 4.6, '', '2.png', 'Strategically located only 5 minutes’ drive from Bogor Train Station, Hotel Semeru Bogor offers a 2-star accommodation with a free parking facility and a 24-hour front desk. Free WiFi is accessible in public areas. Fitted with warm lighting, the air-conditioned rooms are simply furnished with a flat-screen TV and a desk. The en suite bathrooms are equipped with a shower facility, towels and free toiletries. Some rooms have a more spacious living space with a seating area. Daily buffet breakfast '),
+(1, 'hotelsky@gmail.com', '$2y$10$isPTRJog.Hd/miYh0LIFyeRPDjepUIojQQmi1F.rFXIo.3wqU33zm', 'Hotel Sky Flutter', '089543567321', 'Surabaya', 4.4, '', '2.png', 'Located in the East of Bandung, Shakti Hotel Bandung is a great accommodation with an outdoor swimming pool and sun loungers. For an additional charge, guests can enjoy spa treatments at the hotel’s spa centre. Free WiFi is accessible throughout the hotel. The modern-style rooms at Shakti Hotel Bandung have wooden floors with a mixture of white and green walls. Every room has an air conditioner, a flat-screen TV and an electric kettle. Every bathroom has a shower, a hairdryer and free toiletries'),
+(2, 'starcenter@gmail.com', '$2y$10$fwcu6N1hpXdzSq1EoP1pYOg5yCqC8X5J.o0rZs6LvIVnE4gYeaVga', 'Hotel Star Center', '0812636221', 'Surabaya', 4.6, '', '2.png', 'Strategically located only 5 minutes’ drive from Bogor Train Station, Hotel Semeru Bogor offers a 2-star accommodation with a free parking facility and a 24-hour front desk. Free WiFi is accessible in public areas. Fitted with warm lighting, the air-conditioned rooms are simply furnished with a flat-screen TV and a desk. The en suite bathrooms are equipped with a shower facility, towels and free toiletries. Some rooms have a more spacious living space with a seating area. Daily buffet breakfast '),
 (3, 'archotel@gmail.com', '$2y$10$YQYMip0AoafSmvb2zjvK..s7wRqWi2fpDKEviOTN1ImoOgZb7CHZW', 'Arch Hotel', '089224532111', 'Batu. Malang', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs'),
 (4, 'hotelsyariah@gmail.com', '$2y$10$SWIMHaK6beNadV0dHSo3euCzHDEy1SGMfN0.VXXUfXOL9.HjvK1hm', 'Hotel Syariah', '08253561222', 'Gubeng, Surabaya', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs');
 
@@ -168,6 +168,17 @@ CREATE TABLE `pemesanan` (
   `TGL_CEKIN` datetime NOT NULL,
   `TGL_CEKOUT` datetime NOT NULL,
   `TOTAL_BIAYA` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `relationship_3`
+--
+
+CREATE TABLE `relationship_3` (
+  `ID_HOTEL` varchar(4) NOT NULL,
+  `ID_FASILITAS` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -294,6 +305,13 @@ ALTER TABLE `pembayaran`
 ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`ID_PEMESANAN`),
   ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`);
+
+--
+-- Indexes for table `relationship_3`
+--
+ALTER TABLE `relationship_3`
+  ADD PRIMARY KEY (`ID_HOTEL`,`ID_FASILITAS`),
+  ADD KEY `FK_RELATIONSHIP_4` (`ID_FASILITAS`);
 
 --
 -- Indexes for table `tamu`
