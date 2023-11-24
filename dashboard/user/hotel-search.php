@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
 <div class="row">
     <div class="col-3" style="width: 250px;">
         <!-- Filter Pencarian -->
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 250px;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light shadow" style="width: 250px;">
             <h4 class="d-flex align-items-center mb-3">Filters</h4>
             <hr>
             <div class="mb-3">
@@ -77,7 +77,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
     <div class="col p-4">
         <!-- Search bar hotel -->
         <div class="container mb-5">
-            <div class="card shadow">
+            <div class="card shadow border-0">
                 <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -168,10 +168,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                     <a href="hotel-detail.php?id=' . $row['ID_HOTEL'] . '" class="text-decoration-none">
                         <div class="card mb-3 shadow" style="border-radius: 15px;">
                             <div class="row g-0">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <img src="../../img/upload/hotel/'.$row['GAMBAR_HOTEL'].'" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="card-body">
                                         <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
                                         <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
@@ -198,9 +198,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
 } else {
     // Display all hotels when the form is not submitted
     // Adjust this query based on your actual database structure
-    $query = "SELECT DISTINCT hotel.*, kamar.*
-            FROM hotel
-            JOIN kamar ON hotel.id_hotel = kamar.id_hotel";
+    $query = "SELECT hotel.ID_HOTEL, hotel.NAMA_HOTEL, hotel.RATING, hotel.ALAMAT, hotel.GAMBAR_HOTEL, MIN(kamar.HARGA_KAMAR) AS min_harga_kamar
+                FROM hotel
+                JOIN kamar ON hotel.ID_HOTEL = kamar.ID_HOTEL
+                GROUP BY hotel.ID_HOTEL";
     $result = $koneksi->query($query);
 
     // Check if there are results
@@ -211,15 +212,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                     <a href="hotel-detail.php?id=' . $row['ID_HOTEL'] . '" class="text-decoration-none">
                         <div class="card mb-3 shadow" style="border-radius: 15px;">
                             <div class="row g-0">
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <img src="../../img/upload/hotel/'.$row['GAMBAR_HOTEL'].'" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-7">
                                     <div class="card-body">
                                         <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
                                         <small class="text-muted" style="font-size: 14px;">' . $row['RATING'] . '/5 (reviews)</small>
                                         <p class="card-text text-end">
-                                            <span class="fs-6 fw-bold">Rp ' . $row['HARGA_KAMAR'] . '</span>
+                                            <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
                                         </p>
                                         <hr>
                                         <span class="badge text-bg-success">Free Breakfast</span>

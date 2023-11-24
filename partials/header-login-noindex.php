@@ -18,7 +18,7 @@
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar bg-light">
+  <nav class="navbar bg-white">
       <div class="container">
         <a class="navbar-brand" href="<?php echo $home; ?>">
               <img src="<?php echo $imageLogo; ?>" height="24" class="d-inline-block align-text-top">
