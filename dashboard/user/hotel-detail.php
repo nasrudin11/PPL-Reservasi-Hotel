@@ -1,20 +1,41 @@
 <?php
     session_start();
 
+    include '../../controller/koneksi.php';
+
+    $id_hotel = $_GET['id'];
+
+    $query = "SELECT * FROM hotel WHERE id_hotel = $id_hotel";
+
+    $result = $koneksi->query($query);
+
+    // Check if there are results
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+           $nama_hotel = $row['NAMA_HOTEL'];
+           $alamat = $row['ALAMAT'];
+           $gambar_hotel = $row['GAMBAR_HOTEL'];
+           $deskripsi = $row['DESKRIPSI'];
+        }
+    }
+
+
+
     if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
         include '../../partials/header.php';
         
     } elseif ($_SESSION['user_type'] === 'tamu') {
         include '../../partials/header-login-noindex.php';
     }
+
 ?> 
 
 
 <div class="container mt-4">
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-      <li class="breadcrumb-item"><a href="#">Hotel</a></li>
+      <li class="breadcrumb-item"><a href="user.php">Home</a></li>
+      <li class="breadcrumb-item"><a href="hotel-search.php">Hotel</a></li>
       <li class="breadcrumb-item active" aria-current="page"><span class="breadcrumb-item span">Details</span></li>
     </ol>
   </nav>
@@ -24,23 +45,7 @@
       <div class="card-body">
           <h5 class="card-title mb-4">About Hotel</h5> 
           <hr>
-          <p class="card-text details-about">
-            Located in the East of Bandung, Shakti Hotel Bandung is a great accommodation with an 
-            outdoor swimming pool and sun loungers. For an additional charge, guests can enjoy spa 
-            treatments at the hotel’s spa centre. Free WiFi is accessible throughout the hotel. The
-            modern-style rooms at Shakti Hotel Bandung have wooden floors with a mixture of white
-            and green walls. Every room has an air conditioner, a flat-screen TV and an electric
-            kettle. Every bathroom has a shower, a hairdryer and free toiletries.  The hotel’s 
-            PUSPAMAYA Restaurant offers Indonesian and Asian menu. The restaurant has Shakti VIP
-            Room for a private dine-in experience. The hotel’s lobby restaurant, Eat Boss Café, 
-            serves Indonesian, Asian and international dishes.  The gym at Shakti Hotel Bandung 
-            is free and open to all overnight guests. Other facilities, such as the laundry service 
-            and the airport shuttle, can be booked with an additional charge. The hotel also housed 
-            the 24-hour Shakti Minimart, conveniently located within the property.     Guests from 
-            Shakti Hotel Bandung only need to drive for 24-minutes to reach Trans Studio Bandung. 
-            The tourist destination, Kampoeng Tulip, is only a 16-minute drive away from the hotel. 
-            Husein Sastranegara International Airport is a 43-minute drive from the property.
-          </p>
+          <p class="card-text details-about"><?php echo $deskripsi; ?></p>
       </div>
   </div>
 
@@ -143,179 +148,81 @@
       </div>  
     </div>
 
-    <div class="card card-room p-4 mt-4">
-      <h5 class="card-title mb-4">Room With Twin Bed</h5>
-      <div class="card-body">
-          <div class="row">
-              <div class="col-md-3">
-                  <div class="card shadow border-0">
-                      <img src="../../img/banner/1.png" alt="" class="rounded">
-                  </div>
-              </div>
-              <div class="col">
-                  <div class="card shadow border-0">
-                      <div class="card-body">
-                          <span class="title-room">Room With Twin Bed</span>
-                          <hr>
-                          <div class="row">
-                              <div class="col-md-9">
-                                  <!-- Fasilitas -->
-                                  <div class="fasilitas">
-                                      <div class="row">
-                                          <div class="col">
-                                              1 guest
-                                          </div>
-                                          <div class="col">
-                                              Free Wifi
-                                          </div>
-                                      </div>
+<?php
+    // Query untuk mengambil data kamar yang berelasi dengan tabel hotel
+    $query = "SELECT kamar.*, tipe_kamar.tipe_kamar
+    FROM kamar
+    JOIN hotel ON kamar.ID_HOTEL = hotel.ID_HOTEL
+    JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar
+    WHERE kamar.id_hotel = $id_hotel;";
+    $result = $koneksi->query($query);
 
-                                      <div class="row">
-                                          <div class="col">
-                                              2 Single Beds
-                                          </div>
-                                          <div class="col">
-                                              Parking
-                                          </div>
-                                      </div>
+    // Periksa apakah ada hasil query
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '
+            <div class="card card-room p-4 mt-4">
+                <h5 class="card-title mb-4">' . $row['tipe_kamar'] . '</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card shadow border-0">
+                                <img src="../../img/banner/1.png" alt="" class="rounded">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card shadow border-0">
+                                <div class="card-body">
+                                    <span class="title-room">' . $row['tipe_kamar'] . '</span>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <!-- Fasilitas -->
+                                            <div class="fasilitas">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        ' . 2 . ' guest
+                                                    </div>
+                                                    <div class="col">
+                                                        ' . 2 . '
+                                                    </div>
+                                                </div>
 
-                                      <div class="row">
-                                          <div class="col">
-                                              Breakfast not included
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="price-tag text-end">
-                                      <span>Rp 50,000</span>
-                                      <span>room/night</span>
-                                  </div>
-                                  <a id="btnBook"  class="btn btn btn-custom-book" href="book.php">Book</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-    </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        ' . 2 . '
+                                                    </div>
+                                                    <div class="col">
+                                                        ' . 2 . '
+                                                    </div>
+                                                </div>
 
-    <div class="card card-room p-4 mt-4">
-      <h5 class="card-title mb-4">Room With Twin Bed</h5>
-      <div class="card-body">
-          <div class="row">
-              <div class="col-md-3">
-                  <div class="card shadow border-0">
-                      <img src="../../img/banner/2.png" alt="" class="rounded">
-                  </div>
-              </div>
-              <div class="col">
-                  <div class="card shadow border-0">
-                      <div class="card-body">
-                          <span class="title-room">Room With Twin Bed</span>
-                          <hr>
-                          <div class="row">
-                              <div class="col-md-9">
-                                  <!-- Fasilitas -->
-                                  <div class="fasilitas">
-                                      <div class="row">
-                                          <div class="col">
-                                              1 guest
-                                          </div>
-                                          <div class="col">
-                                              Free Wifi
-                                          </div>
-                                      </div>
-
-                                      <div class="row">
-                                          <div class="col">
-                                              2 Single Beds
-                                          </div>
-                                          <div class="col">
-                                              Parking
-                                          </div>
-                                      </div>
-
-                                      <div class="row">
-                                          <div class="col">
-                                              Breakfast not included
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="price-tag text-end">
-                                      <span>Rp 50,000</span>
-                                      <span>room/night</span>
-                                  </div>
-                                  <a id="btnBook"  class="btn btn btn-custom-book" href="book.php">Book</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-    </div>
-
-    <div class="card card-room p-4 mt-4">
-      <h5 class="card-title mb-4">Room With Twin Bed</h5>
-      <div class="card-body">
-          <div class="row">
-              <div class="col-md-3">
-                  <div class="card shadow border-0">
-                      <img src="../../img/banner/3.png" alt="" class="rounded">
-                  </div>
-              </div>
-              <div class="col">
-                  <div class="card shadow border-0">
-                      <div class="card-body">
-                          <span class="title-room">Room With Twin Bed</span>
-                          <hr>
-                          <div class="row">
-                              <div class="col-md-9">
-                                  <!-- Fasilitas -->
-                                  <div class="fasilitas">
-                                      <div class="row">
-                                          <div class="col">
-                                              1 guest
-                                          </div>
-                                          <div class="col">
-                                              Free Wifi
-                                          </div>
-                                      </div>
-
-                                      <div class="row">
-                                          <div class="col">
-                                              2 Single Beds
-                                          </div>
-                                          <div class="col">
-                                              Parking
-                                          </div>
-                                      </div>
-
-                                      <div class="row">
-                                          <div class="col">
-                                              Breakfast not included
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="price-tag text-end">
-                                      <span>Rp 50,000</span>
-                                      <span>room/night</span>
-                                  </div>
-                                  <a id="btnBook"  class="btn btn btn-custom-book" href="book.php">Book</a>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-    </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        ' . 2 . '
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="price-tag text-end">
+                                                <span>Rp ' . number_format($row['HARGA_KAMAR'], 0, ',', '.') . '</span>
+                                                <span>room/night</span>
+                                            </div>
+                                            <a class="btn btn btn-custom-book" href="book.php?id='.$row['ID_KAMAR'].'">Book</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+        }
+    } else {
+        echo "Tidak ada data kamar yang ditemukan.";
+    }
+?>
 
 </div>
 

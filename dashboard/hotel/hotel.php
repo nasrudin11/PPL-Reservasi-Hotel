@@ -2,10 +2,9 @@
   session_start();
   include '../../controller/hotel-crud.php';
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if(isset($_POST['submit'])) { // Perubahan di sini
+    if(isset($_POST['submit'])) { 
         $error_message = tambah_kamar($koneksi, $_SESSION['id_hotel'], $_POST["tipe_kamar"], $_POST["harga"], $_POST["status"]);
 
-        // Redirect dengan menyertakan pesan kesalahan
         $redirect_url = $_SERVER['PHP_SELF'] . "?status=" . urlencode($error_message);
         header("Location: $redirect_url");
         exit();

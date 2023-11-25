@@ -20,8 +20,8 @@
   <!-- Navbar -->
   <nav class="navbar bg-white">
       <div class="container">
-        <a class="navbar-brand" href="<?php echo $home; ?>">
-              <img src="<?php echo $imageLogo; ?>" height="24" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="user.php">
+              <img src="../../img/logo/logo.png" height="24" class="d-inline-block align-text-top">
               <span class="logo-name">staycation</span>
           </a>
 
@@ -37,7 +37,7 @@
             <!-- Gambar Profil dengan Dropdown -->
             <div class="dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="<?php echo $imagePath; ?>" alt="Profil" class="profile-img" style="height: 30px;">
+                <img src="../../img/user.png" alt="Profil" class="profile-img" style="height: 30px;">
               </a>
               <div class="dropdown-menu" aria-labelledby="profileDropdown">
                 <a class="dropdown-item" href="#"><?php echo $_SESSION["nama_tamu"]; ?></a>
