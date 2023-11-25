@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2023 at 10:13 AM
+-- Generation Time: Nov 25, 2023 at 04:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -36,18 +36,28 @@ CREATE TABLE `admin` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_pembayaran`
+-- Table structure for table `detail_pemesanan`
 --
 
-CREATE TABLE `detail_pembayaran` (
+CREATE TABLE `detail_pemesanan` (
   `ID_DETAIL` int(11) NOT NULL,
   `ID_KAMAR` int(11) NOT NULL,
   `ID_PEMESANAN` int(11) NOT NULL,
   `ID_HOTEL` int(11) NOT NULL,
-  `JUMLAH_KAMAR` int(11) NOT NULL,
-  `TAMU_ANAK` int(11) NOT NULL,
-  `TAMU_DEWASA` int(11) NOT NULL
+  `NAMA_PEMESAN` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detail_pemesanan`
+--
+
+INSERT INTO `detail_pemesanan` (`ID_DETAIL`, `ID_KAMAR`, `ID_PEMESANAN`, `ID_HOTEL`, `NAMA_PEMESAN`) VALUES
+(1, 17, 2, 2, 'Rangga'),
+(2, 13, 3, 1, 'Rangga'),
+(3, 13, 3, 1, 'Rudi'),
+(4, 18, 4, 4, 'Mubarok'),
+(5, 18, 4, 4, 'Agung'),
+(6, 18, 4, 4, 'Bagas');
 
 -- --------------------------------------------------------
 
@@ -57,9 +67,40 @@ CREATE TABLE `detail_pembayaran` (
 
 CREATE TABLE `fasilitas` (
   `ID_FASILITAS` int(11) NOT NULL,
-  `NAMA_FASILITAS` int(30) NOT NULL,
-  `GAMBAR_FASILITAS` varchar(255) NOT NULL
+  `NAMA_FASILITAS` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `fasilitas`
+--
+
+INSERT INTO `fasilitas` (`ID_FASILITAS`, `NAMA_FASILITAS`) VALUES
+(1, 'Breakfast'),
+(2, 'Free Wifi'),
+(3, 'Spa'),
+(4, 'Gym'),
+(5, 'Swimming Pool');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fasilitas_hotel`
+--
+
+CREATE TABLE `fasilitas_hotel` (
+  `ID_FASILITAS_HOTEL` int(11) NOT NULL,
+  `ID_HOTEL` int(11) NOT NULL,
+  `ID_FASILITAS` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `fasilitas_hotel`
+--
+
+INSERT INTO `fasilitas_hotel` (`ID_FASILITAS_HOTEL`, `ID_HOTEL`, `ID_FASILITAS`) VALUES
+(6, 1, 1),
+(7, 1, 2),
+(8, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -123,9 +164,9 @@ CREATE TABLE `kamar` (
 --
 
 INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `STATUS_KAMAR`, `GAMBAR_KAMAR`, `JUMLAH_RUANGAN`) VALUES
-(13, 1, 2, 12000000, 'Available', '02.png', 10),
-(14, 1, 2, 12000000, 'Available', '03.png', 10),
-(15, 1, 4, 12000000, 'Available', '03.png', 10),
+(13, 1, 2, 250000, 'Available', '02.png', 10),
+(14, 1, 2, 300000, 'Available', '03.png', 10),
+(15, 1, 4, 330000, 'Available', '03.png', 10),
 (16, 3, 1, 230000, 'Available', '04.png', 0),
 (17, 2, 1, 322000, 'Available', '01.png', 0),
 (18, 4, 1, 430000, 'Available', '03.png', 0);
@@ -138,7 +179,30 @@ INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `ST
 
 CREATE TABLE `metode_pembayaran` (
   `ID_METODE_PEMBAYARAN` int(11) NOT NULL,
-  `NAMA_METODE_PEMBAYARAN` varchar(20) NOT NULL
+  `NAMA_METODE_PEMBAYARAN` enum('BCA Virtual Account','Credit Card','Mandiri Virtual Account') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `metode_pembayaran`
+--
+
+INSERT INTO `metode_pembayaran` (`ID_METODE_PEMBAYARAN`, `NAMA_METODE_PEMBAYARAN`) VALUES
+(1, 'BCA Virtual Account'),
+(2, 'Credit Card'),
+(3, 'Mandiri Virtual Account');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `ID_NOTIFIKASI` int(11) NOT NULL,
+  `ID_HOTEL` int(11) NOT NULL,
+  `EMAIL_TAMU` varchar(40) NOT NULL,
+  `JUDUL_NOTIF` varchar(30) NOT NULL,
+  `PESAN_NOTIF` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -164,22 +228,21 @@ CREATE TABLE `pembayaran` (
 CREATE TABLE `pemesanan` (
   `ID_PEMESANAN` int(11) NOT NULL,
   `EMAIL_TAMU` varchar(40) NOT NULL,
+  `ID_METODE_PEMBAYARAN` int(11) NOT NULL,
   `TGL_PEMESANAN` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `TGL_CEKIN` datetime NOT NULL,
   `TGL_CEKOUT` datetime NOT NULL,
   `TOTAL_BIAYA` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `relationship_3`
+-- Dumping data for table `pemesanan`
 --
 
-CREATE TABLE `relationship_3` (
-  `ID_HOTEL` varchar(4) NOT NULL,
-  `ID_FASILITAS` varchar(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `pemesanan` (`ID_PEMESANAN`, `EMAIL_TAMU`, `ID_METODE_PEMBAYARAN`, `TGL_PEMESANAN`, `TGL_CEKIN`, `TGL_CEKOUT`, `TOTAL_BIAYA`) VALUES
+(2, 'ahmad12@gmail.com', 1, '2023-11-25 07:30:02', '2023-11-25 00:00:00', '2023-11-27 00:00:00', 322000),
+(3, 'ahmad12@gmail.com', 1, '2023-11-25 09:07:48', '2023-11-25 00:00:00', '2023-11-26 00:00:00', 24000000),
+(4, 'ahmad12@gmail.com', 1, '2023-11-25 09:22:37', '2023-11-26 00:00:00', '2023-11-28 00:00:00', 2580000);
 
 -- --------------------------------------------------------
 
@@ -248,9 +311,9 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`EMAIL_ADMIN`);
 
 --
--- Indexes for table `detail_pembayaran`
+-- Indexes for table `detail_pemesanan`
 --
-ALTER TABLE `detail_pembayaran`
+ALTER TABLE `detail_pemesanan`
   ADD PRIMARY KEY (`ID_DETAIL`),
   ADD KEY `ID_KAMAR` (`ID_KAMAR`),
   ADD KEY `ID_PEMESANNAN` (`ID_PEMESANAN`),
@@ -262,6 +325,14 @@ ALTER TABLE `detail_pembayaran`
 --
 ALTER TABLE `fasilitas`
   ADD PRIMARY KEY (`ID_FASILITAS`);
+
+--
+-- Indexes for table `fasilitas_hotel`
+--
+ALTER TABLE `fasilitas_hotel`
+  ADD PRIMARY KEY (`ID_FASILITAS_HOTEL`),
+  ADD KEY `FK_RELATIONSHIP_4` (`ID_FASILITAS`),
+  ADD KEY `ID_HOTEL` (`ID_HOTEL`);
 
 --
 -- Indexes for table `feedback`
@@ -292,6 +363,14 @@ ALTER TABLE `metode_pembayaran`
   ADD PRIMARY KEY (`ID_METODE_PEMBAYARAN`);
 
 --
+-- Indexes for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`ID_NOTIFIKASI`),
+  ADD KEY `ID_HOTEL` (`ID_HOTEL`),
+  ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`);
+
+--
 -- Indexes for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
@@ -304,14 +383,8 @@ ALTER TABLE `pembayaran`
 --
 ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`ID_PEMESANAN`),
-  ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`);
-
---
--- Indexes for table `relationship_3`
---
-ALTER TABLE `relationship_3`
-  ADD PRIMARY KEY (`ID_HOTEL`,`ID_FASILITAS`),
-  ADD KEY `FK_RELATIONSHIP_4` (`ID_FASILITAS`);
+  ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`),
+  ADD KEY `ID_METODE_PEMBAYARAN` (`ID_METODE_PEMBAYARAN`);
 
 --
 -- Indexes for table `tamu`
@@ -337,16 +410,22 @@ ALTER TABLE `wishlist_favorit`
 --
 
 --
--- AUTO_INCREMENT for table `detail_pembayaran`
+-- AUTO_INCREMENT for table `detail_pemesanan`
 --
-ALTER TABLE `detail_pembayaran`
-  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `detail_pemesanan`
+  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
 --
 ALTER TABLE `fasilitas`
-  MODIFY `ID_FASILITAS` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_FASILITAS` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `fasilitas_hotel`
+--
+ALTER TABLE `fasilitas_hotel`
+  MODIFY `ID_FASILITAS_HOTEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -370,7 +449,13 @@ ALTER TABLE `kamar`
 -- AUTO_INCREMENT for table `metode_pembayaran`
 --
 ALTER TABLE `metode_pembayaran`
-  MODIFY `ID_METODE_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_METODE_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -382,7 +467,7 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`
@@ -401,12 +486,19 @@ ALTER TABLE `wishlist_favorit`
 --
 
 --
--- Constraints for table `detail_pembayaran`
+-- Constraints for table `detail_pemesanan`
 --
-ALTER TABLE `detail_pembayaran`
-  ADD CONSTRAINT `detail_pembayaran_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
-  ADD CONSTRAINT `detail_pembayaran_ibfk_2` FOREIGN KEY (`ID_KAMAR`) REFERENCES `kamar` (`ID_KAMAR`),
-  ADD CONSTRAINT `detail_pembayaran_ibfk_3` FOREIGN KEY (`ID_PEMESANAN`) REFERENCES `pemesanan` (`ID_PEMESANAN`);
+ALTER TABLE `detail_pemesanan`
+  ADD CONSTRAINT `detail_pemesanan_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
+  ADD CONSTRAINT `detail_pemesanan_ibfk_2` FOREIGN KEY (`ID_KAMAR`) REFERENCES `kamar` (`ID_KAMAR`),
+  ADD CONSTRAINT `detail_pemesanan_ibfk_3` FOREIGN KEY (`ID_PEMESANAN`) REFERENCES `pemesanan` (`ID_PEMESANAN`);
+
+--
+-- Constraints for table `fasilitas_hotel`
+--
+ALTER TABLE `fasilitas_hotel`
+  ADD CONSTRAINT `fasilitas_hotel_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
+  ADD CONSTRAINT `fasilitas_hotel_ibfk_2` FOREIGN KEY (`ID_FASILITAS`) REFERENCES `fasilitas` (`ID_FASILITAS`);
 
 --
 -- Constraints for table `feedback`
@@ -422,6 +514,13 @@ ALTER TABLE `kamar`
   ADD CONSTRAINT `kamar_ibfk_2` FOREIGN KEY (`ID_TIPE_KAMAR`) REFERENCES `tipe_kamar` (`ID_TIPE_KAMAR`);
 
 --
+-- Constraints for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD CONSTRAINT `notifikasi_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
+  ADD CONSTRAINT `notifikasi_ibfk_2` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`);
+
+--
 -- Constraints for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
@@ -432,7 +531,8 @@ ALTER TABLE `pembayaran`
 -- Constraints for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`);
+  ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`),
+  ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `metode_pembayaran` (`ID_METODE_PEMBAYARAN`);
 
 --
 -- Constraints for table `wishlist_favorit`

@@ -4,7 +4,7 @@
 
 <!-- Profil -->
 <?php
-    function edit_profil_hotel($koneksi, $id_hotel, $file, $nama_hotel, $tlp_hotel, $alamat, $deskripsi)
+    function edit_profil_hotel($koneksi, $id_hotel, $file, $nama_hotel, $tlp_hotel, $alamat, $deskripsi, $facilities)
     {
         $gambar = $file["name"];
         $tmp_name = $file["tmp_name"];
@@ -20,10 +20,15 @@
             ALAMAT = '$alamat', DESKRIPSI = '$deskripsi' WHERE ID_HOTEL = $id_hotel";
         }
 
-        // Cek apakah file berhasil diupload
-       
-
-
+        if (!empty($facilities)) {
+            // Hapus fasilitas yang sudah ada untuk hotel ini
+            $koneksi->query("DELETE FROM fasilitas_hotel WHERE ID_HOTEL = $id_hotel");
+    
+            // Masukkan fasilitas baru
+            foreach ($facilities as $facility) {
+                $koneksi->query("INSERT INTO fasilitas_hotel (ID_HOTEL, ID_FASILITAS) VALUES ($id_hotel, $facility)");
+            }
+        }
 
         if ($koneksi->query($query) === TRUE) {
             return "Profil successful updated";

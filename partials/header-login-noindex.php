@@ -48,7 +48,7 @@
                 <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
                 <a class="dropdown-item" href="#">Pengaturan</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="<?php echo $logout; ?>">Logout</a>
+                <a class="dropdown-item" href="../../controller/logout.php">Logout</a>
               </div>
             </div>
           </li>
