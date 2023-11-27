@@ -10,10 +10,6 @@
         header("Location: ../../login.php");
     }
 
-// Panggil fungsi jika formulir disubmit
-    // if (isset($_POST['continue'])) {
-    //    
-    // }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         pemesanan_kamar($koneksi, $id_kamar, $_SESSION['email'], $_POST['cekIn'], $_POST['cekOut'], $_POST['paymen_method'], $_POST['inputGuest'], $_POST['totalHarga']);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2023 at 04:30 PM
+-- Generation Time: Nov 27, 2023 at 01:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -52,12 +52,7 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`ID_DETAIL`, `ID_KAMAR`, `ID_PEMESANAN`, `ID_HOTEL`, `NAMA_PEMESAN`) VALUES
-(1, 17, 2, 2, 'Rangga'),
-(2, 13, 3, 1, 'Rangga'),
-(3, 13, 3, 1, 'Rudi'),
-(4, 18, 4, 4, 'Mubarok'),
-(5, 18, 4, 4, 'Agung'),
-(6, 18, 4, 4, 'Bagas');
+(14, 13, 11, 1, 'Ahmad');
 
 -- --------------------------------------------------------
 
@@ -199,11 +194,19 @@ INSERT INTO `metode_pembayaran` (`ID_METODE_PEMBAYARAN`, `NAMA_METODE_PEMBAYARAN
 
 CREATE TABLE `notifikasi` (
   `ID_NOTIFIKASI` int(11) NOT NULL,
-  `ID_HOTEL` int(11) NOT NULL,
+  `ID_HOTEL` int(11) DEFAULT NULL,
   `EMAIL_TAMU` varchar(40) NOT NULL,
   `JUDUL_NOTIF` varchar(30) NOT NULL,
-  `PESAN_NOTIF` varchar(100) NOT NULL
+  `PESAN_NOTIF` varchar(200) NOT NULL,
+  `TGL_NOTIF` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`ID_NOTIFIKASI`, `ID_HOTEL`, `EMAIL_TAMU`, `JUDUL_NOTIF`, `PESAN_NOTIF`, `TGL_NOTIF`) VALUES
+(5, NULL, 'yusuf32@gmail.com', 'Selamat Datang Pengguna Baru!', 'Terima kasih sudah bergabung di platform kami. Banyak hal yang bisa kamu eksplore disini dan jangan lupa segera lengkapi bidoata akun profilmu untuk keperluan lebih lanjut.', '2023-11-26 23:40:47');
 
 -- --------------------------------------------------------
 
@@ -216,8 +219,16 @@ CREATE TABLE `pembayaran` (
   `ID_METODE_PEMBAYARAN` int(11) NOT NULL,
   `ID_PEMESANAN` int(11) NOT NULL,
   `TANGGAL_PEMBAYARAN` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `JUMLAH_PEMBAYARAN` decimal(10,0) NOT NULL
+  `JUMLAH_PEMBAYARAN` decimal(10,0) NOT NULL,
+  `BUKTI_TRANSFER` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`ID_PEMBAYARAN`, `ID_METODE_PEMBAYARAN`, `ID_PEMESANAN`, `TANGGAL_PEMBAYARAN`, `JUMLAH_PEMBAYARAN`, `BUKTI_TRANSFER`) VALUES
+(15, 1, 11, '2023-11-26 17:05:38', 500000, 'Screenshot (1).png');
 
 -- --------------------------------------------------------
 
@@ -240,9 +251,7 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`ID_PEMESANAN`, `EMAIL_TAMU`, `ID_METODE_PEMBAYARAN`, `TGL_PEMESANAN`, `TGL_CEKIN`, `TGL_CEKOUT`, `TOTAL_BIAYA`) VALUES
-(2, 'ahmad12@gmail.com', 1, '2023-11-25 07:30:02', '2023-11-25 00:00:00', '2023-11-27 00:00:00', 322000),
-(3, 'ahmad12@gmail.com', 1, '2023-11-25 09:07:48', '2023-11-25 00:00:00', '2023-11-26 00:00:00', 24000000),
-(4, 'ahmad12@gmail.com', 1, '2023-11-25 09:22:37', '2023-11-26 00:00:00', '2023-11-28 00:00:00', 2580000);
+(11, 'ahmad12@gmail.com', 1, '2023-11-26 16:57:42', '2023-11-27 00:00:00', '2023-11-29 00:00:00', 500000);
 
 -- --------------------------------------------------------
 
@@ -264,7 +273,8 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`EMAIL_TAMU`, `PASSWORD`, `NAMA_TAMU`, `ALAMAT`, `NO_TELEPON_TAMU`, `TANGGAL_LAHIR`) VALUES
-('ahmad12@gmail.com', '$2y$10$k2bnP/xFcXa8v9D1fNixr.h.ZPsTHKyGiDnzmvmomznx20.WOhioq', 'Ahmad Nasrudin Jamil', '', '', '0000-00-00');
+('ahmad12@gmail.com', '$2y$10$k2bnP/xFcXa8v9D1fNixr.h.ZPsTHKyGiDnzmvmomznx20.WOhioq', 'Ahmad Nasrudin Jamil', '', '', '0000-00-00'),
+('yusuf32@gmail.com', '$2y$10$V3dvvumFMVNDQKKzV5tpbe3fROqc5OJRoQB1MMa2sjcVjEaH3oQ/6', 'Muhammad Yusuf', '', '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -413,7 +423,7 @@ ALTER TABLE `wishlist_favorit`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
@@ -455,19 +465,19 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`

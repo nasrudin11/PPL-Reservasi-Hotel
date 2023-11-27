@@ -26,6 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "INSERT INTO $table (email_$table, password, $nama_column) VALUES ('$email', '$hashed_password', '$username')";
 
     if ($koneksi->query($query) === TRUE) {
+
+        $queryNotif ="INSERT INTO notifikasi (id_hotel, email_tamu, judul_notif, pesan_notif, tgl_notif)
+                VALUES (NULL, '$email', 'Selamat Datang Pengguna Baru!', 
+                'Terima kasih sudah bergabung di platform kami. Banyak hal yang bisa kamu eksplore disini dan jangan lupa segera lengkapi bidoata akun profilmu untuk keperluan lebih lanjut.', 
+                CURRENT_TIMESTAMP())";
+
+        $koneksi->query($queryNotif);
+
         // Menampilkan pesan sukses menggunakan modal Bootstrap
         echo "<script>
                 document.addEventListener('DOMContentLoaded', function() {

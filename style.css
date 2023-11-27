@@ -168,6 +168,15 @@ body {
     box-shadow: none;
     background-color: transparent;
 }
+.overflow-auto {
+    scrollbar-width: none; /* Untuk Firefox */
+    -ms-overflow-style: none; /* Untuk Internet Explorer dan Edge */
+}
+
+.overflow-auto::-webkit-scrollbar {
+    display: none; /* Untuk Chrome, Safari, dan Opera */
+}
+
 
 /* Detail hotel*/
 .breadcrumb-item a {
@@ -266,3 +275,4 @@ body {
     font-size: 16px;
     font-weight: 600;
 }
+

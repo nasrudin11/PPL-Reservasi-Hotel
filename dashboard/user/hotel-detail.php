@@ -28,7 +28,20 @@
         include '../../partials/header-login-noindex.php';
     }
 
+
 ?> 
+
+<div class="container mt-4">
+    <?php
+    if (isset($_COOKIE['success_message'])) {
+        $successMessage = $_COOKIE['success_message'];
+        echo '<div class="alert alert-success">'. $successMessage .'</div>';
+        // Hapus cookie setelah digunakan
+        setcookie("success_message", "", time() - 3600, "/");
+    }
+    ?>
+</div>
+
 
 
 <div class="container mt-4">

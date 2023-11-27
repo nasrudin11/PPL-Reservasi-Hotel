@@ -171,18 +171,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                 <div class="col-md-5">
                                     <img src="../../img/upload/hotel/'.$row['GAMBAR_HOTEL'].'" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
                                 </div>
-                                <div class="col-md-7">
-                                    <div class="card-body">
-                                        <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
-                                        <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
-                                        <p class="card-text text-end">
-                                            <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                        </p>
-                                        <hr>
-                                        <span class="badge text-bg-success">Free Breakfast</span>
-                                        <span class="badge text-bg-success">Bathub</span>
+                                <div class="card-body">
+                                    <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                    <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
+                                    <p class="card-text text-end">
+                                        <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
+                                    </p>
+                                    <hr>
+                                    <div class="badge-container overflow-auto">
+                                        <span class="badge text-bg-success ms-2">Free Breakfast</span>
+                                        <span class="badge text-bg-success ms-2">Bathub</span>
+                                        <span class="badge text-bg-success ms-2">Free Wifi</span>
+                                        <span class="badge text-bg-success ms-2">Gym</span>
+                                        <span class="badge text-bg-success ms-2">Spa</span>
+                                        <span class="badge text-bg-success ms-2">Swimming Pool</span>
                                     </div>
                                 </div>
+                            
                             </div>
                         </div>
                     </a>
@@ -207,7 +212,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
     // Check if there are results
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            // Display hotel information as needed
             echo '<div class="col-md-6">
                     <a href="hotel-detail.php?id=' . $row['ID_HOTEL'] . '" class="text-decoration-none">
                         <div class="card mb-3 shadow" style="border-radius: 15px;">
@@ -218,14 +222,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                 <div class="col-md-7">
                                     <div class="card-body">
                                         <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
-                                        <small class="text-muted" style="font-size: 14px;">' . $row['RATING'] . '/5 (reviews)</small>
+                                        <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
                                         <p class="card-text text-end">
                                             <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
                                         </p>
                                         <hr>
-                                        <span class="badge text-bg-success">Free Breakfast</span>
-                                        <span class="badge text-bg-success">Bathub</span>
+                                        <div class="badge-container d-flex flex-nowrap overflow-auto">
+                                            <span class="badge text-bg-success ms-2">Free Breakfast</span>
+                                            <span class="badge text-bg-success ms-2">Free Wifi</span>
+                                            <span class="badge text-bg-success ms-2">Gym</span>
+                                            <span class="badge text-bg-success ms-2">Spa</span>
+                                            <span class="badge text-bg-success ms-2">Swimming Pool</span>
+                                        </div>
                                     </div>
+                            
                                 </div>
                             </div>
                         </div>

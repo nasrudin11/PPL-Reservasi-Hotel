@@ -3,43 +3,43 @@
 ?>
 
 <!-- Profil -->
-<?php
-    function edit_profil_hotel($koneksi, $id_hotel, $file, $nama_hotel, $tlp_hotel, $alamat, $deskripsi, $facilities)
-    {
-        $gambar = $file["name"];
-        $tmp_name = $file["tmp_name"];
-        $upload_dir = "../../img/upload/hotel/";
+    <?php
+        function edit_profil_hotel($koneksi, $id_hotel, $file, $nama_hotel, $tlp_hotel, $alamat, $deskripsi, $facilities)
+        {
+            $gambar = $file["name"];
+            $tmp_name = $file["tmp_name"];
+            $upload_dir = "../../img/upload/hotel/";
 
-        if (!empty($gambar)) {
-            move_uploaded_file($tmp_name, $upload_dir . $gambar);
-            $query = "UPDATE hotel SET GAMBAR_HOTEL = '$gambar', NAMA_HOTEL = '$nama_hotel', TLP_HOTEL = '$tlp_hotel', 
-            ALAMAT = '$alamat', DESKRIPSI = '$deskripsi' WHERE ID_HOTEL = $id_hotel";
-        } else {
-            // Jika tidak ada file yang diunggah, update data tanpa memperbarui gambar
-            $query = "UPDATE hotel SET NAMA_HOTEL = '$nama_hotel', TLP_HOTEL = '$tlp_hotel', 
-            ALAMAT = '$alamat', DESKRIPSI = '$deskripsi' WHERE ID_HOTEL = $id_hotel";
-        }
-
-        if (!empty($facilities)) {
-            // Hapus fasilitas yang sudah ada untuk hotel ini
-            $koneksi->query("DELETE FROM fasilitas_hotel WHERE ID_HOTEL = $id_hotel");
-    
-            // Masukkan fasilitas baru
-            foreach ($facilities as $facility) {
-                $koneksi->query("INSERT INTO fasilitas_hotel (ID_HOTEL, ID_FASILITAS) VALUES ($id_hotel, $facility)");
+            if (!empty($gambar)) {
+                move_uploaded_file($tmp_name, $upload_dir . $gambar);
+                $query = "UPDATE hotel SET GAMBAR_HOTEL = '$gambar', NAMA_HOTEL = '$nama_hotel', TLP_HOTEL = '$tlp_hotel', 
+                ALAMAT = '$alamat', DESKRIPSI = '$deskripsi' WHERE ID_HOTEL = $id_hotel";
+            } else {
+                // Jika tidak ada file yang diunggah, update data tanpa memperbarui gambar
+                $query = "UPDATE hotel SET NAMA_HOTEL = '$nama_hotel', TLP_HOTEL = '$tlp_hotel', 
+                ALAMAT = '$alamat', DESKRIPSI = '$deskripsi' WHERE ID_HOTEL = $id_hotel";
             }
+
+            if (!empty($facilities)) {
+                // Hapus fasilitas yang sudah ada untuk hotel ini
+                $koneksi->query("DELETE FROM fasilitas_hotel WHERE ID_HOTEL = $id_hotel");
+        
+                // Masukkan fasilitas baru
+                foreach ($facilities as $facility) {
+                    $koneksi->query("INSERT INTO fasilitas_hotel (ID_HOTEL, ID_FASILITAS) VALUES ($id_hotel, $facility)");
+                }
+            }
+
+            if ($koneksi->query($query) === TRUE) {
+                return "Profil successful updated";
+            } else {
+                return "Failed to update profil: " . $koneksi->error;
+            }
+
+            $koneksi->close();
         }
 
-        if ($koneksi->query($query) === TRUE) {
-            return "Profil successful updated";
-        } else {
-            return "Failed to update profil: " . $koneksi->error;
-        }
-
-        $koneksi->close();
-    }
-
-?>
+    ?>
 
 
 <!-- Manajemen Kamar -->
