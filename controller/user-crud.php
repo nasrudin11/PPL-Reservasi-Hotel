@@ -18,7 +18,7 @@
 
         if ($resultPemesanan) {
             // Jika pemesanan berhasil, ambil ID pemesanan yang baru saja dibuat
-            $idPemesanan = $koneksi->insert_id;
+            $id_pemesanan = $koneksi->insert_id;
 
             // Melakukan loop untuk setiap tamu yang diinputkan
             foreach ($guestNames as $namaPemesan) {
@@ -35,7 +35,7 @@
 
                 // Melakukan query untuk menyimpan data ke tabel detail_pemesanan
                 $queryDetailPemesanan = "INSERT INTO detail_pemesanan (id_kamar, id_pemesanan, id_hotel, nama_pemesan)
-                                        VALUES ($id_kamar, $idPemesanan, " . $rowKamar['ID_HOTEL'] . ", '$namaPemesan')";
+                                        VALUES ($id_kamar, $id_pemesanan, " . $rowKamar['ID_HOTEL'] . ", '$namaPemesan')";
 
                 // Menjalankan query detail_pemesanan
                 $resultDetailPemesanan = $koneksi->query($queryDetailPemesanan);
@@ -47,7 +47,7 @@
             }
 
             // Redirect atau lakukan tindakan selanjutnya setelah berhasil menyimpan data
-            header("Location: pembayaran.php?id_pemesanan=$idPemesanan");
+            header("Location: pembayaran.php?id_pemesanan=$id_pemesanan");
         } else {
             // Jika terjadi kesalahan pada query pemesanan, tampilkan pesan kesalahan
             echo "Error: " . $koneksi->error;
@@ -56,15 +56,49 @@
         $koneksi->close();
     }
 
-    // Tutup koneksi ke database (jika diperlukan)
+?>
+
+<!-- Cancel Pemesanan -->
+<?php
+// Fungsi untuk pembatalan pesanan
+function cancel_pemesanan($koneksi, $id_pemesanan) {
+    // Mulai transaksi
+    $koneksi->begin_transaction();
+
+    try {
+        // Hapus data pada tabel detail_pemesanan
+        $queryDetail = "DELETE FROM detail_pemesanan WHERE id_pemesanan = $id_pemesanan";
+        $koneksi->query($queryDetail);
+
+        // Hapus data pada tabel pembayaran
+        $queryPembayaran = "DELETE FROM pembayaran WHERE id_pemesanan = $id_pemesanan";
+        $koneksi->query($queryPembayaran);
+
+        // Hapus data pada tabel pemesanan
+        $queryPemesanan = "DELETE FROM pemesanan WHERE id_pemesanan = $id_pemesanan";
+        $koneksi->query($queryPemesanan);
+
+        // Commit transaksi jika semua query berhasil dieksekusi
+        $koneksi->commit();
+
+        return "Pesanan berhasil dibatalkan.";
+    } catch (Exception $e) {
+        // Rollback transaksi jika terjadi kesalahan
+        $koneksi->rollback();
+
+        return "Error: " . $e->getMessage();
+    }
+}
+
 
 ?>
+
 
 <!-- Pembayaran -->
 
 <?php
-    function pembayaran_kamar($koneksi, $metode_pembayaran, $id_pemesanan, $total_biaya, $gambar){
-        $gambar = $_FILES['upload_file']['name']; // Sesuaikan dengan nama field dalam formulir
+    function pembayaran_kamar($koneksi, $metode_pembayaran, $id_pemesanan, $total_biaya, $gambar, $email, $nama_hotel){
+        $gambar = $_FILES['upload_file']['name']; 
 
         $query = "INSERT INTO pembayaran (id_pembayaran, id_metode_pembayaran, id_pemesanan, tanggal_pembayaran, jumlah_pembayaran, bukti_transfer)
                 VALUES ('', '$metode_pembayaran', '$id_pemesanan', CURRENT_TIMESTAMP(), '$total_biaya', '$gambar')";
@@ -78,6 +112,13 @@
             INNER JOIN hotel ON detail_pemesanan.id_hotel = hotel.id_hotel 
             WHERE pemesanan.id_pemesanan = $id_pemesanan
             GROUP BY pemesanan.id_pemesanan, hotel.id_hotel";
+
+            $queryNotif ="INSERT INTO notifikasi (id_hotel, email_tamu, judul_notif, pesan_notif, tgl_notif)
+            VALUES (NULL, '$email', 'Pemesanan Kamar Berhasil', 
+            'Kamu telah berhasil melakukan booking dan pembayaran kamar pada $nama_hotel', 
+            CURRENT_TIMESTAMP())";
+
+            $koneksi->query($queryNotif);
           
             $resultId = $koneksi->query($queryId);
             if ($resultId) {

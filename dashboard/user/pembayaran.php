@@ -11,13 +11,20 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        pembayaran_kamar($koneksi, $_POST['metode_pembayaran'], $_POST['id_pemesanan'], $_POST['total_biaya'], $_POST['upload_file']);
+        pembayaran_kamar($koneksi, $_POST['metode_pembayaran'], $_POST['id_pemesanan'], $_POST['total_biaya'], $_POST['upload_file'], $_SESSION['email'], $_POST['nama_hotel']);
     }
 
-    $query = "SELECT pemesanan.*, metode_pembayaran.nama_metode_pembayaran
-    FROM pemesanan
-    JOIN metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
-    WHERE pemesanan.id_pemesanan = $ambil_id"; 
+    $query = "SELECT pemesanan.*, metode_pembayaran.nama_metode_pembayaran, hotel.nama_hotel
+        FROM
+            pemesanan
+        JOIN
+            metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
+        JOIN
+            detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan
+        JOIN
+            hotel ON detail_pemesanan.id_hotel = hotel.id_hotel
+        WHERE
+            pemesanan.id_pemesanan = $ambil_id"; 
 
 
     $result = $koneksi->query($query);
@@ -25,6 +32,7 @@
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $id_pemesanan = $row['ID_PEMESANAN'];
+        $nama_hotel = $row['nama_hotel'];
         $nama_metode = $row['nama_metode_pembayaran'];
         $metode_pembayaran = $row['ID_METODE_PEMBAYARAN'];
         $total_biaya = $row['TOTAL_BIAYA'];
@@ -47,6 +55,7 @@
             <p class="mb-0">3. Uplod bukti pembayaran 
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?id_pemesanan=<?php echo $ambil_id; ?>" enctype="multipart/form-data">
                         <input type="hidden" name="id_pemesanan" value="<?php echo $id_pemesanan ?>">
+                        <input type="hidden" name="nama_hotel" value="<?php echo $nama_hotel ?>">
                         <input type="hidden" name="metode_pembayaran" value="<?php echo $metode_pembayaran ?>">
                         <input type="hidden" name="total_biaya" value="<?php echo $total_biaya ?>">
                     <div class="mb-3 mt-3">

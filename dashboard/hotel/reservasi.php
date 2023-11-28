@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include '../../controller/koneksi.php';
+
     include '../../partials/header-hotel.php'
 ?> 
 
@@ -23,52 +25,55 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
+            <?php
+            // Gantilah kolom-kolom yang sesuai dengan struktur tabel Anda
+            $id_hotel = 1; // Gantilah dengan ID hotel yang sesuai
+
+            $query = "SELECT tamu.nama_tamu, tamu.email_tamu, pemesanan.tgl_cekin, pemesanan.tgl_cekout,
+                    metode_pembayaran.nama_metode_pembayaran, tamu.no_telepon_tamu
+                FROM pemesanan
+                JOIN tamu ON pemesanan.email_tamu = tamu.email_tamu
+                JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan
+                JOIN hotel ON detail_pemesanan.id_hotel = hotel.id_hotel
+                JOIN metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
+                WHERE hotel.id_hotel = $id_hotel
+                ORDER BY pemesanan.tgl_cekin DESC";
+
+            $result = $koneksi->query($query);
+
+            if ($result->num_rows > 0) {
+                $counter = 1;
+
+                while ($row = $result->fetch_assoc()) {
+                ?>
                 <tr>
-                    <td>1</td>
-                    <td>Rizqi Rutanto</td>
-                    <td>rizqi@gmail.com</td>
-                    <td>9 Nov - 12 Nov, 2023</td>
-                    <td>BCA Virtual Account</td>
-                    <td>0813453272</td>
+                    <td><?php echo $counter; ?> </td>
+                    <td><?php echo $row['nama_tamu']; ?></td>
+                    <td><?php echo $row['email_tamu']; ?></td>
+                    <td><?php echo date('d M', strtotime($row["tgl_cekin"])) . ' - ' . date('d M Y', strtotime($row["tgl_cekout"])); ?></td>
+                    <td><?php echo $row['nama_metode_pembayaran']; ?></td>
+                    <td><?php echo $row['no_telepon_tamu']; ?></td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                             <i class="bx bx-dots-vertical-rounded"></i>
+                                <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Detail</a>
                             </div>
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Rina Angelica</td>
-                    <td>rina@gmail.com</td>
-                    <td>12 Nov - 15 Nov, 2023</td>
-                    <td>Mandiri Virtual Account</td>
-                    <td>0813453272</td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                            <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                            >
-                            <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="bx bx-trash me-1"></i> Delete</a
-                            >
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                    
+                <?php
+
+                    $counter++;
+                }
+            } else {
+                echo '<tr><td colspan="9">Tidak ada data pemesanan.</td></tr>';
+            }
+            ?>
+
             </tbody>
           </table>
         </div>

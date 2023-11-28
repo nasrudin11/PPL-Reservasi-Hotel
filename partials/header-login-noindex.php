@@ -45,6 +45,7 @@
                 <a class="dropdown-item" href="#">Profil</a>
                 <a class="dropdown-item" href="notifikasi.php">Notifikasi</a>
                 <a class="dropdown-item" href="#">Wishlist</a>
+                <a class="dropdown-item" href="lihat-pesanan.php">Pesanan Saya</a>
                 <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
                 <a class="dropdown-item" href="#">Pengaturan</a>
                 <div class="dropdown-divider"></div>

@@ -101,4 +101,33 @@
 
 <!-- Notifikasi -->
 
+<?php
+
+// Fungsi untuk mengirim notifikasi
+function notif_user($koneksi, $emailUser, $id_hotel, $judul, $pesan) {
+    // Periksa apakah pengguna dengan email tersebut ada
+    $query = "SELECT email_tamu FROM tamu WHERE email_tamu = '$emailUser'";
+    $result = $koneksi->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $emailTamu  = $row['email_tamu'];
+
+        // Simpan notifikasi ke database
+        $queryInsert = "INSERT INTO notifikasi (email_tamu, id_hotel, judul_notif, pesan_notif, tgl_notif)
+                        VALUES ('$emailTamu ', $id_hotel, '$judul', '$pesan', CURRENT_TIMESTAMP)";
+
+        if ($koneksi->query($queryInsert) === TRUE) {
+            return "Notification has send successful";
+        } else {
+            return "Gagal menyimpan notifikasi ke database: " . $koneksi->error;
+        }
+    } else {
+        return "User email not found";
+    }
+}
+
+?>
+
+
 

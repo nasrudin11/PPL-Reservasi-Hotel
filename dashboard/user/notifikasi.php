@@ -32,7 +32,12 @@
         <div class="accordion-item">
             <h2 class="accordion-header">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionID; ?>" aria-expanded="false" aria-controls="<?php echo $accordionID; ?>">
-                <?php echo $row["JUDUL_NOTIF"]; ?>
+                <div class="w-100">
+                    <?php echo $row["JUDUL_NOTIF"]; ?>
+                </div>
+                <div>
+                    <span style="font-size: 12px;"><?php echo date('d M Y', strtotime($row["TGL_NOTIF"])); ?> </span>
+                </div>
             </button>
             </h2>
             <div id="<?php echo $accordionID; ?>" class="accordion-collapse collapse" data-bs-parent="#accordionNotif">
