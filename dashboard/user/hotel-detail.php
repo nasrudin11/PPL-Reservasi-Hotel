@@ -173,9 +173,9 @@
     // Periksa apakah ada hasil query
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo '
+        ?>
             <div class="card card-room p-4 mt-4">
-                <h5 class="card-title mb-4">' . $row['tipe_kamar'] . '</h5>
+                <h5 class="card-title mb-4"><?php echo $row['tipe_kamar']; ?></h5>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
@@ -186,7 +186,7 @@
                         <div class="col">
                             <div class="card shadow border-0">
                                 <div class="card-body">
-                                    <span class="title-room">' . $row['tipe_kamar'] . '</span>
+                                    <span class="title-room"><?php echo $row['tipe_kamar']; ?></span>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-9">
@@ -194,35 +194,51 @@
                                             <div class="fasilitas">
                                                 <div class="row">
                                                     <div class="col">
-                                                        ' . 2 . ' guest
+                                                        3  guest
                                                     </div>
                                                     <div class="col">
-                                                        ' . 2 . '
+                                                        2 Dewasa & 1 Anak
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col">
-                                                        ' . 2 . '
-                                                    </div>
-                                                    <div class="col">
-                                                        ' . 2 . '
-                                                    </div>
-                                                </div>
+                                            <?php 
+                                                $queryFasilitas = "SELECT fasilitas.nama_fasilitas FROM fasilitas_hotel
+                                                JOIN fasilitas ON fasilitas_hotel.id_fasilitas = fasilitas.id_fasilitas
+                                                WHERE fasilitas_hotel.id_hotel = $id_hotel";
+                                      
+                                                $resultFasilitas = $koneksi->query($queryFasilitas);
+                                                if ($resultFasilitas->num_rows > 0) {
+                                                    echo '<div class="fasilitas">';
+                                                    $counter = 0;
+                                                    
+                                                    while ($rowFasilitas = $resultFasilitas->fetch_assoc()) {
+                                                        if ($counter % 2 == 0) {
+                                                            echo '<div class="row">';
+                                                        }
+                                                
+                                                        echo '<div class="col">' . $rowFasilitas["nama_fasilitas"] . '</div>';
+                                                
+                                                        if ($counter % 2 != 0 || $counter == $result->num_rows - 1) {
+                                                            echo '</div>';
+                                                        }
+                                                
+                                                        $counter++;
+                                                    }
+                                                    
+                                                    echo '</div>';
+                                                } else {
+                                                    echo 'Tidak ada fasilitas.';
+                                                }
+                                            ?>
 
-                                                <div class="row">
-                                                    <div class="col">
-                                                        ' . 2 . '
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="price-tag text-end">
-                                                <span>Rp ' . number_format($row['HARGA_KAMAR'], 0, ',', '.') . '</span>
+                                                <span>Rp <?php echo number_format($row['HARGA_KAMAR'], 0, ',', '.'); ?></span>
                                                 <span>room/night</span>
                                             </div>
-                                            <a class="btn btn btn-custom-book" href="book.php?id='.$row['ID_KAMAR'].'">Book</a>
+                                            <a class="btn btn btn-custom-book" href="book.php?id='<?php echo $row['ID_KAMAR']; ?>'">Book</a>
                                         </div>
                                     </div>
                                 </div>
@@ -230,7 +246,8 @@
                         </div>
                     </div>
                 </div>
-            </div>';
+            </div>
+<?php
         }
     } else {
         echo "Tidak ada data kamar yang ditemukan.";

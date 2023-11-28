@@ -29,7 +29,7 @@
             <tbody class="table-border-bottom-0">
             <?php
             // Gantilah kolom-kolom yang sesuai dengan struktur tabel Anda
-            $id_hotel = 1; // Gantilah dengan ID hotel yang sesuai
+            $id_hotel = $_SESSION['id_hotel']; 
 
             $query = "SELECT pemesanan.id_pemesanan,tamu.nama_tamu, tamu.email_tamu, pemesanan.tgl_cekin, pemesanan.tgl_cekout,
                     metode_pembayaran.nama_metode_pembayaran, tamu.no_telepon_tamu
@@ -39,6 +39,7 @@
                 JOIN hotel ON detail_pemesanan.id_hotel = hotel.id_hotel
                 JOIN metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
                 WHERE hotel.id_hotel = $id_hotel
+                GROUP BY pemesanan.id_pemesanan
                 ORDER BY pemesanan.tgl_cekin DESC";
 
             $result = $koneksi->query($query);
