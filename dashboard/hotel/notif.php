@@ -4,6 +4,8 @@
   include '../../controller/koneksi.php';
   include '../../controller/hotel-crud.php';
 
+  $slug = 'customer-notif';
+
   $id_hotel = $_SESSION['id_hotel'];
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {

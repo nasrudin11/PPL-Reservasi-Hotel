@@ -56,7 +56,6 @@
                 <a class="dropdown-item" href="#">Wishlist</a>
                 <a class="dropdown-item" href="lihat-pesanan.php">Pesanan Saya</a>
                 <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
-                <a class="dropdown-item" href="#">Pengaturan</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../../controller/logout.php">Logout</a>
               </div>

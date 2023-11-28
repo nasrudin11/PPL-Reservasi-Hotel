@@ -137,7 +137,7 @@
             </li>
 
             <!-- Manajemen Kamar -->
-            <li class="menu-item active">
+            <li class="menu-item <?php echo ($slug == 'manajemen-kamar') ? 'active' : ''; ?>">
               <a href="hotel.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Account Settings">Manajemen Kamar</div>
@@ -145,7 +145,7 @@
             </li>
 
             <!-- Manajemen Reservasi -->
-            <li class="menu-item">
+            <li class="menu-item <?php echo ($slug == 'manajemen-reservasi') ? 'active' : ''; ?>">
               <a href="reservasi.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="Account Settings">Manajemen Reservasi</div>
@@ -153,7 +153,7 @@
             </li>
            
             <!-- Manajemen Reservasi -->
-            <li class="menu-item">
+            <li class="menu-item <?php echo ($slug == 'customer-notif') ? 'active' : ''; ?>" >
               <a href="notif.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-chat"></i>
                 <div data-i18n="Account Settings">Customer Notifikasi</div>
@@ -213,12 +213,6 @@
                       <a class="dropdown-item" href="profil-hotel.php">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">
-                        <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">Settings</span>
                       </a>
                     </li>
                     <li>

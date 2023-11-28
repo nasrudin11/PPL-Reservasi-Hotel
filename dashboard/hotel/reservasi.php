@@ -2,6 +2,8 @@
     session_start();
     include '../../controller/koneksi.php';
 
+    $slug = 'manajemen-reservasi';
+
     include '../../partials/header-hotel.php'
 ?> 
 
@@ -29,7 +31,7 @@
             // Gantilah kolom-kolom yang sesuai dengan struktur tabel Anda
             $id_hotel = 1; // Gantilah dengan ID hotel yang sesuai
 
-            $query = "SELECT tamu.nama_tamu, tamu.email_tamu, pemesanan.tgl_cekin, pemesanan.tgl_cekout,
+            $query = "SELECT pemesanan.id_pemesanan,tamu.nama_tamu, tamu.email_tamu, pemesanan.tgl_cekin, pemesanan.tgl_cekout,
                     metode_pembayaran.nama_metode_pembayaran, tamu.no_telepon_tamu
                 FROM pemesanan
                 JOIN tamu ON pemesanan.email_tamu = tamu.email_tamu
@@ -59,7 +61,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Detail</a>
+                                <a class="dropdown-item" href="reservasi-detail.php?id=<?php echo $row['id_pemesanan']; ?>"><i class="bx bx-edit-alt me-1"></i> Detail</a>
                             </div>
                         </div>
                     </td>

@@ -1,6 +1,8 @@
 <?php
   session_start();
   include '../../controller/hotel-crud.php';
+  $slug = 'manajemen-kamar';
+  
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['submit'])) { 
         $error_message = tambah_kamar($koneksi, $_SESSION['id_hotel'], $_POST["tipe_kamar"], $_POST["harga"], $_POST["status"]);
