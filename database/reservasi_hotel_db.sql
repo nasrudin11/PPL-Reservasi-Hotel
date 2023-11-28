@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2023 at 01:17 AM
+-- Generation Time: Nov 28, 2023 at 06:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -52,7 +52,11 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`ID_DETAIL`, `ID_KAMAR`, `ID_PEMESANAN`, `ID_HOTEL`, `NAMA_PEMESAN`) VALUES
-(14, 13, 11, 1, 'Ahmad');
+(14, 13, 11, 1, 'Ahmad'),
+(15, 18, 12, 4, 'Ahmad'),
+(20, 16, 15, 3, 'Yusuf'),
+(21, 16, 15, 3, 'Sohibun'),
+(22, 16, 15, 3, 'Fahrur');
 
 -- --------------------------------------------------------
 
@@ -206,7 +210,12 @@ CREATE TABLE `notifikasi` (
 --
 
 INSERT INTO `notifikasi` (`ID_NOTIFIKASI`, `ID_HOTEL`, `EMAIL_TAMU`, `JUDUL_NOTIF`, `PESAN_NOTIF`, `TGL_NOTIF`) VALUES
-(5, NULL, 'yusuf32@gmail.com', 'Selamat Datang Pengguna Baru!', 'Terima kasih sudah bergabung di platform kami. Banyak hal yang bisa kamu eksplore disini dan jangan lupa segera lengkapi bidoata akun profilmu untuk keperluan lebih lanjut.', '2023-11-26 23:40:47');
+(5, NULL, 'yusuf32@gmail.com', 'Selamat Datang Pengguna Baru!', 'Terima kasih sudah bergabung di platform kami. Banyak hal yang bisa kamu eksplore disini dan jangan lupa segera lengkapi bidoata akun profilmu untuk keperluan lebih lanjut.', '2023-11-26 23:40:47'),
+(6, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Hotel Syariah', '2023-11-28 11:54:47'),
+(7, NULL, 'yusuf32@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Arch Hotel', '2023-11-28 11:58:17'),
+(8, NULL, 'yusuf32@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Hotel Star Center', '2023-11-28 12:40:18'),
+(9, 1, 'ahmad12@gmail.com ', 'Halo Ahmad', 'Terima kasih telah memberika rating baik untuk hotel kami', '2023-11-28 13:10:46'),
+(10, NULL, 'yusuf32@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Arch Hotel', '2023-11-28 17:32:31');
 
 -- --------------------------------------------------------
 
@@ -228,7 +237,9 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`ID_PEMBAYARAN`, `ID_METODE_PEMBAYARAN`, `ID_PEMESANAN`, `TANGGAL_PEMBAYARAN`, `JUMLAH_PEMBAYARAN`, `BUKTI_TRANSFER`) VALUES
-(15, 1, 11, '2023-11-26 17:05:38', 500000, 'Screenshot (1).png');
+(15, 1, 11, '2023-11-26 17:05:38', 500000, 'Screenshot (1).png'),
+(16, 3, 12, '2023-11-28 11:52:24', 860000, 'Screenshot (1).png'),
+(19, 3, 15, '2023-11-28 17:32:30', 2070000, 'Screenshot (3).png');
 
 -- --------------------------------------------------------
 
@@ -251,7 +262,9 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`ID_PEMESANAN`, `EMAIL_TAMU`, `ID_METODE_PEMBAYARAN`, `TGL_PEMESANAN`, `TGL_CEKIN`, `TGL_CEKOUT`, `TOTAL_BIAYA`) VALUES
-(11, 'ahmad12@gmail.com', 1, '2023-11-26 16:57:42', '2023-11-27 00:00:00', '2023-11-29 00:00:00', 500000);
+(11, 'ahmad12@gmail.com', 1, '2023-11-26 16:57:42', '2023-11-27 00:00:00', '2023-11-29 00:00:00', 500000),
+(12, 'ahmad12@gmail.com', 3, '2023-11-28 11:52:13', '2023-11-30 00:00:00', '2023-12-02 00:00:00', 860000),
+(15, 'yusuf32@gmail.com', 3, '2023-11-28 17:32:22', '2023-12-06 00:00:00', '2023-12-09 00:00:00', 2070000);
 
 -- --------------------------------------------------------
 
@@ -423,7 +436,7 @@ ALTER TABLE `wishlist_favorit`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
@@ -465,19 +478,19 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`
