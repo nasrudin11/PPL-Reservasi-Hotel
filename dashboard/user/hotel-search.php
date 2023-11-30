@@ -12,6 +12,36 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
 
 ?>
 
+<?php
+
+include '../../controller/user-crud.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
+    if (isset($_POST['id_hotel'])){
+        $id_hotel = $_POST['id_hotel'];
+        $error_message = tambah_wishlist($koneksi, $_SESSION['email'], $id_hotel);
+
+    $redirect_url = $_SERVER['PHP_SELF'] . "?status=" . urlencode($error_message);
+    header("Location: $redirect_url");
+    exit();
+    }
+}
+  
+?>
+
+
+<div class="content-wrapper">
+      <!-- Content -->
+      <div class="container mt-4">
+        <?php
+          if (isset($_GET['status'])) {
+            echo '<div class="alert alert-' . (strpos($_GET['status'], 'successful') !== false ? 'success' : 'danger') . '" status="alert">
+                    ' . urldecode($_GET['status']) . '
+                  </div>';
+          }
+        ?>
+</div>
+
+
 <form action="" method="post">
 <div class="row">
     <div class="col-3" style="width: 250px;">
@@ -173,11 +203,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
-                                        <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                            </div>
+                                            <div>
+                                                <form action = "" method = "post">
+                                                    <input type="hidden" name="id_hotel" value="' . $row['ID_HOTEL'] . '">
+                                                    <button class = "btn btn-success" name = "wishlist">SIMPAN</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                         <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
-                                        <p class="card-text text-end">
-                                            <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>  
+                                                <span class="fs-6 ">' . $row['ALAMAT'] . '</span>
+                                            </div>
+                                            <div>                                            
+                                                <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
+                                            </div>
+                                        </div>
                                         <hr>
                                         <span class="badge text-bg-success">Free Breakfast</span>
                                         <span class="badge text-bg-success">Bathub</span>
@@ -217,11 +262,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
-                                        <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                        </div>
+                                        <div>
+                                            <form action = "" method = "post">
+                                                <input type="hidden" name="id_hotel" value="' . $row['ID_HOTEL'] . '">
+                                                <button class = "btn btn-success" name = "wishlist">SIMPAN</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                         <small class="text-muted" style="font-size: 14px;">' . $row['RATING'] . '/5 (reviews)</small>
-                                        <p class="card-text text-end">
-                                            <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>  
+                                                <span class="fs-6 ">' . $row['ALAMAT'] . '</span>
+                                            </div>
+                                            <div>                                            
+                                                <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
+                                            </div>
+                                        </div>
                                         <hr>
                                         <span class="badge text-bg-success">Free Breakfast</span>
                                         <span class="badge text-bg-success">Bathub</span>

@@ -266,3 +266,15 @@ body {
     font-size: 16px;
     font-weight: 600;
 }
+
+.bookmark-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.bookmark-btn:hover {
+    color: yellow; /* Warna saat tombol dihover */
+}
