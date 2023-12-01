@@ -7,10 +7,10 @@
 <!-- Pemesanan -->
 <?php
 
-    function pemesanan_kamar($koneksi, $id_kamar, $emailTamu, $cekIn, $cekOut, $paymentMethod, $guestNames, $totalHarga) {
+    function pemesanan_kamar($koneksi, $id_kamar, $emailTamu, $id_hotel, $cekIn, $cekOut, $paymentMethod, $guestNames, $totalHarga) {
         // Melakukan query untuk menyimpan data ke tabel pemesanan
-        $queryPemesanan = "INSERT INTO pemesanan (email_tamu, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
-                        VALUES ('$emailTamu', $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
+        $queryPemesanan = "INSERT INTO pemesanan (email_tamu, id_hotel, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
+                        VALUES ('$emailTamu', $id_hotel , $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
 
         echo "Debug Query: " . $queryPemesanan . "<br>";
 
@@ -28,14 +28,9 @@
                 $resultKamar = $koneksi->query($queryKamar);
                 $rowKamar = $resultKamar->fetch_assoc();
 
-                // Mengambil data hotel dari database sesuai dengan ID_HOTEL yang diinputkan
-                $queryHotel = "SELECT * FROM hotel WHERE ID_HOTEL = " . $rowKamar['ID_HOTEL'];
-                $resultHotel = $koneksi->query($queryHotel);
-                $rowHotel = $resultHotel->fetch_assoc();
-
                 // Melakukan query untuk menyimpan data ke tabel detail_pemesanan
-                $queryDetailPemesanan = "INSERT INTO detail_pemesanan (id_kamar, id_pemesanan, id_hotel, nama_pemesan)
-                                        VALUES ($id_kamar, $id_pemesanan, " . $rowKamar['ID_HOTEL'] . ", '$namaPemesan')";
+                $queryDetailPemesanan = "INSERT INTO detail_pemesanan (id_kamar, id_pemesanan, nama_pemesan)
+                                        VALUES ($id_kamar, $id_pemesanan, '$namaPemesan')";
 
                 // Menjalankan query detail_pemesanan
                 $resultDetailPemesanan = $koneksi->query($queryDetailPemesanan);
@@ -106,12 +101,11 @@ function cancel_pemesanan($koneksi, $id_pemesanan) {
         move_uploaded_file($_FILES['upload_file']['tmp_name'], "../img/upload/bukti_transfer/" . $_FILES['upload_file']['name']); // Sesuaikan dengan nama field dalam formulir
 
         if ($koneksi->query($query) === TRUE) {
-            $queryId = "SELECT pemesanan.id_pemesanan, hotel.id_hotel, MIN(detail_pemesanan.id_kamar) AS id_kamar
+            $queryId = "SELECT pemesanan.id_pemesanan, pemesanan.id_hotel, MIN(detail_pemesanan.id_kamar) AS id_kamar
             FROM pemesanan
             INNER JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan
-            INNER JOIN hotel ON detail_pemesanan.id_hotel = hotel.id_hotel 
             WHERE pemesanan.id_pemesanan = $id_pemesanan
-            GROUP BY pemesanan.id_pemesanan, hotel.id_hotel";
+            GROUP BY pemesanan.id_pemesanan, pemesanan.id_hotel";
 
             $queryNotif ="INSERT INTO notifikasi (id_hotel, email_tamu, judul_notif, pesan_notif, tgl_notif)
             VALUES (NULL, '$email', 'Pemesanan Kamar Berhasil', 

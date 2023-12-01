@@ -35,8 +35,7 @@
                     metode_pembayaran.nama_metode_pembayaran, tamu.no_telepon_tamu
                 FROM pemesanan
                 JOIN tamu ON pemesanan.email_tamu = tamu.email_tamu
-                JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan
-                JOIN hotel ON detail_pemesanan.id_hotel = hotel.id_hotel
+                JOIN hotel ON pemesanan.id_hotel = hotel.id_hotel
                 JOIN metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
                 WHERE hotel.id_hotel = $id_hotel
                 GROUP BY pemesanan.id_pemesanan

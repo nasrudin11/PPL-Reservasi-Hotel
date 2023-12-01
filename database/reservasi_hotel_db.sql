@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2023 at 06:57 PM
+-- Generation Time: Dec 01, 2023 at 04:52 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -43,7 +43,6 @@ CREATE TABLE `detail_pemesanan` (
   `ID_DETAIL` int(11) NOT NULL,
   `ID_KAMAR` int(11) NOT NULL,
   `ID_PEMESANAN` int(11) NOT NULL,
-  `ID_HOTEL` int(11) NOT NULL,
   `NAMA_PEMESAN` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -51,12 +50,14 @@ CREATE TABLE `detail_pemesanan` (
 -- Dumping data for table `detail_pemesanan`
 --
 
-INSERT INTO `detail_pemesanan` (`ID_DETAIL`, `ID_KAMAR`, `ID_PEMESANAN`, `ID_HOTEL`, `NAMA_PEMESAN`) VALUES
-(14, 13, 11, 1, 'Ahmad'),
-(15, 18, 12, 4, 'Ahmad'),
-(20, 16, 15, 3, 'Yusuf'),
-(21, 16, 15, 3, 'Sohibun'),
-(22, 16, 15, 3, 'Fahrur');
+INSERT INTO `detail_pemesanan` (`ID_DETAIL`, `ID_KAMAR`, `ID_PEMESANAN`, `NAMA_PEMESAN`) VALUES
+(26, 30, 21, 'Jamil sma'),
+(27, 30, 22, 'ijiij'),
+(28, 30, 22, ''),
+(29, 30, 23, 'ijiij'),
+(30, 30, 23, ''),
+(31, 30, 24, 'ijiij'),
+(32, 30, 24, '');
 
 -- --------------------------------------------------------
 
@@ -91,15 +92,6 @@ CREATE TABLE `fasilitas_hotel` (
   `ID_HOTEL` int(11) NOT NULL,
   `ID_FASILITAS` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `fasilitas_hotel`
---
-
-INSERT INTO `fasilitas_hotel` (`ID_FASILITAS_HOTEL`, `ID_HOTEL`, `ID_FASILITAS`) VALUES
-(6, 1, 1),
-(7, 1, 2),
-(8, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -140,7 +132,22 @@ INSERT INTO `hotel` (`ID_HOTEL`, `EMAIL_HOTEL`, `PASSWORD`, `NAMA_HOTEL`, `TLP_H
 (1, 'hotelsky@gmail.com', '$2y$10$isPTRJog.Hd/miYh0LIFyeRPDjepUIojQQmi1F.rFXIo.3wqU33zm', 'Hotel Sky Flutter', '089543567321', 'Surabaya', 4.4, '', '2.png', 'Located in the East of Bandung, Shakti Hotel Bandung is a great accommodation with an outdoor swimming pool and sun loungers. For an additional charge, guests can enjoy spa treatments at the hotel’s spa centre. Free WiFi is accessible throughout the hotel. The modern-style rooms at Shakti Hotel Bandung have wooden floors with a mixture of white and green walls. Every room has an air conditioner, a flat-screen TV and an electric kettle. Every bathroom has a shower, a hairdryer and free toiletries'),
 (2, 'starcenter@gmail.com', '$2y$10$fwcu6N1hpXdzSq1EoP1pYOg5yCqC8X5J.o0rZs6LvIVnE4gYeaVga', 'Hotel Star Center', '0812636221', 'Surabaya', 4.6, '', '2.png', 'Strategically located only 5 minutes’ drive from Bogor Train Station, Hotel Semeru Bogor offers a 2-star accommodation with a free parking facility and a 24-hour front desk. Free WiFi is accessible in public areas. Fitted with warm lighting, the air-conditioned rooms are simply furnished with a flat-screen TV and a desk. The en suite bathrooms are equipped with a shower facility, towels and free toiletries. Some rooms have a more spacious living space with a seating area. Daily buffet breakfast '),
 (3, 'archotel@gmail.com', '$2y$10$YQYMip0AoafSmvb2zjvK..s7wRqWi2fpDKEviOTN1ImoOgZb7CHZW', 'Arch Hotel', '089224532111', 'Batu. Malang', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs'),
-(4, 'hotelsyariah@gmail.com', '$2y$10$SWIMHaK6beNadV0dHSo3euCzHDEy1SGMfN0.VXXUfXOL9.HjvK1hm', 'Hotel Syariah', '08253561222', 'Gubeng, Surabaya', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs');
+(4, 'hotelsyariah@gmail.com', '$2y$10$SWIMHaK6beNadV0dHSo3euCzHDEy1SGMfN0.VXXUfXOL9.HjvK1hm', 'Hotel Syariah', '08253561222', 'Gubeng, Surabaya', 4.5, '', '3.png', 'Hotel Syariah 99 is located on Jl. Maj. Gen. Panjaitan No. 191, Penanggungan, Kec. Klojen, Malang City, East Java 65113 A sharia hotel with a modern design has several facilities, including parking area, lobby area, receptionist, wifi and many others. Suitable for your business or vacation needs'),
+(5, 'hilton89@gmail.com', '$2y$10$KEoJTEe/IZ/TQDxfIo2KaetLNHfszGni5vIFItuuc9YcAckWB9hCq', 'Hilton Bandung', '11', 'Bandung', 0.0, '', 'hilton1.webp', 'Berlokasi strategis di jantung kota Bandung, hanya 10 menit berkendara dari Bandara Husein Sastranegara dan 5 menit berkendara dari stasiun kereta api Bandung, Hilton Bandung menawarkan kamar-kamar yang luas dengan koneksi WiFi berkecepatan tinggi. Hotel ini juga menawarkan pusat kebugaran dengan peralatan lengkap dan kolam renang di puncak gedung yang menghadap ke Gunung Tangkuban Perahu. Pusat Perbelanjaan 23 Paskal yang terkenal dapat dijangkau dengan berjalan kaki selama 5 menit dari hotel. '),
+(6, 'gpchotel@gmail.com', '$2y$10$OhnXysufgOaDZr8XWrf9L.oOG6u7jzm3wrqmK4IiI1GyWC4dl4ZVa', 'Grand Pasundan Convention Hotel', '12', 'Bandung', 0.0, '', 'gpc.webp', 'Berlokasi strategis dengan jarak 15 menit berkendara dari Bandara Husein Sastranegara dan Stasiun Kereta Api Bandung, Grand Pasundan Convention Hotel memiliki kolam renang outdoor, pusat kebugaran dan spa. Akses WiFi gratis tersedia di seluruh area hotel.\r\nKamar-kamar ber-AC hotel ini dilengkapi dengan TV layar datar dengan saluran internasional, lemari es mini dan ketel listrik. Kamar mandi dalam dilengkapi dengan shower, handuk dan peralatan mandi. Beberapa kamar menawarkan pemandangan kota at'),
+(7, 'courtyardbd@gmail.com', '$2y$10$4VVyXyl9U4xh42ytNhLJRuQgQFGFS4UuibAVafoyAaQTPYOA9QvJm', 'Courtyard Bandung Dago', '13', 'Bandung', 0.0, '', 'c.webp', 'Berlokasi di Bandung Wetan, Bandung, Courtyard by Marriott Bandung Dago, merupakan hotel bintang 4 yang menawarkan akomodasi nyaman yang dilengkapi dengan fasilitas ramah disabilitas.\r\nKamar-kamar ber-AC yang ditawarkan dilengkapi dengan fasilitas Wifi, meja kerja, dan tempat tidur yang nyaman. Kamar mandi dilengkapi dengan shower dan wastafel bercermin. beberapa kamar juga memiliki bathtub.\r\nRestoran hotel menyediakan berbagai hidangan lezat untuk para tamu. Pilihan restoran lain yang berada de'),
+(8, 'favebraga@gmail.com', '$2y$10$k1yazwyzuY72TQU.XXKe1.8wxDvxCE89CTL4FdKza5GmSQx4tF48O', 'favehotel Braga', '14', 'Bandung', 0.0, '', 'fa.webp', 'Terletak di Jalan Braga, favehotel Braga adalah pilihan yang sangat baik untuk menginap di Bandung. Fasilitas yang tersedia di hotel ini termasuk perawatan pijat di Whales Spa dan minimarket 24 jam di lobi hotel. Hotel bergaya modern ini menyediakan akses WiFi gratis di seluruh area hotel.      Setiap kamar didekorasi dengan lukisan yang indah di dinding dan bantal yang unik di tempat tidur. AC, TV layar datar dengan saluran lokal dan internasional, meja kerja, brankas dan ketel listrik tersedia'),
+(9, 'shaktihotel@gmail.com', '$2y$10$YCdP0.dUnfQh5qsr4ScI6uEEn.GjyttZhX1ngqIB2X.B3Dgu0H5hC', 'Shakti Hotel Bandung', '15', 'Bandung', 0.0, '', 's.webp', 'Terletak di sebelah timur Bandung, Shakti Hotel Bandung adalah akomodasi yang nyaman dengan kolam renang outdoor dan kursi berjemur. Dengan biaya tambahan, kamu bisa menikmati perawatan spa di pusat spa hotel. WiFi gratis dapat diakses di seluruh area hotel. Kamar-kamar di Shakti Hotel Bandung yang bergaya modern berlantai kayu dengan perpaduan warna putih dan hijau. Setiap kamar dilengkapi dengan AC, TV layar datar dan ketel listrik. Setiap kamar mandi dilengkapi dengan shower, pengering rambut'),
+(10, 'papandayan11@gmail.com', '$2y$10$j2FlY1onfdQBjmTPZoro8ObuJOogOuB24DZb7HDNI.HpJOWHFA3c6', 'The Papandayan', '16', 'Bandung', 0.0, '', 'p.webp', 'Liburan mewah di Bandung menanti Anda di The Papandayan, yang terletak hanya 5 menit berkendara dari Museum Konferensi Asia Afrika yang bersejarah. Hotel ini juga menawarkan kolam renang outdoor di puncak gedung, spa dan fasilitas rapat/perjamuan. Akses WiFi gratis tersedia di seluruh area hotel.  Menampilkan interior yang elegan dengan nuansa warna krem, kamar-kamar ber-AC di The Papandayan juga dilengkapi dengan TV kabel layar datar. Brankas, fasilitas pembuat kopi/teh dan area tempat duduk de'),
+(11, 'amaroossa@gmail.com', '$2y$10$oRPna2D.Yh/nNF.WRSzNx.8nUWPhGaptNgjplpFqL1qxcjf2her.6', 'Amaroossa Hotel Bandung', '16', 'Bandung', 0.0, '', 'a.webp', 'Berlokasi strategis di Jalan Aceh, Amaroossa Hotel Bandung Indonesia berjarak 5 menit berjalan kaki dari factory outlet di Jalan Riau dan 9 menit berjalan kaki dari Gedung Sate. Hotel bintang 4 ini menawarkan kolam renang outdoor dan pilihan bersantap di tempat. Akses WiFi gratis tersedia di area umum hotel. Setiap kamar ber-AC dilengkapi dengan lantai berkarpet, TV kabel layar datar, brankas, minibar dan fasilitas pembuat teh/kopi. Kamar mandi dalam memiliki bathtub dan shower, lengkap dengan h'),
+(12, 'phtebu@gmail.com', '$2y$10$rbH5Q9rjESxs4OxraFbaY.D5eSf/1Quf1nd1QP7QKR4OKaQnR4udu', 'Panen Hotel by TEBU', '17', 'Bandung', 0.0, '', 'pa.webp', 'Berlokasi di Riau, Bandung, Panen Hotel by TEBU merupakan akomodasi yang menawarkan akomodasi nyaman, dilengkapi dengan resepsionis 24 jam dan fasilitas ramah penyandang disabilitas.\r\nKamar-kamar ber-AC dengan desain yang simpel dilengkapi dengan TV layar datar, meja kerja dan kasur yang nyaman. Kamar mandi dalam dilengkapi dengan shower dan wastafel bercermin.\r\nRestoran hotel menyediakan berbagai pilihan hidangan yang lezat dan bervariasi. Pilihan restoran yang berada dekat dengan akomodasi ada'),
+(13, 'woodhotel@gmail.com', '$2y$10$PAqCK9cX0iH86I4zI73qN.c33Fsov28cKQCcZZyOHmrVDU/2Y.no2', 'Wood Hotel Bandung', '18', 'Bandung', 0.0, '', 'wo.webp', 'A 5-minute drive from Cihampelas Walk, Wood Hotel Bandung is located in Lower Ground Terrace of Parahyangan Residences Apartment, featuring spacious rooms, a swimming pool and a gym. Free WiFi access is available throughout the property.\r\nThe modern rooms at Wood Hotel Bandung are fully air-conditioned and fitted with light wood furnishing. Each room features a seating area, a work desk, a flat-screen TV and a coffee/tea maker along with complimentary bottled waters. A shower, as well as ameniti'),
+(14, 'rizh99@gmail.com', '$2y$10$NXEiNHI92GL5BBGCIkSnhO65q25emTXNVAFgDOYHVR710.L0A8b/W', 'Rizh Hotel Bandung', '18', 'Bandung', 0.0, '', 'r.webp', 'Rizh Hotel is one of the hotels in Bandung \r\nwhich is equipped with various \r\nfacilities to support comfort, such as; \r\nnon-smoking room, Wifi, LED TV, 24-hour front desk, \r\nmineral water, toiletries, and parking area, \r\n24-hour room service\r\n\r\n\r\nLocated in a strategic location, \r\nclose to Jaya Plaza (1.6 km), \r\nBandung City Square (1.8 km), \r\nMuseum of the Asian-African Conference (1.8 km), \r\nTrans Studio Mall (2.1 km), \r\nYou can access Marka Coffee and Kitchen (170 m), \r\nand Ayam Goreng Suhart'),
+(15, 'lenorabdg@gmail.com', '$2y$10$2V/oaJCBNhq/XSJl9nCfluGlTPZ5jkr87Vcoe2floX0YahoA8f99y', 'Lenora Hotel', '19', 'Bandung', 0.0, '', 'l.webp', 'Located within 10 minutes’ drive from Paskal Hyper Square, Lenora Hotel offers a 2-star accommodation with a shared lounge and a free parking facility. Guests staying in this hotel can enjoy free WiFi access in all areas to help them stay connected during their stay. Decorated with a minimalist design and bright coloured wooden furnishings, the air-conditioned rooms come with a flat-screen TV and a desk. Guests are also provided with free bottled water. The en suite bathrooms have a hot shower, '),
+(16, 'klapa@gmail.com', '$2y$10$uHvMHuMgymriji/hXWLYxO6bF2MDYIlzKY7Cd21MOKfXsWEX3rFeG', 'klaparesort', '20', 'Bali', 0.0, '', 'b1.webp', 'Nestled on the edge of Pecatu Hill adjacent to New Kuta Golf Course and directly accessible to Dreamland Beach, Klapa Resort features 5-star services and rooms overlooking the vast Indian Ocean. This hotel has a rooftop swimming pool, gym and free WiFi access throughout. Decorated with wooden furnishings, the spacious air-conditioned rooms have a private balcony/terrace with seating area. There is also an LED TV with international channels and a personal safe. The en suite marble bathroom comes '),
+(17, 'legianhotel@gmail.com', '$2y$10$rHa1kNZ0/Y/fIZIa0tw8AubqA9kX1LZVoiplVfv7Xg3HoIE8xoymG', 'Britshlegian', '211', 'Bali', 0.0, '', 'b3.webp', 'Enter a Gate of Hospitality, discover your Simply Elegant 4-star premium hotel with a modern concept. Strategically located on Sunset Road as main road to access Kuta, Legian and Seminyak area, we are just an easy 20-minute drive from NgurahRai International Airport. This Hotel is a newly built hotel in Kuta, Bali, ideal for both business and leisure travellers. We invite guests to experience the comfort of 150 modern furnished rooms, each with a balcony and day bed. Satisfy your desires for bot'),
+(18, 'atria@gmail.com', '$2y$10$EQ9KPCC.yxhXwUkF65SSk.K46MKjTUrNpoq7F7prx5yb1vPCQvLuW', 'AtriaHotel', '222', 'Malang', 0.0, '', 'b5.webp', 'Located in the main street of Malang City, the 4-star Atria Hotel Malang features 2 restaurants, a co-working space, a swimming pool and free WiFi access throughout the hotel. The hotel is 15 minutes drive from Brawijaya University and 5 km from Malang Town Square Mall. The air-conditioned rooms are fitted with a flat-screen cable TV, a personal safe, a desk, a seating area and an electric kettle. The en-suite bathroom comes with a shower, a hairdryer and a set of free toiletries. Atria Hotel Ma'),
+(19, 'kartika@gmail.com', '$2y$10$FUJ4vNEnCuJq89KAEQ3fgehkhUdTsKojJ3c5IpK8rJzVXmIuHGRVS', 'kartikawijaya', '233', 'Malang', 0.0, '', 'b7.webp', 'éL Hotel Kartika Wijaya Batu offers a 4-star accommodation in the city of Batu. This hotel features a spacious garden and a large swimming pool. Free WiFi is available throughout the hotel for staying guests. The air-conditioned rooms at éL Hotel Kartika Wijaya Batu are equipped with a seating area. Room amenities include a coffee and tea maker, a flat-screen TV with cable channels and a mini fridge. The en suite bathroom comes with a shower and free toiletries. Some rooms have a garden view and');
 
 -- --------------------------------------------------------
 
@@ -163,12 +170,27 @@ CREATE TABLE `kamar` (
 --
 
 INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `STATUS_KAMAR`, `GAMBAR_KAMAR`, `JUMLAH_RUANGAN`) VALUES
-(13, 1, 2, 250000, 'Available', '02.png', 10),
-(14, 1, 2, 300000, 'Available', '03.png', 10),
-(15, 1, 4, 330000, 'Available', '03.png', 10),
+(13, 1, 2, 12000000, 'Available', '02.png', 10),
+(14, 1, 2, 12000000, 'Available', '03.png', 10),
+(15, 1, 4, 12000000, 'Available', '03.png', 10),
 (16, 3, 1, 230000, 'Available', '04.png', 0),
 (17, 2, 1, 322000, 'Available', '01.png', 0),
-(18, 4, 1, 430000, 'Available', '03.png', 0);
+(18, 4, 1, 430000, 'Available', '03.png', 0),
+(19, 5, 2, 500000, 'Available', 'hilton.webp', 0),
+(20, 6, 2, 800000, 'Available', 'gbpc.webp', 0),
+(21, 7, 3, 750000, 'Available', 'courty.webp', 0),
+(22, 8, 2, 475000, 'Available', 'fav.webp', 0),
+(23, 9, 2, 5000000, 'Available', 'shakti.webp', 0),
+(24, 10, 2, 1100000, 'Available', 'papan.webp', 0),
+(25, 11, 3, 7360000, 'Available', 'amora.webp', 0),
+(26, 12, 3, 435000, 'Available', 'panen.webp', 0),
+(27, 13, 2, 450000, 'Available', 'wood.webp', 0),
+(28, 14, 2, 350000, 'Available', 'rizh.webp', 0),
+(29, 15, 3, 363000, 'Available', 'lenora.webp', 0),
+(30, 16, 2, 967000, 'Available', 'b2.webp', 0),
+(31, 17, 3, 1100000, 'Available', 'b4.webp', 0),
+(32, 18, 2, 644000, 'Available', 'b6.webp', 0),
+(33, 19, 2, 485000, 'Available', 'b8.webp', 0);
 
 -- --------------------------------------------------------
 
@@ -211,11 +233,8 @@ CREATE TABLE `notifikasi` (
 
 INSERT INTO `notifikasi` (`ID_NOTIFIKASI`, `ID_HOTEL`, `EMAIL_TAMU`, `JUDUL_NOTIF`, `PESAN_NOTIF`, `TGL_NOTIF`) VALUES
 (5, NULL, 'yusuf32@gmail.com', 'Selamat Datang Pengguna Baru!', 'Terima kasih sudah bergabung di platform kami. Banyak hal yang bisa kamu eksplore disini dan jangan lupa segera lengkapi bidoata akun profilmu untuk keperluan lebih lanjut.', '2023-11-26 23:40:47'),
-(6, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Hotel Syariah', '2023-11-28 11:54:47'),
-(7, NULL, 'yusuf32@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Arch Hotel', '2023-11-28 11:58:17'),
-(8, NULL, 'yusuf32@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Hotel Star Center', '2023-11-28 12:40:18'),
-(9, 1, 'ahmad12@gmail.com ', 'Halo Ahmad', 'Terima kasih telah memberika rating baik untuk hotel kami', '2023-11-28 13:10:46'),
-(10, NULL, 'yusuf32@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Arch Hotel', '2023-11-28 17:32:31');
+(17, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada klaparesort', '2023-11-29 18:38:31'),
+(18, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada klaparesort', '2023-11-29 18:40:39');
 
 -- --------------------------------------------------------
 
@@ -237,9 +256,8 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`ID_PEMBAYARAN`, `ID_METODE_PEMBAYARAN`, `ID_PEMESANAN`, `TANGGAL_PEMBAYARAN`, `JUMLAH_PEMBAYARAN`, `BUKTI_TRANSFER`) VALUES
-(15, 1, 11, '2023-11-26 17:05:38', 500000, 'Screenshot (1).png'),
-(16, 3, 12, '2023-11-28 11:52:24', 860000, 'Screenshot (1).png'),
-(19, 3, 15, '2023-11-28 17:32:30', 2070000, 'Screenshot (3).png');
+(26, 2, 21, '2023-11-29 18:38:31', 4835000, '21-098_Ahmad Nasrudin Jamil.mp4'),
+(27, 1, 24, '2023-11-29 18:40:39', 15472000, 'video1288452335.mp4');
 
 -- --------------------------------------------------------
 
@@ -250,6 +268,7 @@ INSERT INTO `pembayaran` (`ID_PEMBAYARAN`, `ID_METODE_PEMBAYARAN`, `ID_PEMESANAN
 CREATE TABLE `pemesanan` (
   `ID_PEMESANAN` int(11) NOT NULL,
   `EMAIL_TAMU` varchar(40) NOT NULL,
+  `ID_HOTEL` int(11) NOT NULL,
   `ID_METODE_PEMBAYARAN` int(11) NOT NULL,
   `TGL_PEMESANAN` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `TGL_CEKIN` datetime NOT NULL,
@@ -261,10 +280,11 @@ CREATE TABLE `pemesanan` (
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`ID_PEMESANAN`, `EMAIL_TAMU`, `ID_METODE_PEMBAYARAN`, `TGL_PEMESANAN`, `TGL_CEKIN`, `TGL_CEKOUT`, `TOTAL_BIAYA`) VALUES
-(11, 'ahmad12@gmail.com', 1, '2023-11-26 16:57:42', '2023-11-27 00:00:00', '2023-11-29 00:00:00', 500000),
-(12, 'ahmad12@gmail.com', 3, '2023-11-28 11:52:13', '2023-11-30 00:00:00', '2023-12-02 00:00:00', 860000),
-(15, 'yusuf32@gmail.com', 3, '2023-11-28 17:32:22', '2023-12-06 00:00:00', '2023-12-09 00:00:00', 2070000);
+INSERT INTO `pemesanan` (`ID_PEMESANAN`, `EMAIL_TAMU`, `ID_HOTEL`, `ID_METODE_PEMBAYARAN`, `TGL_PEMESANAN`, `TGL_CEKIN`, `TGL_CEKOUT`, `TOTAL_BIAYA`) VALUES
+(21, 'ahmad12@gmail.com', 16, 2, '2023-11-29 18:36:50', '2023-11-24 00:00:00', '2023-11-29 00:00:00', 4835000),
+(22, 'ahmad12@gmail.com', 16, 1, '2023-11-29 18:39:48', '2023-11-22 00:00:00', '2023-11-30 00:00:00', 15472000),
+(23, 'ahmad12@gmail.com', 16, 1, '2023-11-29 18:39:48', '2023-11-22 00:00:00', '2023-11-30 00:00:00', 15472000),
+(24, 'ahmad12@gmail.com', 16, 1, '2023-11-29 18:40:22', '2023-11-22 00:00:00', '2023-11-30 00:00:00', 15472000);
 
 -- --------------------------------------------------------
 
@@ -340,8 +360,7 @@ ALTER TABLE `detail_pemesanan`
   ADD PRIMARY KEY (`ID_DETAIL`),
   ADD KEY `ID_KAMAR` (`ID_KAMAR`),
   ADD KEY `ID_PEMESANNAN` (`ID_PEMESANAN`),
-  ADD KEY `ID_PEMESANAN` (`ID_PEMESANAN`),
-  ADD KEY `ID_HOTEL` (`ID_HOTEL`);
+  ADD KEY `ID_PEMESANAN` (`ID_PEMESANAN`);
 
 --
 -- Indexes for table `fasilitas`
@@ -407,7 +426,8 @@ ALTER TABLE `pembayaran`
 ALTER TABLE `pemesanan`
   ADD PRIMARY KEY (`ID_PEMESANAN`),
   ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`),
-  ADD KEY `ID_METODE_PEMBAYARAN` (`ID_METODE_PEMBAYARAN`);
+  ADD KEY `ID_METODE_PEMBAYARAN` (`ID_METODE_PEMBAYARAN`),
+  ADD KEY `ID_HOTEL` (`ID_HOTEL`);
 
 --
 -- Indexes for table `tamu`
@@ -436,7 +456,7 @@ ALTER TABLE `wishlist_favorit`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
@@ -460,13 +480,13 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `ID_HOTEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_HOTEL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `ID_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `metode_pembayaran`
@@ -478,19 +498,19 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`
@@ -512,7 +532,6 @@ ALTER TABLE `wishlist_favorit`
 -- Constraints for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  ADD CONSTRAINT `detail_pemesanan_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
   ADD CONSTRAINT `detail_pemesanan_ibfk_2` FOREIGN KEY (`ID_KAMAR`) REFERENCES `kamar` (`ID_KAMAR`),
   ADD CONSTRAINT `detail_pemesanan_ibfk_3` FOREIGN KEY (`ID_PEMESANAN`) REFERENCES `pemesanan` (`ID_PEMESANAN`);
 
@@ -555,7 +574,8 @@ ALTER TABLE `pembayaran`
 --
 ALTER TABLE `pemesanan`
   ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`),
-  ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `metode_pembayaran` (`ID_METODE_PEMBAYARAN`);
+  ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `metode_pembayaran` (`ID_METODE_PEMBAYARAN`),
+  ADD CONSTRAINT `pemesanan_ibfk_3` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`);
 
 --
 -- Constraints for table `wishlist_favorit`

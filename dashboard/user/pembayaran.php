@@ -15,16 +15,10 @@
     }
 
     $query = "SELECT pemesanan.*, metode_pembayaran.nama_metode_pembayaran, hotel.nama_hotel
-        FROM
-            pemesanan
-        JOIN
-            metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
-        JOIN
-            detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan
-        JOIN
-            hotel ON detail_pemesanan.id_hotel = hotel.id_hotel
-        WHERE
-            pemesanan.id_pemesanan = $ambil_id"; 
+        FROM pemesanan
+        JOIN metode_pembayaran ON pemesanan.id_metode_pembayaran = metode_pembayaran.id_metode_pembayaran
+        JOIN hotel ON pemesanan.id_hotel = hotel.id_hotel
+        WHERE pemesanan.id_pemesanan = $ambil_id"; 
 
 
     $result = $koneksi->query($query);

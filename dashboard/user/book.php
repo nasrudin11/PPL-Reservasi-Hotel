@@ -12,7 +12,7 @@
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        pemesanan_kamar($koneksi, $id_kamar, $_SESSION['email'], $_POST['cekIn'], $_POST['cekOut'], $_POST['paymen_method'], $_POST['inputGuest'], $_POST['totalHarga']);
+        pemesanan_kamar($koneksi, $id_kamar, $_SESSION['email'], $_POST['id_hotel'] ,$_POST['cekIn'], $_POST['cekOut'], $_POST['paymen_method'], $_POST['inputGuest'], $_POST['totalHarga']);
     }
 
 
@@ -24,6 +24,7 @@
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+        $id_hotel = $row['ID_HOTEL'];
         $namaHotel = $row['NAMA_HOTEL'];
         $hargaKamarDefault = $row['HARGA_KAMAR'];
         $gambarKamar = $row['GAMBAR_KAMAR'];
@@ -58,6 +59,7 @@
                         <hr>
 
                         <div class="row g-3 mb-1">
+                            <input type="text" for="id_hotel" name="id_hotel" value="<?php echo $id_hotel; ?>" hidden>
                             <div class="col-2">
                                 <label for="inputCheckin" class="col-form-label">Cek In</label>
                             </div>
