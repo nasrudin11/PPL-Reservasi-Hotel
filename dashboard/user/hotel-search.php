@@ -2,6 +2,18 @@
 session_start();
 
 include '../../controller/koneksi.php';
+include '../../controller/user-crud.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
+    if (isset($_POST['id_hotel'])){
+        $id_hotel = $_POST['id_hotel'];
+        $error_message = tambah_wishlist($koneksi, $_SESSION['email'], $id_hotel);
+
+    $redirect_url = $_SERVER['PHP_SELF'] . "?status=" . urlencode($error_message);
+    header("Location: $redirect_url");
+    exit();
+    }
+}
 
 if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
     include '../../partials/header.php';
@@ -11,6 +23,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
 }
 
 ?>
+
 
 <form action="" method="post">
 <div class="row">
@@ -76,7 +89,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
 
     <div class="col p-4">
         <!-- Search bar hotel -->
-        <div class="container mb-5">
+        <div class="container mb-4">
             <div class="card shadow border-0">
                 <div class="card-body">
                         <div class="row">
@@ -113,6 +126,18 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
             </div>
         </div>
         </form>
+
+
+            <!-- Content -->
+        <div class="container">
+            <?php
+            if (isset($_GET['status'])) {
+                echo '<div class="alert alert-' . (strpos($_GET['status'], 'successful') !== false ? 'success' : 'danger') . '" status="alert">
+                        ' . urldecode($_GET['status']) . '
+                    </div>';
+            }
+            ?>
+        </div>
 
 
 
@@ -171,23 +196,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                 <div class="col-md-5">
                                     <img src="../../img/upload/hotel/'.$row['GAMBAR_HOTEL'].'" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
                                 </div>
-                                <div class="card-body">
-                                    <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
-                                    <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
-                                    <p class="card-text text-end">
-                                        <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                    </p>
-                                    <hr>
-                                    <div class="badge-container overflow-auto">
-                                        <span class="badge text-bg-success ms-2">Free Breakfast</span>
-                                        <span class="badge text-bg-success ms-2">Bathub</span>
-                                        <span class="badge text-bg-success ms-2">Free Wifi</span>
-                                        <span class="badge text-bg-success ms-2">Gym</span>
-                                        <span class="badge text-bg-success ms-2">Spa</span>
-                                        <span class="badge text-bg-success ms-2">Swimming Pool</span>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                            </div>
+                                            <div class="col-md-3 text-end">
+                                                <form action = "" method = "post">
+                                                    <input type="hidden" name="id_hotel" value="' . $row['ID_HOTEL'] . '">
+                                                    <button class="btn btn-wishlist" name = "wishlist">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+                                                        <path d="M3 0a2 2 0 0 0-2 2v12.879a1 1 0 0 0 1.455.888L8 12.117l5.545 3.65a1 1 0 0 0 1.455-.888V2a2 2 0 0 0-2-2H3zm10.293 3.293l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L8 7.586l3.293-3.293a1 1 0 1 1 1.414 1.414z"/></svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>  
+                                                <span class="fs-6 ">' . $row['ALAMAT'] . '</span>
+                                            </div>
+                                            <div>                                            
+                                                <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="badge-container d-flex flex-nowrap overflow-auto">
+                                            <span class="badge text-bg-custom ms-2">Free Breakfast</span>
+                                            <span class="badge text-bg-custom ms-2">Free Wifi</span>
+                                            <span class="badge text-bg-custom ms-2">Gym</span>
+                                            <span class="badge text-bg-custom ms-2">Spa</span>
+                                            <span class="badge text-bg-custom ms-2">Swimming Pool</span>
+                                        </div>
                                     </div>
-                                </div>
                             
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -221,18 +265,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                 </div>
                                 <div class="col-md-7">
                                     <div class="card-body">
-                                        <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
+                                            </div>
+                                            <div class="col-md-3 text-end">
+                                                <form action = "" method = "post">
+                                                    <input type="hidden" name="id_hotel" value="' . $row['ID_HOTEL'] . '">
+                                                    <button class="btn btn-wishlist" name = "wishlist">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+                                                        <path d="M3 0a2 2 0 0 0-2 2v12.879a1 1 0 0 0 1.455.888L8 12.117l5.545 3.65a1 1 0 0 0 1.455-.888V2a2 2 0 0 0-2-2H3zm10.293 3.293l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L8 7.586l3.293-3.293a1 1 0 1 1 1.414 1.414z"/></svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                         <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
-                                        <p class="card-text text-end">
-                                            <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>  
+                                                <span class="fs-6 ">' . $row['ALAMAT'] . '</span>
+                                            </div>
+                                            <div>                                            
+                                                <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
+                                            </div>
+                                        </div>
                                         <hr>
                                         <div class="badge-container d-flex flex-nowrap overflow-auto">
-                                            <span class="badge text-bg-success ms-2">Free Breakfast</span>
-                                            <span class="badge text-bg-success ms-2">Free Wifi</span>
-                                            <span class="badge text-bg-success ms-2">Gym</span>
-                                            <span class="badge text-bg-success ms-2">Spa</span>
-                                            <span class="badge text-bg-success ms-2">Swimming Pool</span>
+                                            <span class="badge text-bg-custom ms-2">Free Breakfast</span>
+                                            <span class="badge text-bg-custom ms-2">Free Wifi</span>
+                                            <span class="badge text-bg-custom ms-2">Gym</span>
+                                            <span class="badge text-bg-custom ms-2">Spa</span>
+                                            <span class="badge text-bg-custom ms-2">Swimming Pool</span>
                                         </div>
                                     </div>
                             

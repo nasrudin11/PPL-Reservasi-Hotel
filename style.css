@@ -166,7 +166,7 @@ body {
     border: none;
     outline: none;
     box-shadow: none;
-    background-color: transparent;
+    background-color: transparent;  
 }
 .overflow-auto {
     scrollbar-width: none; /* Untuk Firefox */
@@ -175,6 +175,28 @@ body {
 
 .overflow-auto::-webkit-scrollbar {
     display: none; /* Untuk Chrome, Safari, dan Opera */
+}
+
+.badge.text-bg-custom{
+    background: #BA704F;
+    color: #ffffff;
+}
+
+.btn.btn-wishlist{
+    color: #BA704F;
+    padding: 0px 0px;
+    border: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn.btn-delete-wishlist{
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
 }
 
 
