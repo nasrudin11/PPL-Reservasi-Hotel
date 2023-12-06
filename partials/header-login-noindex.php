@@ -45,8 +45,13 @@
                 <a class="dropdown-item" href="profil-user.php">Profil</a>
                 <a class="dropdown-item" href="#">Notifikasi</a>
                 <a class="dropdown-item" href="hotel-wishlist.php">Wishlist</a>
+<<<<<<< Updated upstream
                 <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
                 <a class="dropdown-item" href="#">Pengaturan</a>
+=======
+                <a class="dropdown-item" href="lihat-pesanan.php">Pesanan Saya</a>
+                <a class="dropdown-item" href="hotel-riwayat-pemesanan">Riwayat Pemesanan</a>
+>>>>>>> Stashed changes
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?php echo $logout; ?>">Logout</a>
               </div>

@@ -12,7 +12,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["hapus_wishlist"])) {
     exit();
     }
 }
+<<<<<<< Updated upstream
 include '../../partials/header-login.php';  
+=======
+
+if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
+    include '../../partials/header.php';
+    
+} elseif ($_SESSION['user_type'] === 'tamu') {
+    include '../../partials/header-login.php';
+}
+>>>>>>> Stashed changes
 ?>
 
 <div class="content-wrapper">

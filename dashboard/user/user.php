@@ -61,20 +61,31 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-15">
               <div class="mb-3">
                 <!-- Jumlah Kamar -->
                 <label for="formFile" class="form-label">Jumlah Kamar</label>
                 <input type="number" id="adults" name="adults" min="1" max="10" value="1" class="form-control">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-6">
               <div class="mb-3">
                 <!-- Jumlah Tamu -->
-                <label for="formFile" class="form-label">Jumlah Tamu</label>
+                <label for="formFile" class="form-label">Jumlah Dewasa</label>
                 <input type="number" id="guests" name="guests" min="1" max="10" value="1" class="form-control">
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <!-- Jumlah Tamu -->
+                <label for="formFile" class="form-label">Jumlah Anak-anak</label>
+                <input type="number" id="guests" name="guests" min="1" max="10" value="1" class="form-control">
+              </div>
+            </div>
+
+          </div>
           </div>
 
           <!-- Tombol Pencarian -->

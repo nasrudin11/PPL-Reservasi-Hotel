@@ -110,31 +110,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
             <div class="card shadow border-0">
                 <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <input type="text" class="form-control" id="location" placeholder="Lokasi" name="lokasi">
                             </div>
                             <div class="col-md-2">                         
-                                <input type="date" class="form-control" id="check-in">
+                                <input type="date" class="form-control" id="check-in" name = "checkin">
                             </div>
                             <div class="col-md-2">                    
-                                <input type="date" class="form-control" id="check-out">
+                                <input type="date" class="form-control" id="check-out" name = "checkout">
                             </div>
-                            <div class="col-md-2">                    
-                                <select class="form-control" id="room-count">
+                            <div class="col-md-1">                    
+                                <select class="form-control" id="room-count" name = "kamar">
                                     <option value="1">1 Kamar</option>
                                     <option value="2">2 Kamar</option>
                                     <option value="3">3 Kamar</option>
                                     <!-- Tambahkan opsi lain sesuai kebutuhan -->
                                 </select>
                             </div>
-                            <div class="col-md-2">               
-                                <select class="form-control" id="guest-count">
-                                    <option value="1">1 Tamu</option>
-                                    <option value="2">2 Tamu</option>
-                                    <option value="3">3 Tamu</option>
-                                    <!-- Tambahkan opsi lain sesuai kebutuhan -->
-                                </select>
+                            <div class="col-md-2">                    
+                                <input type="text" class="form-control" id="check-out" placeholder="Jumlah Dewasa" name = "dewasa" >
                             </div>
+                            <div class="col-md-2">                    
+                                <input type="text" class="form-control" id="check-out" placeholder="Jumlah Anak" name = "anak" >
+                            </div>
+
                             <div class="col-md-1">
                                 <button class="btn btn-primary" name="search-button" id="search-button">Cari</button>
                             </div>

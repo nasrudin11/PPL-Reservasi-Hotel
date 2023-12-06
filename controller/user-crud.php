@@ -18,10 +18,66 @@ function edit_profil_tamu($koneksi, $email_tamu, $nama_tamu, $alamat, $no_telp, 
         TANGGAL_LAHIR = '$tanggal_lahir' WHERE EMAIL_TAMU = '$email_tamu'";
     }
 
+<<<<<<< Updated upstream
     if ($koneksi->query($query) === TRUE) {
         return "Profil successful updated";
     } else {
         return "Failed to update profil: " . $koneksi->error;
+=======
+?>
+
+<!-- Hapus Riwayat pemesanan -->
+<?php
+    function hapus_riwayat($koneksi, $id_pemesanan){
+        if(!empty($id_pemesanan)){
+            $query = "DELETE FROM pemesanan WHERE ID_PEMESANAN = '$id_pemesanan'";       
+            $query2 = "DELETE FROM detail_pemesanan WHERE ID_PEMESANAN = '$id_pemesanan'";
+
+            if ($koneksi->query($query)=== TRUE) {
+                if ($koneksi->query($query2)=== TRUE){
+                return " Order history has been successfully deleted";
+            } else {
+                return "Failed to Order history delete: " . $koneksi->error;
+            }}
+
+            $koneksi->close();
+
+        }   
+
+    }
+?>
+
+
+<!-- Cancel Pemesanan -->
+<?php
+// Fungsi untuk pembatalan pesanan
+function cancel_pemesanan($koneksi, $id_pemesanan) {
+    // Mulai transaksi
+    $koneksi->begin_transaction();
+
+    try {
+        // Hapus data pada tabel detail_pemesanan
+        $queryDetail = "DELETE FROM detail_pemesanan WHERE id_pemesanan = $id_pemesanan";
+        $koneksi->query($queryDetail);
+
+        // Hapus data pada tabel pembayaran
+        $queryPembayaran = "DELETE FROM pembayaran WHERE id_pemesanan = $id_pemesanan";
+        $koneksi->query($queryPembayaran);
+
+        // Hapus data pada tabel pemesanan
+        $queryPemesanan = "DELETE FROM pemesanan WHERE id_pemesanan = $id_pemesanan";
+        $koneksi->query($queryPemesanan);
+
+        // Commit transaksi jika semua query berhasil dieksekusi
+        $koneksi->commit();
+
+        return "Pesanan berhasil dibatalkan.";
+    } catch (Exception $e) {
+        // Rollback transaksi jika terjadi kesalahan
+        $koneksi->rollback();
+
+        return "Error: " . $e->getMessage();
+>>>>>>> Stashed changes
     }
 
     $koneksi->close();
