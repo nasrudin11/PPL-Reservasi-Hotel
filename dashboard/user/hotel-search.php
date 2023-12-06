@@ -8,6 +8,9 @@ $style =  '../../style.css';
 $imagePath ='../../img/user.png';
 $imageLogo = '../../img/logo/logo.png';
 $home = 'user.php';
+$about =  '../../about.php';
+$feed = '../../feedback.php';
+$logout = '../../controller/logout.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
     if (isset($_POST['id_hotel'])){

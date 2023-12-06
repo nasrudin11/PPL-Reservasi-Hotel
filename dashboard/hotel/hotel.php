@@ -5,13 +5,13 @@
   
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['submit'])) { 
-        $error_message = tambah_kamar($koneksi, $_SESSION['id_hotel'], $_POST["tipe_kamar"], $_POST["harga"], $_POST["status"]);
+        $error_message = tambah_kamar($koneksi, $_SESSION['id_hotel'], $_POST["tipe_kamar"], $_POST["ruangan"],$_POST["harga"], $_POST["status"]);
 
         $redirect_url = $_SERVER['PHP_SELF'] . "?status=" . urlencode($error_message);
         header("Location: $redirect_url");
         exit();
     } elseif (isset($_POST['update'])) {
-      $error_message = edit_kamar($koneksi, $_POST["id_kamar"], $_POST["tipe_kamar"], $_POST["harga"], $_POST["status"]);
+      $error_message = edit_kamar($koneksi, $_POST["id_kamar"], $_POST["tipe_kamar"], $_POST["harga"], $_POST["status"], $_POST['ruangan']);
 
         $redirect_url = $_SERVER['PHP_SELF'] . "?status=" . urlencode($error_message);
         header("Location: $redirect_url");
@@ -71,9 +71,15 @@
                   </select>
 
                 </div>
-                <div class="mb-3">
+                <div class="row mb-3">
+                  <div class="col">
+                    <label class="form-label" for="basic-default-price">Room</label>
+                    <input type="text" class="form-control" id="basic-default-price" name="ruangan"/>
+                  </div>
+                  <div class="col">
                     <label class="form-label" for="basic-default-price">Price</label>
                     <input type="text" class="form-control" id="basic-default-price" name="harga"/>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label">status</label><br>
@@ -105,6 +111,7 @@
                 <th>Type Room</th>
                 <th>price</th>
                 <th>Status</th>
+                <th>Rooms</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -112,7 +119,8 @@
 
               <?php
                   $id = $_SESSION['id_hotel'];
-                  $query = "SELECT kamar.id_kamar, kamar.gambar_kamar, kamar.id_tipe_kamar, tipe_kamar.tipe_kamar, kamar.harga_kamar, kamar.status_kamar
+                  $query = "SELECT kamar.id_kamar, kamar.gambar_kamar, kamar.id_tipe_kamar, tipe_kamar.tipe_kamar, 
+                              kamar.harga_kamar, kamar.status_kamar, kamar.jumlah_ruangan
                             FROM kamar
                             JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar 
                             WHERE id_hotel = $id";
@@ -128,6 +136,7 @@
                           echo "<td>" . $row['tipe_kamar'] . "</td>";
                           echo "<td>Rp. " . number_format($row['harga_kamar']) . "</td>";
                           echo "<td><span class='badge " . ($row['status_kamar'] == 'Available' ? 'bg-label-success' : 'bg-label-danger') . " me-1'>" . $row['status_kamar'] . "</span></td>";
+                          echo "<td>". $row['jumlah_ruangan']. "</td>"; 
                           echo "<td>
                                   <div class='dropdown'>
                                     <button type='button' class='btn p-0 dropdown-toggle hide-arrow' data-bs-toggle='dropdown'>
@@ -145,6 +154,7 @@
                                 </td>";
                           echo "</tr>";
                 ?>
+
                   <!-- Edit Modal -->
                     <div class='modal fade' id='editModal<?php echo $row['id_kamar']; ?>' tabindex='-1' aria-labelledby='editModalLabel' aria-hidden='true'>
                         <div class="modal-dialog">
@@ -170,9 +180,15 @@
                                                 <option value="5" <?php echo ($row['id_tipe_kamar'] == 5 ? 'selected' : '') ?> >Quad Room</option>
                                             </select>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="row mb-3">
+                                          <div class="col">
+                                            <label class="form-label" for="basic-default-price">Room</label>
+                                            <input type="text" class="form-control" id="basic-default-price" name="ruangan" value="<?php echo $row['jumlah_ruangan']; ?>"/>
+                                          </div>
+                                          <div class="col">
                                             <label class="form-label" for="basic-default-price">Price</label>
                                             <input type="text" class="form-control" id="basic-default-price" name="harga" value="<?php echo $row['harga_kamar']; ?>"/>
+                                          </div>
                                         </div>
                                         <div class="mb-3">
                                           <label class="form-label">Status</label><br>

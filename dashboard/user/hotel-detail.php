@@ -7,6 +7,9 @@
     $imagePath ='../../img/user.png';
     $imageLogo = '../../img/logo/logo.png';
     $home = 'user.php';
+    $about =  '../../about.php';
+    $feed = '../../feedback.php';
+    $logout = '../../controller/logout.php';
 
     $id_hotel = $_GET['id'];
 
@@ -59,7 +62,7 @@
   </nav>
 
   <!-- About -->
-  <div class="card shadow">
+  <div class="card shadow p-2">
       <div class="card-body">
           <h5 class="card-title mb-4">About Hotel</h5> 
           <hr>
@@ -69,98 +72,96 @@
 
 
   <!-- Review -->
-  <div class="card shadow mt-5">
+  <div class="card shadow mt-5 p-2">
       <div class="card-body">
         <h5 class="card-title mb-4">Review</h5>
           <!-- Membuat rating dan tombol "See all" -->
-          <hr>
-          <div class="d-flex justify-content-between align-items-center">
-              <div class="rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star-half-o"></span>
-                  <span class="sum-rate">4.3</span>
-                  <span class="sum-rate-total">/5</span>
-                  <span class="sum-rate-view">dari 100 review</span>
-              </div>
-              <a href="#" class="see-all text-decoration-none fw-bold">See all</a>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="col">
-              <!-- Membuat review pertama -->
-              <div class="d-flex mt-3 justify-content-between mt-3">
-                  <span class="reviewer-name">Andi</span>
-                  <span class="reviewer-date"> 8 Nov 2023</span>
-              </div>
-              <div class="rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-              </div>
-              <p class="review-text">Tempatnya nyaman dan bersih, pelayanannya ramah dan cepat, makanannya enak dan murah. Pokoknya recomended banget deh!</p>
-            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
 
-            <div class="col">
-              <!-- Membuat review kedua -->
-              <div class="d-flex mt-3 justify-content-between mt-3">
-                  <span class="reviewer-name">Budi</span>
-                  <span class="reviewer-date"> 8 Nov 2023</span>
-              </div>
-              <div class="rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-              </div>
-              <p class="review-text">Saya suka sekali dengan tempat ini, suasana nya tenang dan nyaman, cocok untuk bersantai atau bekerja. Wifi nya juga kencang dan stabil.</p>
-            </div>
-          </div>
+            <?php
+                // Ambil data rating dan jumlah review dari database
+                $queryRating = "SELECT AVG(rating) AS avg_rating, COUNT(id_ulasan) AS total_reviews FROM ulasan WHERE id_hotel = $id_hotel";
+                $resultRating = $koneksi->query($queryRating);
 
+                // Tampilkan rating dan jumlah review
+                if ($resultRating->num_rows > 0) {
+                    $rowRating = $resultRating->fetch_assoc();
+                    $avgRating = $rowRating['avg_rating'];
+                    $totalReviews = $rowRating['total_reviews'];
+            ?>
+                 <div class="rating">
+            <?php
+                // Tampilkan bintang berdasarkan nilai rata-rata rating
+                for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $avgRating) {
+                        echo '<span class="fa fa-star"></span>';
+                    } else {
+                        echo '<span class="fa fa-star-o"></span>';
+                    }
+                }
+                ?>
+                <span class="sum-rate"><?php echo number_format($avgRating, 1); ?></span>
+                <span class="sum-rate-total">/5</span>
+                <span class="sum-rate-view">dari <?php echo $totalReviews; ?> review</span>
+            </div>
+            <?php
+            } else {
+                echo "Tidak ada ulasan.";
+            }
+            ?>
+            <a href="#" class="see-all text-decoration-none fw-bold">See all</a>
+        </div>
+        <hr>
           <div class="row">
-              <div class="col">
-                <!-- Membuat review ketiga -->
+            <?php
+            // Ambil data ulasan dari database
+                $queryUlasan = "SELECT ulasan.*, tamu.nama_tamu FROM ulasan 
+                JOIN tamu ON ulasan.email_tamu = tamu.email_tamu
+                WHERE id_hotel = $id_hotel LIMIT 4";
+                $resultUlasan = $koneksi->query($queryUlasan);
+
+                // Tampilkan ulasan
+                if ($resultUlasan->num_rows > 0) {
+                    while ($row = $resultUlasan->fetch_assoc()) {
+                        $reviewerName = $row['nama_tamu'];
+                        $rating = $row['RATING'];
+                        $reviewText = $row['KOMENTAR'];
+                        $reviewerDate = date('d M Y', strtotime($row['TGL_REVIEW']));
+            ?>
+            <div class="col-md-6">
                 <div class="d-flex mt-3 justify-content-between mt-3">
-                    <span class="reviewer-name">Cindy</span>
-                    <span class="reviewer-date"> 8 Nov 2023</span>
+                    <span class="reviewer-name"><?php echo $reviewerName; ?></span>
+                    <span class="reviewer-date"><?php echo $reviewerDate; ?></span>
                 </div>
                 <div class="rating">
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    <?php
+                    // Tampilkan bintang berdasarkan nilai rating
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($i <= $rating) {
+                            echo '<span class="fa fa-star"></span>';
+                        } else {
+                            echo '<span class="fa fa-star-o"></span>';
+                        }
+                    }
+                    ?>
                 </div>
-                <p class="review-text">Tempat ini sangat bagus untuk menghabiskan waktu bersama teman atau keluarga. Ada banyak fasilitas yang disediakan, seperti kolam renang, gym, spa, dan lainnya. Kamar nya juga luas dan bersih.</p>
-              </div>
-
-              <div class="col">
-                <!-- Membuat review keempat -->
-                <div class="d-flex mt-3 justify-content-between mt-3">
-                    <span class="reviewer-name">Cindy</span>
-                    <span class="reviewer-date"> 8 Nov 2023</span>
-                </div>
-                <div class="rating">
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p class="review-text"></p>
-              </div>
+                <p class="review-text"><?php echo $reviewText; ?></p>
             </div>
 
-      </div>
+            <?php
+                    }
+                } else {
+                    echo "<p>Belum ada ulasan</p>";
+                }
+            ?>
+
+        </div>
+    </div>
   </div>
 
   <!-- Kamar Hotel -->
-    <div class="card shadow mt-5">
+    <div class="card shadow mt-5 p-2">
       <div class="card-body">
         <h5 class="card-title">Room Type and Price</h5>
       </div>  
@@ -189,9 +190,9 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card shadow border-0">
+                            <div class="card shadow border-0 p-2">
                                 <div class="card-body">
-                                    <span class="title-room"><?php echo $row['tipe_kamar']; ?></span>
+                                    <span class="title-room"><?php echo $row['tipe_kamar'].' (Kamar tersedia : '.$row['JUMLAH_RUANGAN'].')'; ?></span>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-9">

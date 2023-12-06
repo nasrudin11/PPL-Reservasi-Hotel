@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+include 'controller/koneksi.php';
+include 'controller/feedback.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  tambah_feedback($koneksi, $_POST['nama'], $_POST['email'], $_POST['feedback']);
+}
+
 if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
     include 'partials/header-index.php';
     
@@ -24,6 +31,17 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
     <h2>Feedback</h2>
   </div>
 
+    <?php
+      if (isset($_COOKIE['success_message'])) {
+          $successMessage = $_COOKIE['success_message'];
+          echo '<div class="alert alert-success">'. $successMessage .'</div>';
+          // Hapus cookie setelah digunakan
+          setcookie("success_message", "", time() - 3600, "/");
+      }
+    ?>
+
+  
+
   <div class="row">
     <!-- Kiri -->
     <div class="col">
@@ -43,7 +61,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
       <div class="card shadow mt-4 p-3 border-0">
         <div class="card-body">
           <h4>Form Feedback</h4>
-          <form action="/submit_feedback" method="post">
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <!-- Tambahkan elemen formulir sesuai kebutuhan, seperti input, textarea, dll. -->
             <div class="mb-3">
               <label for="nama">Name</label>

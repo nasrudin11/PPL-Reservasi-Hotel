@@ -2,17 +2,21 @@
     session_start();
     $id_kamar = $_GET['id'];
     include '../../controller/user-crud.php';
-
     include '../../controller/koneksi.php';
-    include '../../partials/header-login-noindex.php';
 
     $style =  '../../style.css';
     $imagePath ='../../img/user.png';
     $imageLogo = '../../img/logo/logo.png';
     $home = 'user.php';
+    $about =  '../../about.php';
+    $feed = '../../feedback.php';
+    $logout = '../../controller/logout.php';
 
-    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type']) || $_SESSION['user_type'] !== 'tamu') {
-        header("Location: ../../login.php");
+    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
+        include '../../partials/header.php';
+        
+    } elseif ($_SESSION['user_type'] === 'tamu') {
+        include '../../partials/header-login-noindex.php';
     }
 
 
@@ -151,7 +155,7 @@
 
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="../../img/<?php echo $gambarKamar; ?>" class="rounded" alt="Gambar Hotel" style="width: 2.5rem; height: 2.5rem;">
+                                    <img src="../../img/upload/kamar/<?php echo $gambarKamar; ?>" class="rounded" alt="Gambar Hotel" style="width: 2.5rem; height: 2.5rem;">
                                 </div>
                                 <div class="col">
                                     <span class="title-book"><?php echo $namaHotel; ?></span>

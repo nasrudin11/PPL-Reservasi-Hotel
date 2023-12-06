@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 04:52 AM
+-- Generation Time: Dec 06, 2023 at 08:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -51,13 +51,8 @@ CREATE TABLE `detail_pemesanan` (
 --
 
 INSERT INTO `detail_pemesanan` (`ID_DETAIL`, `ID_KAMAR`, `ID_PEMESANAN`, `NAMA_PEMESAN`) VALUES
-(26, 30, 21, 'Jamil sma'),
-(27, 30, 22, 'ijiij'),
-(28, 30, 22, ''),
-(29, 30, 23, 'ijiij'),
-(30, 30, 23, ''),
-(31, 30, 24, 'ijiij'),
-(32, 30, 24, '');
+(33, 26, 25, 'Ahmad Nasrudin'),
+(34, 21, 26, 'Ahmad Nasrudin');
 
 -- --------------------------------------------------------
 
@@ -101,9 +96,17 @@ CREATE TABLE `fasilitas_hotel` (
 
 CREATE TABLE `feedback` (
   `ID_FEEDBACK` int(11) NOT NULL,
-  `EMAIL_TAMU` varchar(30) NOT NULL,
+  `NAMA` varchar(35) NOT NULL,
+  `EMAIL` varchar(40) NOT NULL,
   `DESKRIPSI` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`ID_FEEDBACK`, `NAMA`, `EMAIL`, `DESKRIPSI`) VALUES
+(1, 'Ahmad Nasrudin Jamil', 'nasrudinj2@gmail.com', 'ghf yuf yfuyfuy ');
 
 -- --------------------------------------------------------
 
@@ -173,9 +176,9 @@ INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `ST
 (13, 1, 2, 12000000, 'Available', '02.png', 10),
 (14, 1, 2, 12000000, 'Available', '03.png', 10),
 (15, 1, 4, 12000000, 'Available', '03.png', 10),
-(16, 3, 1, 230000, 'Available', '04.png', 0),
-(17, 2, 1, 322000, 'Available', '01.png', 0),
-(18, 4, 1, 430000, 'Available', '03.png', 0),
+(16, 3, 1, 230000, 'Available', '04.png', 23),
+(17, 2, 1, 322000, 'Available', '01.png', 10),
+(18, 4, 1, 430000, 'Available', '03.png', 11),
 (19, 5, 2, 500000, 'Available', 'hilton.webp', 0),
 (20, 6, 2, 800000, 'Available', 'gbpc.webp', 0),
 (21, 7, 3, 750000, 'Available', 'courty.webp', 0),
@@ -234,7 +237,17 @@ CREATE TABLE `notifikasi` (
 INSERT INTO `notifikasi` (`ID_NOTIFIKASI`, `ID_HOTEL`, `EMAIL_TAMU`, `JUDUL_NOTIF`, `PESAN_NOTIF`, `TGL_NOTIF`) VALUES
 (5, NULL, 'yusuf32@gmail.com', 'Selamat Datang Pengguna Baru!', 'Terima kasih sudah bergabung di platform kami. Banyak hal yang bisa kamu eksplore disini dan jangan lupa segera lengkapi bidoata akun profilmu untuk keperluan lebih lanjut.', '2023-11-26 23:40:47'),
 (17, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada klaparesort', '2023-11-29 18:38:31'),
-(18, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada klaparesort', '2023-11-29 18:40:39');
+(18, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada klaparesort', '2023-11-29 18:40:39'),
+(19, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:31:20'),
+(20, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:32:24'),
+(21, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:32:26'),
+(22, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:32:26'),
+(23, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:32:26'),
+(24, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:32:27'),
+(25, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:32:27'),
+(26, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:34:03'),
+(27, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Panen Hotel by TEBU', '2023-12-06 13:38:53'),
+(28, NULL, 'ahmad12@gmail.com', 'Pemesanan Kamar Berhasil', 'Kamu telah berhasil melakukan booking dan pembayaran kamar pada Courtyard Bandung Dago', '2023-12-06 18:12:42');
 
 -- --------------------------------------------------------
 
@@ -256,8 +269,9 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`ID_PEMBAYARAN`, `ID_METODE_PEMBAYARAN`, `ID_PEMESANAN`, `TANGGAL_PEMBAYARAN`, `JUMLAH_PEMBAYARAN`, `BUKTI_TRANSFER`) VALUES
-(26, 2, 21, '2023-11-29 18:38:31', 4835000, '21-098_Ahmad Nasrudin Jamil.mp4'),
-(27, 1, 24, '2023-11-29 18:40:39', 15472000, 'video1288452335.mp4');
+(37, 1, 25, '2023-12-06 13:38:22', 27335623, 'gambar'),
+(38, 1, 25, '2023-12-06 13:38:53', 870000, 'Screenshot (1).png'),
+(39, 1, 26, '2023-12-06 18:12:42', 1500000, 'Screenshot (3).png');
 
 -- --------------------------------------------------------
 
@@ -281,10 +295,8 @@ CREATE TABLE `pemesanan` (
 --
 
 INSERT INTO `pemesanan` (`ID_PEMESANAN`, `EMAIL_TAMU`, `ID_HOTEL`, `ID_METODE_PEMBAYARAN`, `TGL_PEMESANAN`, `TGL_CEKIN`, `TGL_CEKOUT`, `TOTAL_BIAYA`) VALUES
-(21, 'ahmad12@gmail.com', 16, 2, '2023-11-29 18:36:50', '2023-11-24 00:00:00', '2023-11-29 00:00:00', 4835000),
-(22, 'ahmad12@gmail.com', 16, 1, '2023-11-29 18:39:48', '2023-11-22 00:00:00', '2023-11-30 00:00:00', 15472000),
-(23, 'ahmad12@gmail.com', 16, 1, '2023-11-29 18:39:48', '2023-11-22 00:00:00', '2023-11-30 00:00:00', 15472000),
-(24, 'ahmad12@gmail.com', 16, 1, '2023-11-29 18:40:22', '2023-11-22 00:00:00', '2023-11-30 00:00:00', 15472000);
+(25, 'ahmad12@gmail.com', 12, 1, '2023-12-06 13:30:23', '2023-12-07 00:00:00', '2023-12-09 00:00:00', 870000),
+(26, 'ahmad12@gmail.com', 7, 1, '2023-12-06 18:12:28', '2023-12-08 00:00:00', '2023-12-10 00:00:00', 1500000);
 
 -- --------------------------------------------------------
 
@@ -298,16 +310,17 @@ CREATE TABLE `tamu` (
   `NAMA_TAMU` varchar(50) NOT NULL,
   `ALAMAT` varchar(50) NOT NULL,
   `NO_TELEPON_TAMU` varchar(15) NOT NULL,
-  `TANGGAL_LAHIR` date NOT NULL
+  `TANGGAL_LAHIR` date NOT NULL,
+  `FOTO` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tamu`
 --
 
-INSERT INTO `tamu` (`EMAIL_TAMU`, `PASSWORD`, `NAMA_TAMU`, `ALAMAT`, `NO_TELEPON_TAMU`, `TANGGAL_LAHIR`) VALUES
-('ahmad12@gmail.com', '$2y$10$k2bnP/xFcXa8v9D1fNixr.h.ZPsTHKyGiDnzmvmomznx20.WOhioq', 'Ahmad Nasrudin Jamil', '', '', '0000-00-00'),
-('yusuf32@gmail.com', '$2y$10$V3dvvumFMVNDQKKzV5tpbe3fROqc5OJRoQB1MMa2sjcVjEaH3oQ/6', 'Muhammad Yusuf', '', '', '0000-00-00');
+INSERT INTO `tamu` (`EMAIL_TAMU`, `PASSWORD`, `NAMA_TAMU`, `ALAMAT`, `NO_TELEPON_TAMU`, `TANGGAL_LAHIR`, `FOTO`) VALUES
+('ahmad12@gmail.com', '$2y$10$k2bnP/xFcXa8v9D1fNixr.h.ZPsTHKyGiDnzmvmomznx20.WOhioq', 'Ahmad Nasrudin Jamil', 'Lamongan', '08823552232', '2002-07-02', ''),
+('yusuf32@gmail.com', '$2y$10$V3dvvumFMVNDQKKzV5tpbe3fROqc5OJRoQB1MMa2sjcVjEaH3oQ/6', 'Muhammad Yusuf', '', '', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -334,6 +347,29 @@ INSERT INTO `tipe_kamar` (`ID_TIPE_KAMAR`, `TIPE_KAMAR`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ulasan`
+--
+
+CREATE TABLE `ulasan` (
+  `ID_ULASAN` int(11) NOT NULL,
+  `ID_HOTEL` int(11) NOT NULL,
+  `EMAIL_TAMU` varchar(40) NOT NULL,
+  `RATING` float(5,1) NOT NULL,
+  `KOMENTAR` varchar(100) NOT NULL,
+  `TGL_REVIEW` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ulasan`
+--
+
+INSERT INTO `ulasan` (`ID_ULASAN`, `ID_HOTEL`, `EMAIL_TAMU`, `RATING`, `KOMENTAR`, `TGL_REVIEW`) VALUES
+(6, 7, 'ahmad12@gmail.com', 5.0, 'Hotelnya sangat bagus, pelayanannya juga sangat baik', '2023-12-06 18:19:47'),
+(7, 7, 'ahmad12@gmail.com', 5.0, 'Cocok buat refreshing', '2023-12-06 18:21:25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wishlist_favorit`
 --
 
@@ -342,6 +378,13 @@ CREATE TABLE `wishlist_favorit` (
   `EMAIL_TAMU` varchar(40) NOT NULL,
   `ID_HOTEL` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wishlist_favorit`
+--
+
+INSERT INTO `wishlist_favorit` (`ID_WISHLIST`, `EMAIL_TAMU`, `ID_HOTEL`) VALUES
+(2, 'ahmad12@gmail.com', 1);
 
 --
 -- Indexes for dumped tables
@@ -380,8 +423,7 @@ ALTER TABLE `fasilitas_hotel`
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`ID_FEEDBACK`),
-  ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`);
+  ADD PRIMARY KEY (`ID_FEEDBACK`);
 
 --
 -- Indexes for table `hotel`
@@ -442,6 +484,14 @@ ALTER TABLE `tipe_kamar`
   ADD PRIMARY KEY (`ID_TIPE_KAMAR`);
 
 --
+-- Indexes for table `ulasan`
+--
+ALTER TABLE `ulasan`
+  ADD PRIMARY KEY (`ID_ULASAN`),
+  ADD KEY `EMAIL_TAMU` (`EMAIL_TAMU`),
+  ADD KEY `ID_HOTEL` (`ID_HOTEL`);
+
+--
 -- Indexes for table `wishlist_favorit`
 --
 ALTER TABLE `wishlist_favorit`
@@ -456,7 +506,7 @@ ALTER TABLE `wishlist_favorit`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `ID_DETAIL` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
@@ -474,7 +524,7 @@ ALTER TABLE `fasilitas_hotel`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `ID_FEEDBACK` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_FEEDBACK` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hotel`
@@ -486,7 +536,7 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT for table `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `ID_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `ID_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `metode_pembayaran`
@@ -498,19 +548,19 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT for table `notifikasi`
 --
 ALTER TABLE `notifikasi`
-  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `ID_NOTIFIKASI` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID_PEMBAYARAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `ID_PEMESANAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tipe_kamar`
@@ -519,10 +569,16 @@ ALTER TABLE `tipe_kamar`
   MODIFY `ID_TIPE_KAMAR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `ulasan`
+--
+ALTER TABLE `ulasan`
+  MODIFY `ID_ULASAN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `wishlist_favorit`
 --
 ALTER TABLE `wishlist_favorit`
-  MODIFY `ID_WISHLIST` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_WISHLIST` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -541,12 +597,6 @@ ALTER TABLE `detail_pemesanan`
 ALTER TABLE `fasilitas_hotel`
   ADD CONSTRAINT `fasilitas_hotel_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
   ADD CONSTRAINT `fasilitas_hotel_ibfk_2` FOREIGN KEY (`ID_FASILITAS`) REFERENCES `fasilitas` (`ID_FASILITAS`);
-
---
--- Constraints for table `feedback`
---
-ALTER TABLE `feedback`
-  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`);
 
 --
 -- Constraints for table `kamar`
@@ -576,6 +626,13 @@ ALTER TABLE `pemesanan`
   ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`),
   ADD CONSTRAINT `pemesanan_ibfk_2` FOREIGN KEY (`ID_METODE_PEMBAYARAN`) REFERENCES `metode_pembayaran` (`ID_METODE_PEMBAYARAN`),
   ADD CONSTRAINT `pemesanan_ibfk_3` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`);
+
+--
+-- Constraints for table `ulasan`
+--
+ALTER TABLE `ulasan`
+  ADD CONSTRAINT `ulasan_ibfk_1` FOREIGN KEY (`ID_HOTEL`) REFERENCES `hotel` (`ID_HOTEL`),
+  ADD CONSTRAINT `ulasan_ibfk_2` FOREIGN KEY (`EMAIL_TAMU`) REFERENCES `tamu` (`EMAIL_TAMU`);
 
 --
 -- Constraints for table `wishlist_favorit`

@@ -3,6 +3,14 @@
 
     include '../../controller/koneksi.php';
 
+    $style =  '../../style.css';
+    $imagePath ='../../img/user.png';
+    $imageLogo = '../../img/logo/logo.png';
+    $home = 'user.php';
+    $about =  '../../about.php';
+    $feed = '../../feedback.php';
+    $logout = '../../controller/logout.php';
+
     if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
         include '../../partials/header.php';
         

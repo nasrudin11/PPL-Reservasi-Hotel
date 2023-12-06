@@ -2,17 +2,22 @@
     session_start();
     include '../../controller/user-crud.php';
     include '../../controller/koneksi.php';   
-    include '../../partials/header-login-noindex.php';
 
     $style =  '../../style.css';
     $imagePath ='../../img/user.png';
     $imageLogo = '../../img/logo/logo.png';
     $home = 'user.php';
+    $about =  '../../about.php';
+    $feed = '../../feedback.php';
+    $logout = '../../controller/logout.php';
 
     $ambil_id = $_GET['id_pemesanan'];
 
-    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type']) || $_SESSION['user_type'] !== 'tamu') {
-        header("Location: ../../login.php");
+    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
+        include '../../partials/header.php';
+        
+    } elseif ($_SESSION['user_type'] === 'tamu') {
+        include '../../partials/header-login-noindex.php';
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -292,18 +292,18 @@ body {
 }
 
 /* Rating & ulasan*/
-.rating {
+.rating.star-custom {
     font-size: 40px;
     cursor: pointer;
 }
 
-.star {
+.star-custom {
     color: #ddd;
     transition: color 0.3s;
 }
 
-.star:hover,
-.star.active {
+.rating.star-custom .star:hover,
+.rating.star-custom .star.active {
     color: gold;
 }
 

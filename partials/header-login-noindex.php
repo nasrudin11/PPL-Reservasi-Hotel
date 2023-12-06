@@ -45,11 +45,11 @@
               <div class="dropdown-menu" aria-labelledby="profileDropdown">
                 <a class="dropdown-item" href="#"><?php echo $_SESSION["nama_tamu"]; ?></a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="profil.php">Profil</a>
+                <a class="dropdown-item" href="profil-user.php">Profil</a>
                 <a class="dropdown-item" href="notifikasi.php">Notifikasi</a>
                 <a class="dropdown-item" href="hotel-wishlist.php">Wishlist</a>
                 <a class="dropdown-item" href="lihat-pesanan.php">Pesanan Saya</a>
-                <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
+                <a class="dropdown-item" href="hotel-riwayat-pemesanan.php">Riwayat Pemesanan</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?php echo $logout; ?>">Logout</a>
               </div>

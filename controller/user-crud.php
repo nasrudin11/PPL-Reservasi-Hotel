@@ -125,7 +125,7 @@ function cancel_pemesanan($koneksi, $id_pemesanan) {
         $query = "INSERT INTO pembayaran (id_pembayaran, id_metode_pembayaran, id_pemesanan, tanggal_pembayaran, jumlah_pembayaran, bukti_transfer)
                 VALUES ('', '$metode_pembayaran', '$id_pemesanan', CURRENT_TIMESTAMP(), '$total_biaya', '$gambar')";
 
-        move_uploaded_file($_FILES['upload_file']['tmp_name'], "../img/upload/bukti_transfer/" . $_FILES['upload_file']['name']); // Sesuaikan dengan nama field dalam formulir
+        move_uploaded_file($_FILES['upload_file']['tmp_name'], "../../img/upload/bukti_transfer/" . $_FILES['upload_file']['name']); // Sesuaikan dengan nama field dalam formulir
 
         if ($koneksi->query($query) === TRUE) {
             $queryId = "SELECT pemesanan.id_pemesanan, pemesanan.id_hotel, MIN(detail_pemesanan.id_kamar) AS id_kamar
@@ -158,7 +158,47 @@ function cancel_pemesanan($koneksi, $id_pemesanan) {
     }
 ?>
 
+
+<!-- Hapus Riwayat pemesanan -->
+<?php
+    function hapus_riwayat($koneksi, $id_pemesanan){
+        if(!empty($id_pemesanan)){
+            $query = "DELETE FROM pemesanan WHERE ID_PEMESANAN = '$id_pemesanan'";       
+            $query2 = "DELETE FROM detail_pemesanan WHERE ID_PEMESANAN = '$id_pemesanan'";
+
+            if ($koneksi->query($query)=== TRUE) {
+                if ($koneksi->query($query2)=== TRUE){
+                return " Order history has been successfully deleted";
+            } else {
+                return "Failed to Order history delete: " . $koneksi->error;
+            }}
+
+            $koneksi->close();
+
+        }   
+
+    }
+?>
+
 <!-- Ulasan & Rating -->
+
+<?php
+
+    function tambahUlasan($koneksi, $idHotel, $emailTamu, $rating, $komentar) {
+        // Buat SQL statement untuk insert ulasan
+        $sql = "INSERT INTO ulasan (id_hotel, email_tamu, rating, komentar) VALUES ('$idHotel', '$emailTamu', '$rating', '$komentar')";
+
+        // Jalankan query
+        if ($koneksi->query($sql) === TRUE) {
+            setcookie("success_message", "Your review has send successful !!", time() + 3600, "/");
+            header("Location: hotel-riwayat-pemesanan.php");
+            exit();
+        } else {
+            return false; 
+        }
+    }
+
+?>
 
 <!-- Whislist -->
 <?php

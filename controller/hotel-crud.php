@@ -45,14 +45,14 @@
 <!-- Manajemen Kamar -->
 <?php
 
-    function tambah_kamar($koneksi, $id_hotel, $tipe_kamar, $harga, $status) {
+    function tambah_kamar($koneksi, $id_hotel, $tipe_kamar, $ruangan, $harga, $status) {
         $gambar = $_FILES["gambar"]["name"];
         $tmp_name = $_FILES["gambar"]["tmp_name"];
         $upload_dir = "../../img/upload/kamar/";
 
         move_uploaded_file($tmp_name, $upload_dir . $gambar);
 
-        $query = "INSERT INTO kamar (id_hotel, id_tipe_kamar, harga_kamar, status_kamar, gambar_kamar) VALUES ('$id_hotel', '$tipe_kamar', '$harga', '$status', '$gambar')";
+        $query = "INSERT INTO kamar (id_hotel, id_tipe_kamar, harga_kamar, status_kamar, gambar_kamar, jumlah_ruangan) VALUES ('$id_hotel', '$tipe_kamar', '$harga', '$status', '$gambar', $ruangan)";
 
         if ($koneksi->query($query) === TRUE) {
             return "Room successful added";
@@ -62,7 +62,7 @@
         $koneksi->close();
     }
 
-    function edit_kamar($koneksi, $id_kamar, $tipe_kamar, $harga, $status) {
+    function edit_kamar($koneksi, $id_kamar, $tipe_kamar, $harga, $status, $ruangan) {
         $gambar = $_FILES["gambar"]["name"];
         $tmp_name = $_FILES["gambar"]["tmp_name"];
         $upload_dir = "../../img/upload/kamar/";
@@ -70,10 +70,10 @@
         // Hanya memindahkan file jika ada file yang diunggah
         if (!empty($gambar)) {
             move_uploaded_file($tmp_name, $upload_dir . $gambar);
-            $query = "UPDATE kamar SET id_tipe_kamar = '$tipe_kamar', harga_kamar = '$harga', status_kamar = '$status', gambar_kamar = '$gambar' WHERE id_kamar = $id_kamar";
+            $query = "UPDATE kamar SET id_tipe_kamar = '$tipe_kamar', harga_kamar = '$harga', status_kamar = '$status', gambar_kamar = '$gambar', jumlah_ruangan = $ruangan WHERE id_kamar = $id_kamar";
         } else {
             // Jika tidak ada file yang diunggah, update data tanpa memperbarui gambar
-            $query = "UPDATE kamar SET id_tipe_kamar = '$tipe_kamar', harga_kamar = '$harga', status_kamar = '$status' WHERE id_kamar = $id_kamar";
+            $query = "UPDATE kamar SET id_tipe_kamar = $tipe_kamar, harga_kamar = $harga, status_kamar = '$status', jumlah_ruangan = $ruangan WHERE id_kamar = $id_kamar";
         }
     
         if ($koneksi->query($query) === TRUE) {
