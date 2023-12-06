@@ -16,15 +16,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-... (nilai hash)" crossorigin="anonymous" />
 
     <!-- import css -->
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="<?php echo $style; ?>">
     <title>Welcome</title>
 </head>
 <body>
   <!-- Navbar -->
   <nav class="navbar bg-white">
       <div class="container">
-        <a class="navbar-brand" href="user.php">
-              <img src="../../img/logo/logo.png" height="24" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="<?php echo $home; ?>">
+              <img src="<?php echo $imageLogo; ?>" height="24" class="d-inline-block align-text-top">
               <span class="logo-name">staycation</span>
           </a>
 
@@ -40,7 +40,7 @@
             <!-- Gambar Profil dengan Dropdown -->
             <div class="dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../img/user.png" alt="Profil" class="profile-img" style="height: 30px;">
+                <img src="<?php echo $imagePath; ?>" alt="Profil" class="profile-img" style="height: 30px;">
               </a>
               <div class="dropdown-menu" aria-labelledby="profileDropdown">
                 <a class="dropdown-item" href="#"><?php echo $_SESSION["nama_tamu"]; ?></a>
@@ -51,7 +51,7 @@
                 <a class="dropdown-item" href="lihat-pesanan.php">Pesanan Saya</a>
                 <a class="dropdown-item" href="#">Riwayat Pemesanan</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../../controller/logout.php">Logout</a>
+                <a class="dropdown-item" href="<?php echo $logout; ?>">Logout</a>
               </div>
             </div>
           </li>

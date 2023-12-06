@@ -4,6 +4,11 @@
     include '../../controller/koneksi.php';   
     include '../../partials/header-login-noindex.php';
 
+    $style =  '../../style.css';
+    $imagePath ='../../img/user.png';
+    $imageLogo = '../../img/logo/logo.png';
+    $home = 'user.php';
+
     $ambil_id = $_GET['id_pemesanan'];
 
     if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type']) || $_SESSION['user_type'] !== 'tamu') {

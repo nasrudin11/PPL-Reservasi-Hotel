@@ -4,6 +4,11 @@ session_start();
 include '../../controller/koneksi.php';
 include '../../controller/user-crud.php';
 
+$style =  '../../style.css';
+$imagePath ='../../img/user.png';
+$imageLogo = '../../img/logo/logo.png';
+$home = 'user.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["hapus_wishlist"])) {
     if (isset($_POST['id_wishlist'])){
         $id_wishlist = $_POST['id_wishlist'];

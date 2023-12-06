@@ -3,6 +3,11 @@
 
     include '../../controller/koneksi.php';
 
+    $style =  '../../style.css';
+    $imagePath ='../../img/user.png';
+    $imageLogo = '../../img/logo/logo.png';
+    $home = 'user.php';
+
     $id_hotel = $_GET['id'];
 
     $query = "SELECT * FROM hotel WHERE id_hotel = $id_hotel";

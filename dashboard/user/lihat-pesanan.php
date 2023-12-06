@@ -4,6 +4,11 @@ session_start();
 include '../../controller/koneksi.php';
 include '../../controller/user-crud.php';
 
+$style =  '../../style.css';
+$imagePath ='../../img/user.png';
+$imageLogo = '../../img/logo/logo.png';
+$home = 'user.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_cancel_pemesanan'])) {
     // Panggil fungsi cancel_pemesanan
     $result = cancel_pemesanan($koneksi, $_POST['id_cancel_pemesanan']);

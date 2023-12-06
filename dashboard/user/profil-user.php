@@ -4,6 +4,11 @@ session_start();
 include '../../controller/koneksi.php';
 include '../../controller/user-crud.php';
 
+$style =  '../../style.css';
+$imagePath ='../../img/user.png';
+$imageLogo = '../../img/logo/logo.png';
+$home = 'user.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error_message = edit_profil_tamu($koneksi, $_SESSION['email'], $_POST['nama'], $_POST['alamat'], $_POST['telepon'], $_POST['tanggal_lahir'], $_FILES['foto']);
 

@@ -199,7 +199,6 @@ body {
     cursor: pointer;
 }
 
-
 /* Detail hotel*/
 .breadcrumb-item a {
     color: #737373; 
@@ -292,9 +291,31 @@ body {
     font-weight: 600;
 }
 
+/* Rating & ulasan*/
+.rating {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.star {
+    color: #ddd;
+    transition: color 0.3s;
+}
+
+.star:hover,
+.star.active {
+    color: gold;
+}
+
+.btn.btn-ulasan{
+    background-color: #BA704F;
+    color: #ffffff;
+}
+
 /* Halaman About Us*/
 .mini-header-about{
     font-size: 16px;
     font-weight: 600;
 }
+
 

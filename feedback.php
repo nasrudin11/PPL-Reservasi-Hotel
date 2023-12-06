@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
     
 } elseif ($_SESSION['user_type'] === 'tamu') {
   $slug = 'feedback'; 
+  $style = ($slug === 'feedback') ? 'style.css' : '../../style.css';
   $imagePath = ($slug === 'feedback') ? 'img/user.png' : '../../img/user.png';
   $imageLogo = ($slug === 'feedback') ? 'img/logo/logo.png' : '../../img/logo/logo.png';
   $home = ($slug === 'feedback') ? 'dashboard/user/user.php' :'user.php';
