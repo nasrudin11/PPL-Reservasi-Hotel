@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2023 at 08:16 PM
+-- Generation Time: Dec 07, 2023 at 01:42 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -179,21 +179,21 @@ INSERT INTO `kamar` (`ID_KAMAR`, `ID_HOTEL`, `ID_TIPE_KAMAR`, `HARGA_KAMAR`, `ST
 (16, 3, 1, 230000, 'Available', '04.png', 23),
 (17, 2, 1, 322000, 'Available', '01.png', 10),
 (18, 4, 1, 430000, 'Available', '03.png', 11),
-(19, 5, 2, 500000, 'Available', 'hilton.webp', 0),
-(20, 6, 2, 800000, 'Available', 'gbpc.webp', 0),
-(21, 7, 3, 750000, 'Available', 'courty.webp', 0),
-(22, 8, 2, 475000, 'Available', 'fav.webp', 0),
-(23, 9, 2, 5000000, 'Available', 'shakti.webp', 0),
-(24, 10, 2, 1100000, 'Available', 'papan.webp', 0),
-(25, 11, 3, 7360000, 'Available', 'amora.webp', 0),
-(26, 12, 3, 435000, 'Available', 'panen.webp', 0),
-(27, 13, 2, 450000, 'Available', 'wood.webp', 0),
-(28, 14, 2, 350000, 'Available', 'rizh.webp', 0),
-(29, 15, 3, 363000, 'Available', 'lenora.webp', 0),
-(30, 16, 2, 967000, 'Available', 'b2.webp', 0),
-(31, 17, 3, 1100000, 'Available', 'b4.webp', 0),
-(32, 18, 2, 644000, 'Available', 'b6.webp', 0),
-(33, 19, 2, 485000, 'Available', 'b8.webp', 0);
+(19, 5, 2, 500000, 'Available', 'hilton.webp', 16),
+(20, 6, 2, 800000, 'Available', 'gbpc.webp', 19),
+(21, 7, 3, 750000, 'Available', 'courty.webp', 20),
+(22, 8, 2, 475000, 'Available', 'fav.webp', 21),
+(23, 9, 2, 5000000, 'Available', 'shakti.webp', 9),
+(24, 10, 2, 1100000, 'Available', 'papan.webp', 19),
+(25, 11, 3, 7360000, 'Available', 'amora.webp', 20),
+(26, 12, 3, 435000, 'Available', 'panen.webp', 11),
+(27, 13, 2, 450000, 'Available', 'wood.webp', 9),
+(28, 14, 2, 350000, 'Available', 'rizh.webp', 21),
+(29, 15, 3, 363000, 'Available', 'lenora.webp', 18),
+(30, 16, 2, 967000, 'Available', 'b2.webp', 10),
+(31, 17, 3, 1100000, 'Available', 'b4.webp', 20),
+(32, 18, 2, 644000, 'Available', 'b6.webp', 18),
+(33, 19, 2, 485000, 'Available', 'b8.webp', 17);
 
 -- --------------------------------------------------------
 
