@@ -160,6 +160,14 @@
               </a>
             </li>
 
+            <!-- Kalender Reservasi -->
+            <li class="menu-item <?php echo ($slug == 'kalender') ? 'active' : ''; ?>" >
+              <a href="kalender.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div data-i18n="Account Settings">Kalender</div>
+              </a>
+            </li>
+
 
           </ul>
         </aside>
