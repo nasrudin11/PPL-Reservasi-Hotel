@@ -55,7 +55,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
             JOIN kamar ON riwayat_detail_pemesanan.id_kamar = kamar.id_kamar
             JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar
             JOIN hotel ON kamar.id_hotel = hotel.id_hotel
-            WHERE riwayat_pemesanan.email_tamu = 'ahmad12@gmail.com'
+            WHERE riwayat_pemesanan.email_tamu = '{$_SESSION['email']}'
             GROUP BY riwayat_pemesanan.id_riwayat";
     $result = $koneksi->query($query);
   ?>

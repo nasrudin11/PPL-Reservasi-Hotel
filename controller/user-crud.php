@@ -35,7 +35,6 @@
 <?php
 
     function pemesanan_kamar($koneksi, $id_kamar, $emailTamu, $id_hotel, $cekIn, $cekOut, $paymentMethod, $guestNames, $totalHarga) {
-        // Hindari SQL Injection dengan menghindari langsungnya input ke dalam query
         $emailTamu = $koneksi->real_escape_string($emailTamu);
         $id_hotel = (int)$id_hotel;
         $paymentMethod = (int)$paymentMethod;
@@ -43,7 +42,6 @@
         $cekOut = $koneksi->real_escape_string($cekOut);
         $totalHarga = (float)$totalHarga;
 
-        // Melakukan query untuk menyimpan data ke tabel pemesanan
         $queryPemesanan = "INSERT INTO pemesanan (email_tamu, id_hotel, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
                         VALUES ('$emailTamu', $id_hotel, $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
 
@@ -52,28 +50,21 @@
         $resultPemesanan = $koneksi->query($queryPemesanan);
 
         if ($resultPemesanan) {
-            // Jika pemesanan berhasil, ambil ID pemesanan yang baru saja dibuat
             $id_pemesanan = $koneksi->insert_id;
 
-            // Melakukan loop untuk setiap tamu yang diinputkan
             foreach ($guestNames as $namaPemesan) {
                 $namaPemesan = $koneksi->real_escape_string($namaPemesan);
-
-                // Melakukan query untuk menyimpan data ke tabel detail_pemesanan
                 $queryDetailPemesanan = "INSERT INTO detail_pemesanan (id_kamar, id_pemesanan, nama_pemesan)
                                         VALUES ($id_kamar, $id_pemesanan, '$namaPemesan')";
 
-                // Menjalankan query detail_pemesanan
                 $resultDetailPemesanan = $koneksi->query($queryDetailPemesanan);
 
                 if (!$resultDetailPemesanan) {
-                    // Jika terjadi kesalahan pada query detail_pemesanan, tampilkan pesan kesalahan
                     echo "Error: " . $koneksi->error;
                 }
             }
 
-            // Melakukan query untuk menyimpan data ke tabel riwayat_pemesanan
-            $queryRiwayat = "INSERT INTO riwayat_pemesanan (email_tamu, id_hotel, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
+            $queryRiwayat = "INSERT  INTO riwayat_pemesanan (email_tamu, id_hotel, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
                             VALUES ('$emailTamu', $id_hotel, $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
 
             echo "Debug Query: " . $queryRiwayat . "<br>";
@@ -81,34 +72,27 @@
 
             if ($resultRiwayat) {
                 $id_riwayat = $koneksi->insert_id;
-                // Melakukan loop untuk setiap tamu yang diinputkan
                 foreach ($guestNames as $namaPemesan) {
                     $namaPemesan = $koneksi->real_escape_string($namaPemesan);
 
-                    // Melakukan query untuk menyimpan data ke tabel riwayat_detail_pemesanan
                     $queryRiwayatDtl = "INSERT INTO riwayat_detail_pemesanan (id_kamar, id_riwayat, nama_pemesan)
                                         VALUES ($id_kamar, $id_riwayat, '$namaPemesan')";
 
-                    // Menjalankan query riwayat_detail_pemesanan
                     $resultRiwayatDtl = $koneksi->query($queryRiwayatDtl);
 
                     if (!$resultRiwayatDtl) {
-                        // Jika terjadi kesalahan pada query riwayat_detail_pemesanan, tampilkan pesan kesalahan
                         echo "Error: " . $koneksi->error;
                     }
                 }
             }
 
-            // Redirect atau lakukan tindakan selanjutnya setelah berhasil menyimpan data
             header("Location: pembayaran.php?id_pemesanan=$id_pemesanan");
         } else {
-            // Jika terjadi kesalahan pada query pemesanan, tampilkan pesan kesalahan
             echo "Error: " . $koneksi->error;
         }
 
         $koneksi->close();
     }
-
 
 ?>
 

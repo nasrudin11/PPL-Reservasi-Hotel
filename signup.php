@@ -13,7 +13,7 @@ include 'controller/daftar.php';
     <div class="card-body">
       <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <div class="mb-3">
-            <label class="form-label" for="basic-default-fullname">Username</label>
+            <label class="form-label" for="basic-default-fullname">Name</label>
             <input type="text" name="username" class="form-control" id="basic-default-fullname" placeholder="Input username" required />
         </div>
 

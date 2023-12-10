@@ -186,7 +186,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="card shadow border-0">
-                                <img src="../../img/banner/1.png" alt="" class="rounded">
+                                <img src="../../img/upload/kamar/<?php echo $row['GAMBAR_KAMAR'] ?>" alt="" class="rounded">
                             </div>
                         </div>
                         <div class="col">

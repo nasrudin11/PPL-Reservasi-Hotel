@@ -186,12 +186,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
     $filterCondition = $navbarFilter . $sidebarFilter;
 
     // Query to fetch hotel and room data with applied filters
-    $query = "SELECT  hotel.*, MIN(kamar.HARGA_KAMAR) AS min_harga_kamar,
+    $query = "SELECT  hotel.*, COUNT(ID_ULASAN) AS total_reviews, MIN(kamar.HARGA_KAMAR) AS min_harga_kamar,
             GROUP_CONCAT(DISTINCT fasilitas.NAMA_FASILITAS) AS fasilitas
             FROM hotel
             JOIN kamar ON hotel.ID_HOTEL = kamar.ID_HOTEL
             LEFT JOIN fasilitas_hotel ON hotel.ID_HOTEL = fasilitas_hotel.ID_HOTEL
             LEFT JOIN fasilitas ON fasilitas_hotel.ID_FASILITAS = fasilitas.ID_FASILITAS
+            LEFT JOIN ulasan ON ulasan.ID_HOTEL = hotel.ID_HOTEL
             WHERE 1 $filterCondition
             GROUP BY hotel.ID_HOTEL";
 
@@ -214,23 +215,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                             <h6 class="card-title"><?php echo $row['NAMA_HOTEL']; ?></h6>
                                         </div>
                                         <?php
-                                            $queryCheckWishlist = "SELECT * FROM wishlist_favorit WHERE EMAIL_TAMU = '{$_SESSION['email']}' AND ID_HOTEL = {$row['ID_HOTEL']}";
-                                            $resultCheckWishlist = $koneksi->query($queryCheckWishlist);
+                                            $emailUser = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+                                            if (!empty($emailUser)) {
+                                                $queryCheckWishlist = "SELECT * FROM wishlist_favorit WHERE email_tamu = '$emailUser' AND id_hotel = {$row['ID_HOTEL']}";
+                                                $resultCheckWishlist = $koneksi->query($queryCheckWishlist);
 
-                                            // Cek apakah data wishlist sudah ada
-                                            $wishlistExists = ($resultCheckWishlist->num_rows > 0);
-
+                                                $wishlistExists = ($resultCheckWishlist->num_rows > 0);
+                                            } else {
+                                                $wishlistExists = false;
+                                            }
                                         ?>
+
                                         <div class="col-md-3 text-end">
                                             <form action="" method="post">
                                                 <input type="hidden" name="id_hotel" value="<?php echo $row['ID_HOTEL']; ?>">
                                                 <button class="btn btn-wishlist" name="wishlist">
-                                                <?php echo ($wishlistExists ? '<i class="fa-solid fa-bookmark"></i>' : '<i class="fa-regular fa-bookmark"></i>'); ?>
+                                                    <?php echo ($wishlistExists ? '<i class="fa-solid fa-bookmark"></i>' : '<i class="fa-regular fa-bookmark"></i>'); ?>
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
-                                    <small class="text-muted"><?php echo $row['RATING']; ?>/5 (reviews)</small>
+                                    <small class="text-muted"><?php echo $row['RATING']. '/5  (' . $row['total_reviews'] . ' reviews)'; ?></small>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>  
                                             <span class="fs-6 "><?php echo  $row['ALAMAT']; ?></span>
@@ -297,12 +302,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                             <h6 class="card-title"><?php echo $row['NAMA_HOTEL']; ?></h6>
                                         </div>
                                         <?php
-                                            $queryCheckWishlist = "SELECT * FROM wishlist_favorit WHERE email_tamu = '{$_SESSION['email']}' AND id_hotel = {$row['ID_HOTEL']}";
-                                            $resultCheckWishlist = $koneksi->query($queryCheckWishlist);
+                                            $emailUser = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+                                            if (!empty($emailUser)) {
+                                                $queryCheckWishlist = "SELECT * FROM wishlist_favorit WHERE email_tamu = '$emailUser' AND id_hotel = {$row['ID_HOTEL']}";
+                                                $resultCheckWishlist = $koneksi->query($queryCheckWishlist);
 
-                                            $wishlistExists = ($resultCheckWishlist->num_rows > 0);
-
+                                                $wishlistExists = ($resultCheckWishlist->num_rows > 0);
+                                            } else {
+                                                $wishlistExists = false;
+                                            }
                                         ?>
+
                                         <div class="col-md-3 text-end">
                                             <form action="" method="post">
                                                 <input type="hidden" name="id_hotel" value="<?php echo $row['ID_HOTEL']; ?>">
@@ -311,6 +321,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
                                                 </button>
                                             </form>
                                         </div>
+
                                     </div>
                                     <small class="text-muted"><?php echo $row['RATING']. '/5  (' . $row['total_reviews'] . ' reviews)'; ?></small>
                                     <div class="d-flex justify-content-between align-items-center">
