@@ -23,14 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
     }
 }
 
-if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
-    include '../../partials/header.php';
-    
-} elseif ($_SESSION['user_type'] === 'tamu') {
-    include '../../partials/header-login-noindex.php';
-}
-
+    if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
+        include '../../partials/header.php';
+        
+    } elseif ($_SESSION['user_type'] === 'tamu') {
+        include '../../partials/header-login-noindex.php';
+    }
 ?>
+
+
 
 
 <form action="" method="post">
@@ -185,65 +186,77 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
     $filterCondition = $navbarFilter . $sidebarFilter;
 
     // Query to fetch hotel and room data with applied filters
-    $query = "SELECT hotel.ID_HOTEL, hotel.NAMA_HOTEL, hotel.RATING, hotel.ALAMAT, hotel.GAMBAR_HOTEL, MIN(kamar.HARGA_KAMAR) AS min_harga_kamar
+    $query = "SELECT  hotel.*, MIN(kamar.HARGA_KAMAR) AS min_harga_kamar,
+            GROUP_CONCAT(DISTINCT fasilitas.NAMA_FASILITAS) AS fasilitas
             FROM hotel
             JOIN kamar ON hotel.ID_HOTEL = kamar.ID_HOTEL
+            LEFT JOIN fasilitas_hotel ON hotel.ID_HOTEL = fasilitas_hotel.ID_HOTEL
+            LEFT JOIN fasilitas ON fasilitas_hotel.ID_FASILITAS = fasilitas.ID_FASILITAS
             WHERE 1 $filterCondition
             GROUP BY hotel.ID_HOTEL";
 
     $result = $koneksi->query($query);
 
-    // Check if there are results
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            // Display hotel information as needed
-            echo '<div class="col-md-6">
-                    <a href="hotel-detail.php?id=' . $row['ID_HOTEL'] . '" class="text-decoration-none">
-                        <div class="card mb-3 shadow" style="border-radius: 15px;">
-                            <div class="row g-0">
-                                <div class="col-md-5">
-                                    <img src="../../img/upload/hotel/'.$row['GAMBAR_HOTEL'].'" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
-                                            </div>
-                                            <div class="col-md-3 text-end">
-                                                <form action = "" method = "post">
-                                                    <input type="hidden" name="id_hotel" value="' . $row['ID_HOTEL'] . '">
-                                                    <button class="btn btn-wishlist" name = "wishlist">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                                                        <path d="M3 0a2 2 0 0 0-2 2v12.879a1 1 0 0 0 1.455.888L8 12.117l5.545 3.65a1 1 0 0 0 1.455-.888V2a2 2 0 0 0-2-2H3zm10.293 3.293l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L8 7.586l3.293-3.293a1 1 0 1 1 1.414 1.414z"/></svg>
-                                                    </button>
-                                                </form>
-                                            </div>
+    ?>
+            <div class="col-md-6">
+                <a href="hotel-detail.php?id=<?php echo $row['ID_HOTEL']; ?>" class="text-decoration-none">
+                    <div class="card mb-3 shadow" style="border-radius: 15px;">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img src="../../img/upload/hotel/<?php echo $row['GAMBAR_HOTEL']; ?>" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h6 class="card-title"><?php echo $row['NAMA_HOTEL']; ?></h6>
                                         </div>
-                                        <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>  
-                                                <span class="fs-6 ">' . $row['ALAMAT'] . '</span>
-                                            </div>
-                                            <div>                                            
-                                                <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="badge-container d-flex flex-nowrap overflow-auto">
-                                            <span class="badge text-bg-custom ms-2">Free Breakfast</span>
-                                            <span class="badge text-bg-custom ms-2">Free Wifi</span>
-                                            <span class="badge text-bg-custom ms-2">Gym</span>
-                                            <span class="badge text-bg-custom ms-2">Spa</span>
-                                            <span class="badge text-bg-custom ms-2">Swimming Pool</span>
+                                        <?php
+                                            $queryCheckWishlist = "SELECT * FROM wishlist_favorit WHERE EMAIL_TAMU = '{$_SESSION['email']}' AND ID_HOTEL = {$row['ID_HOTEL']}";
+                                            $resultCheckWishlist = $koneksi->query($queryCheckWishlist);
+
+                                            // Cek apakah data wishlist sudah ada
+                                            $wishlistExists = ($resultCheckWishlist->num_rows > 0);
+
+                                        ?>
+                                        <div class="col-md-3 text-end">
+                                            <form action="" method="post">
+                                                <input type="hidden" name="id_hotel" value="<?php echo $row['ID_HOTEL']; ?>">
+                                                <button class="btn btn-wishlist" name="wishlist">
+                                                <?php echo ($wishlistExists ? '<i class="fa-solid fa-bookmark"></i>' : '<i class="fa-regular fa-bookmark"></i>'); ?>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
-                            
+                                    <small class="text-muted"><?php echo $row['RATING']; ?>/5 (reviews)</small>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>  
+                                            <span class="fs-6 "><?php echo  $row['ALAMAT']; ?></span>
+                                        </div>
+                                        <div>                                            
+                                            <span class="fs-6 fw-bold">Rp <?php echo  $row['min_harga_kamar']; ?></span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="badge-container d-flex flex-nowrap overflow-auto">
+                                        <?php
+                                            $fasilitasArray = explode(',', $row['fasilitas']);
+                                            foreach ($fasilitasArray as $fasilitas) {
+                                                echo '<span class="badge text-bg-custom ms-2">' . trim($fasilitas) . '</span>';
+                                            }
+                                        ?>
+                                    </div>
                                 </div>
+                        
                             </div>
                         </div>
-                    </a>
-                </div>';
+                    </div>
+                </a>
+            </div>
+    <?php
+
         }
     } else {
         echo "No hotels found for the selected location.";
@@ -253,64 +266,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
     // Close the database connection
     $koneksi->close();
 } else {
-    // Display all hotels when the form is not submitted
-    // Adjust this query based on your actual database structure
-    $query = "SELECT hotel.ID_HOTEL, hotel.NAMA_HOTEL, hotel.RATING, hotel.ALAMAT, hotel.GAMBAR_HOTEL, MIN(kamar.HARGA_KAMAR) AS min_harga_kamar
-                FROM hotel
-                JOIN kamar ON hotel.ID_HOTEL = kamar.ID_HOTEL
-                GROUP BY hotel.ID_HOTEL";
+
+    $query = "SELECT  hotel.*, COUNT(ID_ULASAN) AS total_reviews,  MIN(kamar.HARGA_KAMAR) AS min_harga_kamar,
+            GROUP_CONCAT(DISTINCT fasilitas.NAMA_FASILITAS) AS fasilitas
+            FROM hotel
+            JOIN kamar ON hotel.ID_HOTEL = kamar.ID_HOTEL
+            LEFT JOIN fasilitas_hotel ON hotel.ID_HOTEL = fasilitas_hotel.ID_HOTEL
+            LEFT JOIN fasilitas ON fasilitas_hotel.ID_FASILITAS = fasilitas.ID_FASILITAS
+            LEFT JOIN ulasan ON ulasan.ID_HOTEL = hotel.ID_HOTEL
+            GROUP BY hotel.ID_HOTEL";
+
     $result = $koneksi->query($query);
 
     // Check if there are results
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo '<div class="col-md-6">
-                    <a href="hotel-detail.php?id=' . $row['ID_HOTEL'] . '" class="text-decoration-none">
-                        <div class="card mb-3 shadow" style="border-radius: 15px;">
-                            <div class="row g-0">
-                                <div class="col-md-5">
-                                    <img src="../../img/upload/hotel/'.$row['GAMBAR_HOTEL'].'" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
-                                </div>
-                                <div class="col-md-7">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <h6 class="card-title">' . $row['NAMA_HOTEL'] . '</h6>
-                                            </div>
-                                            <div class="col-md-3 text-end">
-                                                <form action = "" method = "post">
-                                                    <input type="hidden" name="id_hotel" value="' . $row['ID_HOTEL'] . '">
-                                                    <button class="btn btn-wishlist" name = "wishlist">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                                                        <path d="M3 0a2 2 0 0 0-2 2v12.879a1 1 0 0 0 1.455.888L8 12.117l5.545 3.65a1 1 0 0 0 1.455-.888V2a2 2 0 0 0-2-2H3zm10.293 3.293l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L8 7.586l3.293-3.293a1 1 0 1 1 1.414 1.414z"/></svg>
-                                                    </button>
-                                                </form>
-                                            </div>
+    ?>
+
+            <div class="col-md-6">
+                <a href="hotel-detail.php?id=<?php echo $row['ID_HOTEL']; ?>" class="text-decoration-none">
+                    <div class="card mb-3 shadow" style="border-radius: 15px;">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img src="../../img/upload/hotel/<?php echo $row['GAMBAR_HOTEL']; ?>" alt="Hotel" class="img-fluid h-100" style="border-radius: 15px 0 0 15px;">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <h6 class="card-title"><?php echo $row['NAMA_HOTEL']; ?></h6>
                                         </div>
-                                        <small class="text-muted">' . $row['RATING'] . '/5 (reviews)</small>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>  
-                                                <span class="fs-6 ">' . $row['ALAMAT'] . '</span>
-                                            </div>
-                                            <div>                                            
-                                                <span class="fs-6 fw-bold">Rp ' . $row['min_harga_kamar'] . '</span>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="badge-container d-flex flex-nowrap overflow-auto">
-                                            <span class="badge text-bg-custom ms-2">Free Breakfast</span>
-                                            <span class="badge text-bg-custom ms-2">Free Wifi</span>
-                                            <span class="badge text-bg-custom ms-2">Gym</span>
-                                            <span class="badge text-bg-custom ms-2">Spa</span>
-                                            <span class="badge text-bg-custom ms-2">Swimming Pool</span>
+                                        <?php
+                                            $queryCheckWishlist = "SELECT * FROM wishlist_favorit WHERE email_tamu = '{$_SESSION['email']}' AND id_hotel = {$row['ID_HOTEL']}";
+                                            $resultCheckWishlist = $koneksi->query($queryCheckWishlist);
+
+                                            $wishlistExists = ($resultCheckWishlist->num_rows > 0);
+
+                                        ?>
+                                        <div class="col-md-3 text-end">
+                                            <form action="" method="post">
+                                                <input type="hidden" name="id_hotel" value="<?php echo $row['ID_HOTEL']; ?>">
+                                                <button class="btn btn-wishlist" name="wishlist">
+                                                    <?php echo ($wishlistExists ? '<i class="fa-solid fa-bookmark"></i>' : '<i class="fa-regular fa-bookmark"></i>'); ?>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
-                            
+                                    <small class="text-muted"><?php echo $row['RATING']. '/5  (' . $row['total_reviews'] . ' reviews)'; ?></small>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>  
+                                            <span class="fs-6 "><?php echo  $row['ALAMAT']; ?></span>
+                                        </div>
+                                        <div>                                            
+                                            <span class="fs-6 fw-bold">Rp <?php echo  $row['min_harga_kamar']; ?></span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="badge-container d-flex flex-nowrap overflow-auto">
+                                        <?php
+                                            $fasilitasArray = explode(',', $row['fasilitas']);
+                                            foreach ($fasilitasArray as $fasilitas) {
+                                                echo '<span class="badge text-bg-custom ms-2">' . trim($fasilitas) . '</span>';
+                                            }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>';
+                    </div>
+                </a>
+            </div>
+
+<?php
         }
     } else {
         echo "No hotels found.";
@@ -324,9 +351,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
             
             </div>
         </div>
-
-
-
     </div>
 </div>
 

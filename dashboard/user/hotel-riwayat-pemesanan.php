@@ -13,10 +13,10 @@ $feed = '../../feedback.php';
 $logout = '../../controller/logout.php';
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["hapus_pemesanan"])) {
-  if (isset($_POST['id_pemesanan'])){
-      $id_pemesanan = $_POST['id_pemesanan'];
-      $error_message = hapus_riwayat($koneksi, $id_pemesanan);
+if ($_SERVER["REQUEST_METHOD"]) {
+  if (isset($_POST['id_riwayat'])){
+      $id_riwayat = $_POST['id_riwayat'];   
+      $error_message = hapus_riwayat($koneksi, $id_riwayat);
 
   $redirect_url = $_SERVER['PHP_SELF'] . "?status=" . urlencode($error_message);
   header("Location: $redirect_url");
@@ -49,18 +49,14 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
 
   <?php
 
-    $query = "SELECT hotel.nama_hotel, hotel.id_hotel, tipe_kamar.tipe_kamar, pemesanan.id_pemesanan,
-                      pemesanan.tgl_pemesanan, pemesanan.tgl_cekin, pemesanan.tgl_cekout,
-                      pemesanan.total_biaya, COUNT(detail_pemesanan.id_detail) AS jumlah_kamar
-                      FROM pemesanan
-                      JOIN detail_pemesanan ON pemesanan.id_pemesanan = detail_pemesanan.id_pemesanan
-                      JOIN kamar ON detail_pemesanan.id_kamar = kamar.id_kamar
-                      JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar
-                      JOIN hotel ON kamar.id_hotel = hotel.id_hotel
-                      WHERE pemesanan.email_tamu = '{$_SESSION['email']}'
-                      GROUP BY hotel.nama_hotel, tipe_kamar.tipe_kamar, pemesanan.id_pemesanan,
-                      pemesanan.tgl_pemesanan, pemesanan.tgl_cekin, pemesanan.tgl_cekout,
-                      pemesanan.total_biaya;";
+    $query = "SELECT hotel.nama_hotel, hotel.id_hotel, tipe_kamar.tipe_kamar, riwayat_pemesanan.*, COUNT(riwayat_detail_pemesanan.id_riwayat_dtl) AS jumlah_kamar
+            FROM riwayat_pemesanan
+            JOIN riwayat_detail_pemesanan ON riwayat_pemesanan.id_riwayat = riwayat_detail_pemesanan.id_riwayat
+            JOIN kamar ON riwayat_detail_pemesanan.id_kamar = kamar.id_kamar
+            JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar
+            JOIN hotel ON kamar.id_hotel = hotel.id_hotel
+            WHERE riwayat_pemesanan.email_tamu = 'ahmad12@gmail.com'
+            GROUP BY riwayat_pemesanan.id_riwayat";
     $result = $koneksi->query($query);
   ?>
 
@@ -94,7 +90,7 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
-                                        <h6>Check-In/Out :</h6> <?php echo date('d M Y', strtotime($row["tgl_cekin"])) . ' - ' . date('d M Y', strtotime($row["tgl_cekout"])); ?>
+                                        <h6>Check-In/Out :</h6> <?php echo date('d M Y', strtotime($row["TGL_CEKIN"])) . ' - ' . date('d M Y', strtotime($row["TGL_CEKOUT"])); ?>
                                     </div>
                                 </div>                            
                             </div>
@@ -106,14 +102,17 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
-                                        <h6>Total Biaya :</h6> <?php echo $row['total_biaya']; ?>
+                                        <h6>Total Biaya :</h6> <?php echo $row['TOTAL_BIAYA']; ?>
                                     </div>
                                 </div>  
                                 <div class="text-end">
-                                   <a class='btn btn-danger' href='#' data-bs-toggle='modal' data-bs-target='#konfirmasiModal<?php echo $row['id_pemesanan']; ?>'>
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                  <a class="btn btn-ulasan" href="ulasan.php?id=<?php echo $row['id_hotel']; ?>">Berikan Ulasan</a>
+                                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                        <input type="hidden" name="id_riwayat" value="<?php echo $row['ID_RIWAYAT']; ?>">
+                                        <button type="submit" class='btn btn-danger'>
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <a class="btn btn-ulasan" href="ulasan.php?id=<?php echo $row['id_hotel']; ?>">Berikan Ulasan</a>
+                                    </form>                                 
                                 </div>  
                                 
                             </div>

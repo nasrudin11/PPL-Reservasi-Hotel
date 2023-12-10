@@ -45,14 +45,14 @@
 <!-- Manajemen Kamar -->
 <?php
 
-    function tambah_kamar($koneksi, $id_hotel, $tipe_kamar, $ruangan, $harga, $status) {
+    function tambah_kamar($koneksi, $id_hotel, $tipe_kamar, $ruangan, $harga, $status, $dewasa, $anak) {
         $gambar = $_FILES["gambar"]["name"];
         $tmp_name = $_FILES["gambar"]["tmp_name"];
         $upload_dir = "../../img/upload/kamar/";
 
         move_uploaded_file($tmp_name, $upload_dir . $gambar);
 
-        $query = "INSERT INTO kamar (id_hotel, id_tipe_kamar, harga_kamar, status_kamar, gambar_kamar, jumlah_ruangan) VALUES ('$id_hotel', '$tipe_kamar', '$harga', '$status', '$gambar', $ruangan)";
+        $query = "INSERT INTO kamar (id_hotel, id_tipe_kamar, harga_kamar, status_kamar, gambar_kamar, jumlah_ruangan, dewasa, anak) VALUES ('$id_hotel', '$tipe_kamar', '$harga', '$status', '$gambar', $ruangan, $dewasa, $anak)";
 
         if ($koneksi->query($query) === TRUE) {
             return "Room successful added";

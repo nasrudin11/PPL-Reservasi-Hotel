@@ -154,8 +154,9 @@
   ?>
 
 
-  <div class="mt-4 text-center">
-    <a class="btn btn-custom-more" href="#">Selengkapnya</a>
+    <div class="mt-4 text-center">
+      <a class="btn btn-custom-more" href="#">Selengkapnya</a>
+    </div>
   </div>
 </div>
 
@@ -207,55 +208,55 @@
 
 <div id="about" class="container mt-5">
   <div class="mb-4 text-center">
-    <h2 >About Trindabago</h2>
+    <h2 >About Staycation</h2>
   </div>
   <!-- card about -->
   <div class="row">
       <div class="col-md-6">
-          <div class="card shadow border-0" style="height: 100%;">
+          <div class="card shadow" style="height: 100%;">
               <div class="card-body">
-                  <h5 class="card-title">trindabago's global hotel search</h5>
-                  <p class="card-text" style="font-size: 15px;">trindabago’s hotel search allows users to compare hotel prices in just a few clicks from hundreds 
+                  <h5 class="card-title">Staycation's global hotel search</h5>
+                  <p class="card-text" style="font-size: 15px;">Staycation’s hotel search allows users to compare hotel prices in just a few clicks from hundreds 
                     of booking sites for more than 5.0 million hotels and other types of accommodation in over 190 countries. We help 
                     millions of travelers each year compare deals for hotels and accommodations. Get information for trips to cities 
-                    like Las Vegas or Orlando and you can find the right hotel on trindabago quickly and easily. New York City and its 
+                    like Las Vegas or Orlando and you can find the right hotel on Staycation quickly and easily. New York City and its 
                     surrounding area are great for trips that are a week or longer with the numerous hotels available.</p>
               </div>
           </div>
       </div>
       <div class="col-md-6">
-          <div class="card shadow border-0" style="height: 100%;">
+          <div class="card shadow" style="height: 100%;">
               <div class="card-body">
-                  <h5 class="card-title">Find cheap hotels on trindabago</h5>
-                  <p class="card-text" style="font-size: 15px;">With trindabago you can easily find your ideal hotel and compare prices from different websites. 
+                  <h5 class="card-title">Find cheap hotels on Staycation</h5>
+                  <p class="card-text" style="font-size: 15px;">With Staycation you can easily find your ideal hotel and compare prices from different websites. 
                     Simply enter where you want to go and your desired travel dates, and let our hotel search engine compare 
                     accommodation prices for you. To refine your search results, simply filter by price, distance (e.g. from the beach), 
-                    star category, facilities and more. From budget hostels to luxury suites, trindabago makes it easy to book online. 
+                    star category, facilities and more. From budget hostels to luxury suites, Staycation makes it easy to book online. 
                     You can search from a large variety of rooms and locations across the USA, like San Francisco and Chicago to popular 
                     cities and holiday destinations abroad!</p>
               </div>
           </div>
       </div>
       <div class="col-md-6 mt-3">
-          <div class="card shadow border-0" style="height: 100%;">
+          <div class="card shadow" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">Hotel reviews help you find your ideal hotel</h5>
                   <p class="card-text" style="font-size: 15px;">Over 175 million aggregated hotel ratings and more than 19 million images allow you to find out 
-                    more about where you're traveling. To get an extended overview of a hotel property, trindabago shows the average rating 
-                    and extensive reviews from other booking sites, e.g. Hotels.com, Expedia, Agoda, leading hotels, etc. trindabago makes 
+                    more about where you're traveling. To get an extended overview of a hotel property, Staycation shows the average rating 
+                    and extensive reviews from other booking sites, e.g. Hotels.com, Expedia, Agoda, leading hotels, etc. Staycation makes 
                     it easy for you to find information about your trip to Miami Beach, including the ideal hotel for you.</p>
               </div>
           </div>
       </div>
       <div class="col-md-6 mt-3">
-          <div class="card shadow border-0" style="height: 100%;">
+          <div class="card shadow" style="height: 100%;">
               <div class="card-body">
                   <h5 class="card-title">How to book</h5>
-                  <p class="card-text" style="font-size: 15px;">trindabago is a hotel search with an extensive price comparison. The prices shown come from 
-                    numerous hotels and booking websites. This means that while users decide on trindabago which hotel best suits 
+                  <p class="card-text" style="font-size: 15px;">Staycation is a hotel search with an extensive price comparison. The prices shown come from 
+                    numerous hotels and booking websites. This means that while users decide on Staycation which hotel best suits 
                     their needs, the booking process itself is completed through the booking sites (which are linked to our website). 
                     By clicking on the “view deal” button, you will be forwarded onto a booking site where you can complete the 
-                    reservation for the hotel deal found on trindabago. Let trindabago help you to find the right price from hundreds of booking sites!</p>
+                    reservation for the hotel deal found on Staycation. Let Staycation help you to find the right price from hundreds of booking sites!</p>
               </div>
           </div>
       </div>
@@ -263,7 +264,7 @@
 </div>
 
 <?php
-  include 'partials/footer.php'
- ?> 
+    include 'partials/footer.php'
+?> 
 
 

@@ -169,11 +169,11 @@
 
 <?php
     // Query untuk mengambil data kamar yang berelasi dengan tabel hotel
-    $query = "SELECT kamar.*, tipe_kamar.tipe_kamar
-    FROM kamar
-    JOIN hotel ON kamar.ID_HOTEL = hotel.ID_HOTEL
-    JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar
-    WHERE kamar.id_hotel = $id_hotel;";
+    $query = "SELECT kamar.*, tipe_kamar.tipe_kamar, kamar.dewasa + kamar.anak AS jumlah_guest
+            FROM kamar
+            JOIN hotel ON kamar.ID_HOTEL = hotel.ID_HOTEL
+            JOIN tipe_kamar ON kamar.id_tipe_kamar = tipe_kamar.id_tipe_kamar
+            WHERE kamar.id_hotel = $id_hotel;";
     $result = $koneksi->query($query);
 
     // Periksa apakah ada hasil query
@@ -195,58 +195,23 @@
                                     <span class="title-room"><?php echo $row['tipe_kamar'].' (Kamar tersedia : '.$row['JUMLAH_RUANGAN'].')'; ?></span>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-9">
-                                            <!-- Fasilitas -->
-                                            <div class="fasilitas">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        3  guest
-                                                    </div>
-                                                    <div class="col">
-                                                        2 Dewasa & 1 Anak
-                                                    </div>
-                                                </div>
-
-                                            <?php 
-                                                $queryFasilitas = "SELECT fasilitas.nama_fasilitas FROM fasilitas_hotel
-                                                JOIN fasilitas ON fasilitas_hotel.id_fasilitas = fasilitas.id_fasilitas
-                                                WHERE fasilitas_hotel.id_hotel = $id_hotel";
-                                      
-                                                $resultFasilitas = $koneksi->query($queryFasilitas);
-                                                if ($resultFasilitas->num_rows > 0) {
-                                                    echo '<div class="fasilitas">';
-                                                    $counter = 0;
-                                                    
-                                                    while ($rowFasilitas = $resultFasilitas->fetch_assoc()) {
-                                                        if ($counter % 2 == 0) {
-                                                            echo '<div class="row">';
-                                                        }
-                                                
-                                                        echo '<div class="col">' . $rowFasilitas["nama_fasilitas"] . '</div>';
-                                                
-                                                        if ($counter % 2 != 0 || $counter == $result->num_rows - 1) {
-                                                            echo '</div>';
-                                                        }
-                                                
-                                                        $counter++;
-                                                    }
-                                                    
-                                                    echo '</div>';
-                                                } else {
-                                                    echo 'Tidak ada fasilitas.';
-                                                }
-                                            ?>
-
+                                        <div class="col-2">
+                                            <?php echo $row['jumlah_guest'] . " Guest"; ?> 
+                                        </div>
+                                        <div class="col-3">
+                                            <?php echo $row['DEWASA']." Dewasa & ". $row['ANAK']." Anak"; ?> 
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="price-tag text-end">
+                                                <span>Rp <?php echo number_format($row['HARGA_KAMAR'], 0, ',', '.'); ?> (room/night)</span>
+                                                <span></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="price-tag text-end">
-                                                <span>Rp <?php echo number_format($row['HARGA_KAMAR'], 0, ',', '.'); ?></span>
-                                                <span>room/night</span>
-                                            </div>
+                                        <div class="col-3">
                                             <a class="btn btn btn-custom-book" href="book.php?id='<?php echo $row['ID_KAMAR']; ?>'">Book</a>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

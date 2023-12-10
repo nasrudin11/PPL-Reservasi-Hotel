@@ -57,7 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: dashboard/user/user.php");
                 exit();
             } else {
-                echo $rowTamu["PASSWORD"];
                 $error_message = "Kata sandi salah.";
             }
         } 

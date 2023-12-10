@@ -1,6 +1,6 @@
 <?php
     session_start();
-    
+    include '../../controller/koneksi.php';
     include '../../partials/header-login.php'
 ?> 
 
@@ -132,64 +132,44 @@
     <h2 >Rekomendasi Hotel</h2>
   </div>
   <div class="row">
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/01.png" class="card-img-top" alt="Hotel 1">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/02.png" class="card-img-top" alt="Hotel 2">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 2</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <?php 
+        $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, hotel.alamat, kamar.harga_kamar
+        FROM hotel
+        JOIN kamar ON hotel.id_hotel = kamar.id_hotel
+        ORDER BY hotel.rating DESC
+        LIMIT 4";
 
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/03.png" class="card-img-top" alt="Hotel 3">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 3</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+        $result = $koneksi->query($query);
 
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/04.png" class="card-img-top" alt="Hotel 4">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 4</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
+        // Check if there are results
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<div class="col-md-3 mx-auto">
+                        <a href="hotel-detail.php?id=' . $row['id_hotel'] . '" class="card-link text-decoration-none">
+                          <div class="card shadow border-0">
+                            <img src="../../img/upload/hotel/'.$row['gambar_hotel'].'" class="card-img-top" alt="' . $row['gambar_hotel'] . '"  style=" height: 220px; object-fit: cover;">
+                            <div class="card-body">
+                              <h5 class="card-title">' . $row['nama_hotel'] . '</h5>
+                              <ul class="list-unstyled" style="font-size: 14px;">
+                                <li>Rating: ' . $row['rating'] . '</li>
+                                <li>Alamat: ' . $row['alamat'] . '</li>
+                                <li>Harga: $' . $row['harga_kamar'] . '</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </a>
+                      </div>';
+            }
+        } else {
+            echo "No hotels found.";
+        }
+  ?>
+
+
+    <div class="mt-4 text-center">
+      <a class="btn btn-custom-more" href="#">Selengkapnya</a>
     </div>
-  </div>
-  <div class="mt-4 text-center">
-    <a class="btn btn-custom-more" href="#">Selengkapnya</a>
   </div>
 </div>
 
@@ -199,60 +179,46 @@
     <h2>Paling Populer</h2>
   </div>
   <div class="row">
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/01.png" class="card-img-top" alt="Hotel 1">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/02.png" class="card-img-top" alt="Hotel 2">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/03.png" class="card-img-top" alt="Hotel 3">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 mx-auto">
-      <div class="card shadow">
-        <img src="../../img/04.png" class="card-img-top" alt="Hotel 4">
-        <div class="card-body">
-          <h5 class="card-title">Hotel 1</h5>
-          <ul class="list-unstyled" style="font-size: 14px;">
-            <li>Rating: 4.5</li>
-            <li>Alamat: Jalan Hotel 1, Kota</li>
-            <li>Harga: $100</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <?php 
+    $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, 
+          hotel.alamat, kamar.harga_kamar, COUNT(pemesanan.id_pemesanan) AS jumlah_booking
+          FROM hotel
+          LEFT JOIN pemesanan ON hotel.id_hotel = pemesanan.id_hotel
+          JOIN kamar ON hotel.id_hotel = kamar.id_hotel
+          GROUP BY hotel.id_hotel
+          ORDER BY jumlah_booking DESC
+          LIMIT 4";
+
+    $result = $koneksi->query($query);
+
+    // Check if there are results
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="col-md-3 mx-auto">
+                    <a href="hotel-detail.php?id=' . $row['id_hotel'] . '" class="card-link text-decoration-none">
+                      <div class="card shadow border-0">
+                        <img src="../../img/upload/hotel/'.$row['gambar_hotel'].'" class="card-img-top" alt="' . $row['gambar_hotel'] . '"  style=" height: 220px; object-fit: cover;">
+                        <div class="card-body">
+                          <h5 class="card-title">' . $row['nama_hotel'] . '</h5>
+                          <ul class="list-unstyled" style="font-size: 14px;">
+                            <li>Rating: ' . $row['rating'] . '</li>
+                            <li>Alamat: ' . $row['alamat'] . '</li>
+                            <li>Harga: $' . $row['harga_kamar'] . '</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </a>
+                  </div>';
+        }
+    } else {
+        echo "No hotels found.";
+    }
+
+    // Close the database connection
+    $koneksi->close();
+  ?>
     <div class="mt-4 text-center">
-    <a class="btn btn btn-custom-more" href="#">Selengkapnya</a>
+    <a class="btn btn-custom-more" href="#">Selengkapnya</a>
   </div>
   </div>
 </div>

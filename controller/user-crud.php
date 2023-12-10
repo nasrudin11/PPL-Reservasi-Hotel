@@ -35,9 +35,17 @@
 <?php
 
     function pemesanan_kamar($koneksi, $id_kamar, $emailTamu, $id_hotel, $cekIn, $cekOut, $paymentMethod, $guestNames, $totalHarga) {
+        // Hindari SQL Injection dengan menghindari langsungnya input ke dalam query
+        $emailTamu = $koneksi->real_escape_string($emailTamu);
+        $id_hotel = (int)$id_hotel;
+        $paymentMethod = (int)$paymentMethod;
+        $cekIn = $koneksi->real_escape_string($cekIn);
+        $cekOut = $koneksi->real_escape_string($cekOut);
+        $totalHarga = (float)$totalHarga;
+
         // Melakukan query untuk menyimpan data ke tabel pemesanan
         $queryPemesanan = "INSERT INTO pemesanan (email_tamu, id_hotel, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
-                        VALUES ('$emailTamu', $id_hotel , $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
+                        VALUES ('$emailTamu', $id_hotel, $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
 
         echo "Debug Query: " . $queryPemesanan . "<br>";
 
@@ -49,11 +57,7 @@
 
             // Melakukan loop untuk setiap tamu yang diinputkan
             foreach ($guestNames as $namaPemesan) {
-                // Mengambil data kamar dari database sesuai dengan ID_KAMAR yang diinputkan
-                // (Pastikan $id_kamar sudah didefinisikan atau sesuaikan dengan kebutuhan)
-                $queryKamar = "SELECT * FROM kamar WHERE ID_KAMAR = $id_kamar";
-                $resultKamar = $koneksi->query($queryKamar);
-                $rowKamar = $resultKamar->fetch_assoc();
+                $namaPemesan = $koneksi->real_escape_string($namaPemesan);
 
                 // Melakukan query untuk menyimpan data ke tabel detail_pemesanan
                 $queryDetailPemesanan = "INSERT INTO detail_pemesanan (id_kamar, id_pemesanan, nama_pemesan)
@@ -68,6 +72,33 @@
                 }
             }
 
+            // Melakukan query untuk menyimpan data ke tabel riwayat_pemesanan
+            $queryRiwayat = "INSERT INTO riwayat_pemesanan (email_tamu, id_hotel, id_metode_pembayaran, tgl_cekin, tgl_cekout, total_biaya)
+                            VALUES ('$emailTamu', $id_hotel, $paymentMethod, '$cekIn', '$cekOut', $totalHarga)";
+
+            echo "Debug Query: " . $queryRiwayat . "<br>";
+            $resultRiwayat = $koneksi->query($queryRiwayat);
+
+            if ($resultRiwayat) {
+                $id_riwayat = $koneksi->insert_id;
+                // Melakukan loop untuk setiap tamu yang diinputkan
+                foreach ($guestNames as $namaPemesan) {
+                    $namaPemesan = $koneksi->real_escape_string($namaPemesan);
+
+                    // Melakukan query untuk menyimpan data ke tabel riwayat_detail_pemesanan
+                    $queryRiwayatDtl = "INSERT INTO riwayat_detail_pemesanan (id_kamar, id_riwayat, nama_pemesan)
+                                        VALUES ($id_kamar, $id_riwayat, '$namaPemesan')";
+
+                    // Menjalankan query riwayat_detail_pemesanan
+                    $resultRiwayatDtl = $koneksi->query($queryRiwayatDtl);
+
+                    if (!$resultRiwayatDtl) {
+                        // Jika terjadi kesalahan pada query riwayat_detail_pemesanan, tampilkan pesan kesalahan
+                        echo "Error: " . $koneksi->error;
+                    }
+                }
+            }
+
             // Redirect atau lakukan tindakan selanjutnya setelah berhasil menyimpan data
             header("Location: pembayaran.php?id_pemesanan=$id_pemesanan");
         } else {
@@ -77,6 +108,7 @@
 
         $koneksi->close();
     }
+
 
 ?>
 
@@ -161,23 +193,26 @@ function cancel_pemesanan($koneksi, $id_pemesanan) {
 
 <!-- Hapus Riwayat pemesanan -->
 <?php
-    function hapus_riwayat($koneksi, $id_pemesanan){
-        if(!empty($id_pemesanan)){
-            $query = "DELETE FROM pemesanan WHERE ID_PEMESANAN = '$id_pemesanan'";       
-            $query2 = "DELETE FROM detail_pemesanan WHERE ID_PEMESANAN = '$id_pemesanan'";
+    function hapus_riwayat($koneksi, $id_riwayat) {
+        if (!empty($id_riwayat)) {
+            $query2 = "DELETE FROM riwayat_detail_pemesanan WHERE id_riwayat = '$id_riwayat'";
 
-            if ($koneksi->query($query)=== TRUE) {
-                if ($koneksi->query($query2)=== TRUE){
-                return " Order history has been successfully deleted";
+            if ($koneksi->query($query2) === TRUE) {
+                $query = "DELETE FROM riwayat_pemesanan WHERE id_riwayat = '$id_riwayat'";
+
+                if ($koneksi->query($query) === TRUE) {
+                    return "Order history has been successfully deleted";
+                } else {
+                    return "Failed to delete order history: " . $koneksi->error;
+                }
             } else {
-                return "Failed to Order history delete: " . $koneksi->error;
-            }}
+                return "Failed to delete order history details: " . $koneksi->error;
+            }
 
             $koneksi->close();
-
-        }   
-
+        }
     }
+
 ?>
 
 <!-- Ulasan & Rating -->
