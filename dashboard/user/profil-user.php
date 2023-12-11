@@ -29,7 +29,6 @@ if (!isset($_SESSION['user_type']) || empty($_SESSION['user_type'])) {
 ?>
 
 
-
   <div class="container mt-5">
     <?php
 

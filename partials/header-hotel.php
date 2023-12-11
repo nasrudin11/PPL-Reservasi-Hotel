@@ -160,6 +160,14 @@
               </a>
             </li>
 
+            <!-- promosi -->
+            <li class="menu-item <?php echo ($slug == 'promosi') ? 'active' : ''; ?>" >
+              <a href="promosi.php" class="menu-link">
+                <i class="menu-icon bx bx-heart"></i>
+                <div data-i18n="Account Settings">Promosi</div>
+              </a>
+            </li>
+
             <!-- Kalender Reservasi -->
             <li class="menu-item <?php echo ($slug == 'kalender') ? 'active' : ''; ?>" >
               <a href="kalender.php" class="menu-link">

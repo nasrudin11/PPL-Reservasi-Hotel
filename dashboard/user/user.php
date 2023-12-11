@@ -27,70 +27,10 @@
 
 
   <div class="position-absolute top-50 right-side-card">      
-    <!-- Pencarian Card -->
-    <div class="card shadow p-3">
+    <div class="card shadow border-0">
+      <img src="../../img/logo/card-hotel.png" class="card-img-top" alt="...">
       <div class="card-body">
-
-        <!-- Form Pencarian -->
-        <form action="">
-          <div class="mb-3">
-            <!-- Pilih Lokasi -->
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Pilih Lokasi</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <!-- Tanggal Cek in -->
-                <label for="formFile" class="form-label">Check-in</label>
-                <input class="form-control" type="date">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <!-- Tanggal Cek Out -->
-                <label for="formFile" class="form-label">Check-out</label>
-                <input class="form-control" type="date">
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col">
-              <div class="mb-3">
-                <!-- Jumlah Kamar -->
-                <label for="formFile" class="form-label">Jumlah Kamar</label>
-                <input type="number" id="adults" name="adults" min="1" max="10" value="1" class="form-control">
-              </div>
-            </div> 
-          </div>
-
-          <div class="row">
-              <label for="formFile" class="form-label">Jumlah Tamu</label>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <!-- Jumlah Tamu -->
-                  <label for="formFile" class="form-label">Dewasa</label>
-                  <input type="number" id="guests" name="guests" min="1" max="10" value="1" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <!-- Jumlah Tamu -->
-                  <label for="formFile" class="form-label">Anak-anak</label>
-                  <input type="number" id="guests" name="guests" min="1" max="10" value="1" class="form-control">
-                </div>
-              </div>
-            </div> 
-
-          <!-- Tombol Pencarian -->
-          <a href="hotel-search.php" class="btn btn-custom-search w-100">Search</a>
-        </form>       
+          <a href="hotel-search.php" class="btn btn-custom-search w-100">Lihat Hotel</a>     
       </div>
     </div>
   </div>

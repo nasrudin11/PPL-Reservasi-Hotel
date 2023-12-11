@@ -63,21 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
             <div class="mb-3">
                 <label for="amenities" class="form-label">Facilities</label>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox"  value="wifi" id="wifi">
-                <label class="form-check-label" for="wifi">
+                <input class="form-check-input" type="checkbox"  value="Breakfast" id="wifi">
+                <label class="form-check-label" for="Breakfast">
+                    Breakfast
+                </label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Free WiFi" id="parking">
+                <label class="form-check-label" for="parking">
                     Free WiFi
                 </label>
                 </div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="parking" id="parking">
-                <label class="form-check-label" for="parking">
-                    Free parking
-                </label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="pool" id="pool">
+                <input class="form-check-input" type="checkbox" value="swimming Pool" id="pool">
                 <label class="form-check-label" for="pool">
-                    Swimming pool
+                    Swimming Pool
                 </label>
                 </div>
                 <div class="form-check">
@@ -111,19 +111,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["wishlist"])) {
                             <div class="col-md-2">                    
                                 <input type="date" class="form-control" id="check-out">
                             </div>
-                            <div class="col-md-2">                    
-                                <select class="form-control" id="room-count">
-                                    <option value="1">1 Kamar</option>
-                                    <option value="2">2 Kamar</option>
-                                    <option value="3">3 Kamar</option>
+                            <div class="col-md-2">
+                                <select class="form-control" id="adult-count" name="adult-count">
+                                    <option value="0">0 Dewasa</option>
+                                    <option value="1">1 Dewasa</option>
+                                    <option value="2">1 Dewasa</option>
                                     <!-- Tambahkan opsi lain sesuai kebutuhan -->
                                 </select>
                             </div>
-                            <div class="col-md-2">               
-                                <select class="form-control" id="guest-count">
-                                    <option value="1">1 Tamu</option>
-                                    <option value="2">2 Tamu</option>
-                                    <option value="3">3 Tamu</option>
+
+                            <div class="col-md-2">
+                                <select class="form-control" id="child-count" name="child-count">
+                                    <option value="0">Tanpa Anak</option>
+                                    <option value="1">1 Anak</option>
+                                    <option value="2">2 Anak</option>
                                     <!-- Tambahkan opsi lain sesuai kebutuhan -->
                                 </select>
                             </div>
@@ -163,6 +164,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
     $sidebarPriceRangeMin = (int)$_POST['customRangeMin'];
     $sidebarPriceRangeMax = (int)$_POST['customRangeMax'];
     $sidebarGuestRating = (float)$_POST['guest-rating'];
+    $sidebarAdultCount = (int)$_POST['adult-count'];
+    $sidebarChildCount = (int)$_POST['child-count'];
+    $sidebarAmenities = isset($_POST['amenities']) ? $_POST['amenities'] : [];
 
     // Membangun kondisi filter berdasarkan form navbar
     $navbarFilter = '';
@@ -180,6 +184,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
         $rangeEnd = $sidebarGuestRating + 0.9;
     
         $sidebarFilter .= " AND hotel.rating BETWEEN $rangeStart AND $rangeEnd";
+    }
+    if (!empty($sidebarAdultCount > 0)) {
+        $sidebarFilter .= " AND kamar.dewasa >= $sidebarAdultCount";
+    }
+    if (!empty($sidebarChildCount > 0)) {
+        $sidebarFilter .= " AND kamar.anak >= $sidebarChildCount";
+    }
+    if (!empty($sidebarAmenities)) {
+        $amenitiesList = implode("','", $sidebarAmenities);
+        $sidebarFilter .= " AND fasilitas.NAMA_FASILITAS IN ('$amenitiesList')";
     }
 
     // Merged filter condition from the sidebar and location filter
@@ -265,6 +279,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["lokasi"])) {
         }
     } else {
         echo "No hotels found for the selected location.";
+
     }
 
 

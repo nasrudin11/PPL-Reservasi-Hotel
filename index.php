@@ -27,58 +27,10 @@
 
   <div class="position-absolute top-50 right-side-card">      
     <!-- Pencarian Card -->
-    <div class="card shadow p-3">
+    <div class="card shadow border-0">
+      <img src="img/logo/card-hotel.png" class="card-img-top" alt="...">
       <div class="card-body">
-
-        <!-- Form Pencarian -->
-        <form action="">
-          <div class="mb-3">
-            <!-- Pilih Lokasi -->
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Pilih Lokasi</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <!-- Tanggal Cek in -->
-                <label for="formFile" class="form-label">Check-in</label>
-                <input class="form-control" type="date">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <!-- Tanggal Cek Out -->
-                <label for="formFile" class="form-label">Check-out</label>
-                <input class="form-control" type="date">
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <!-- Jumlah Kamar -->
-                <label for="formFile" class="form-label">Jumlah Kamar</label>
-                <input type="number" id="adults" name="adults" min="1" max="10" value="1" class="form-control">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <!-- Jumlah Tamu -->
-                <label for="formFile" class="form-label">Jumlah Tamu</label>
-                <input type="number" id="guests" name="guests" min="1" max="10" value="1" class="form-control">
-              </div>
-            </div>
-          </div>
-
-          <!-- Tombol Pencarian -->
-          <a href="dashboard/user/hotel-search.php" class="btn btn-custom-search w-100">Search</a>
-        </form>       
+          <a href="dashboard/user/hotel-search.php" class="btn btn-custom-search w-100">Lihat Hotel</a>     
       </div>
     </div>
   </div>
@@ -92,6 +44,10 @@
   <!-- Carousel -->
   <div id="bannerPromoCarousel" class="carousel slide shadow" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-indicators">
+      <?php
+        $query = "SELECT * FROM promosi";
+        $result = $koneksi->query($query);
+      ?>
       <button type="button" data-bs-target="#bannerPromoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Promo 1"></button>
       <button type="button" data-bs-target="#bannerPromoCarousel" data-bs-slide-to="1" aria-label="Promo 2"></button>
       <button type="button" data-bs-target="#bannerPromoCarousel" data-bs-slide-to="2" aria-label="Promo 3"></button>
@@ -123,9 +79,10 @@
 
   <?php 
         $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, hotel.alamat, kamar.harga_kamar
-        FROM hotel
-        JOIN kamar ON hotel.id_hotel = kamar.id_hotel
-        LIMIT 4";
+            FROM hotel
+            JOIN kamar ON hotel.id_hotel = kamar.id_hotel
+            ORDER BY hotel.rating DESC
+            LIMIT 4";
 
         $result = $koneksi->query($query);
 
@@ -167,10 +124,14 @@
   </div>
   <div class="row">
   <?php 
-    $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, hotel.alamat, kamar.harga_kamar
-    FROM hotel
-    JOIN kamar ON hotel.id_hotel = kamar.id_hotel
-    LIMIT 4";
+    $query = "SELECT DISTINCT hotel.id_hotel, hotel.gambar_hotel, hotel.nama_hotel, hotel.rating, 
+          hotel.alamat, kamar.harga_kamar, COUNT(pemesanan.id_pemesanan) AS jumlah_booking
+          FROM hotel
+          LEFT JOIN pemesanan ON hotel.id_hotel = pemesanan.id_hotel
+          JOIN kamar ON hotel.id_hotel = kamar.id_hotel
+          GROUP BY hotel.id_hotel
+          ORDER BY jumlah_booking DESC
+          LIMIT 4";
 
     $result = $koneksi->query($query);
 

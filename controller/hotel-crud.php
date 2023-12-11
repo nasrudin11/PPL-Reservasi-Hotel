@@ -129,5 +129,61 @@ function notif_user($koneksi, $emailUser, $id_hotel, $judul, $pesan) {
 
 ?>
 
+<!-- promosi -->
+<?php
+    function tambah_promosi($koneksi, $idHotel) {
+        $gambar = $_FILES["gambar"]["name"];
+        $tmp_name = $_FILES["gambar"]["tmp_name"];
+        $upload_dir = "../../img/promosi/";
+
+        move_uploaded_file($tmp_name, $upload_dir . $gambar);
+
+        $query = "INSERT INTO promosi (id_hotel, promosi) VALUES ('$idHotel', '$gambar')";
+
+        if ($koneksi->query($query) === TRUE) {
+            return "Room successful added";
+        } else {
+            return "Failed to add room";
+        }
+        $koneksi->close();
+    }
+
+    function edit_promosi($koneksi, $id_promosi) {
+        $gambar = $_FILES["gambar"]["name"];
+        $tmp_name = $_FILES["gambar"]["tmp_name"];
+        $upload_dir = "../../img/promosi/";
+    
+        // Hanya memindahkan file jika ada file yang diunggah
+        if (!empty($gambar)) {
+            move_uploaded_file($tmp_name, $upload_dir . $gambar);
+            $query = "UPDATE promosi SET  promosi = '$gambar' WHERE id_promosi = $id_promosi";
+
+            $koneksi->query($query);
+            return "Room successful updated";
+
+        } else {
+            return "Room successful updated";
+        }
+
+        $koneksi->close();
+    }
+
+    function hapus_promosi($koneksi, $id_promosi) {
+        // Query untuk menghapus data kamar berdasarkan id_kamar
+        $query = "DELETE FROM promosi WHERE id_promosi = '$id_promosi'";
+    
+        if ($koneksi->query($query) === TRUE) {
+            return "Room successfully deleted";
+        } else {
+            return "Failed to delete room";
+        }
+    }
+    
+?>
+
+
+
+
+
 
 
